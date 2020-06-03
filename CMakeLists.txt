@@ -14,14 +14,24 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 
 set (HEADERS
+    board.h
+    cell.h
+    common.h
+    Figures.h
+    boardmodel.h
+    mediator.h
     )
 
 set (SOURCES
     main.cpp
+    board.cpp
+    cell.cpp
+    boardmodel.cpp
+    mediator.cpp
     )
 
 set (RESOURCES
-    qml.qrc
+    qml.qrc 
     )
 
 add_executable(Netetris ${HEADERS} ${SOURCES} ${RESOURCES})
