@@ -10,7 +10,9 @@ class Cell
 {
 public:
     Cell();
+    Cell(size_t index);
     ~Cell();
+
 
     bool isEmpty();
     //set
@@ -28,8 +30,6 @@ public:
     FigureType getType();
 
 private:
-    bool m_empty;
-
     size_t m_x;
     size_t m_y;
     size_t m_index;

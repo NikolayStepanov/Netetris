@@ -20,6 +20,12 @@ set (HEADERS
     Figures.h
     boardmodel.h
     mediator.h
+    bootstrapper.h
+    storagegames.h
+    BoardManager.h
+    NetetrisModel.h
+    GameLogicManager.h
+    Generator.h
     )
 
 set (SOURCES
@@ -28,6 +34,12 @@ set (SOURCES
     cell.cpp
     boardmodel.cpp
     mediator.cpp
+    bootstrapper.cpp
+    storagegames.cpp
+    BoardManager.cpp
+    NetetrisModel.cpp
+    GameLogicManager.cpp
+    Generator.h
     )
 
 set (RESOURCES

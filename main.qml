@@ -1,7 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
 
-
 Window {
     visible: true
     width: 1800
@@ -20,12 +19,12 @@ Window {
                 leftMargin: 20;
                 rightMargin: 20
             }
-            Rectangle {
+
+            Board
+            {
                 id:areaBoard
-                width: parent.width * 0.70
+                width: parent.width*0.70
                 height: parent.height
-                color: "#f7eeee"
-                border.color: "black"
             }
         }
     }
