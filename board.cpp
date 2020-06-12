@@ -36,15 +36,15 @@ size_t Board::getNumderCells() const
 bool Board::setCellInformation(const CellInformation cellInformation)
 {
     size_t index = cellInformation.index;
-    m_cells.value(index).setType(cellInformation.type);
-    m_cells.value(index).setColor(cellInformation.color);
+    m_cells[index].setType(cellInformation.type);
+    m_cells[index].setColor(cellInformation.color);
     return true;
 }
 
 void Board::clearCell(const size_t index)
 {
-    m_cells.value(index).setType(EMPTY);
-    m_cells.value(index).setColor("white");
+    m_cells[index].setType(EMPTY);
+    m_cells[index].setColor("white");
 }
 
 CellInformation Board::getCellInformation(const size_t index) const

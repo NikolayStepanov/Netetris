@@ -21,7 +21,8 @@ FigureBox Generator::randomFigure()
 
     FigureBox figureRandBox;
     figureRandBox.cellsInformation = emptyBox4x4ForFigure();
-
+    figureRandBox.color = QColor(color);
+    figureRandBox.type = typeFigure;
     figureRandBox.indicesNonEmptyCell = figures[typeFigure];
 
     for(auto index:figureRandBox.indicesNonEmptyCell)
@@ -30,14 +31,13 @@ FigureBox Generator::randomFigure()
         figureRandBox.cellsInformation[index].color = color;
     }
 
-    figureRandBox.color = QColor(color);
-
     return figureRandBox;
 }
 
 QVector<CellInformation> Generator::emptyBox4x4ForFigure()
 {
-    QVector<CellInformation> boxFigure(number_cells_for_figure);
+    QVector<CellInformation> boxFigure;
+    boxFigure.reserve(number_cells_for_figure);
 
     for(int i = 0; i< number_cells_for_figure; i++)
     {
@@ -45,10 +45,10 @@ QVector<CellInformation> Generator::emptyBox4x4ForFigure()
     }
 
     int index = 0;
-    size_t xStart= (boardManager->getWidthBoard()/2)-3;
-    for(size_t y=-4;y<0;y++)
+    int xStart= (boardManager->getWidthBoard()/2)-4;
+    for(int y=-4;y<0;y++)
     {
-        for(size_t x=xStart;x<=4;x++)
+        for(int x=xStart;x<(xStart+4);x++)
         {
             boxFigure[index].coordinates.setX(x);
             boxFigure[index].coordinates.setY(y);

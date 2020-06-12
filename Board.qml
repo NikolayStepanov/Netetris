@@ -23,7 +23,7 @@ Item {
             border
             {
                 width: 1
-                color: "black"
+                color: "#aaa6a6"
             }
             color: colorCell
             //Cell{}
