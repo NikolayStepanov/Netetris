@@ -16,18 +16,20 @@ QString Generator::randomColor()
 
 FigureBox Generator::randomFigure()
 {
-    QVector<CellInformation> figureCells = emptyBox4x4ForFigure();
     QString color = randomColor();
-    FigureBox figureRandBox;
-
     FigureType typeFigure = static_cast<FigureType>(qrand()% number_figures);
 
-    for(auto index:figures[typeFigure])
+    FigureBox figureRandBox;
+    figureRandBox.cellsInformation = emptyBox4x4ForFigure();
+
+    figureRandBox.indicesNonEmptyCell = figures[typeFigure];
+
+    for(auto index:figureRandBox.indicesNonEmptyCell)
     {
-        figureCells[index].type = typeFigure;
-        figureCells[index].color = color;
+        figureRandBox.cellsInformation[index].type = typeFigure;
+        figureRandBox.cellsInformation[index].color = color;
     }
-    figureRandBox.cellsInformation = figureCells;
+
     figureRandBox.color = QColor(color);
 
     return figureRandBox;

@@ -17,8 +17,9 @@ public:
     explicit GameLogicManager(QObject *parent = nullptr);
     void initialize(Bootstrapper* boostrap);
     void nextStep();
-    bool canPutFigureInBox(FigureBox &figureBox, QVector<CellInformation> &cellInformation);
-    void putFigureInBoard(FigureBox &currentFigure, QVector<CellInformation> &cellInformation);
+    bool canPutFigureInBox(FigureBox &figureBox, QVector<CellInformation> &cellInformationBox);
+    void deleteFigureinInBoard(FigureBox &currentFigure);
+    void putFigureInBoard(FigureBox &currentFigure, QVector<CellInformation> &cellInformationBox);
 
 signals:
 public slots:
@@ -30,7 +31,7 @@ private:
 
     QTimer * timerDownMove;
 
-    QVector<CellInformation> boardAllInformationСurrent;
+    QVector<CellInformation> boardAllInformationCurrent;
 
     FigureBox nextFigure;
     FigureBox currentFigure;

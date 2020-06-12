@@ -138,14 +138,10 @@ QVector<QPoint> BoardManager::cellsCoordinatesFromIndices(QVector<size_t> cellIn
     return cellsCoordinates;
 }
 
-QPoint BoardManager::cellCoordinatesFromIndex(const size_t cellIndex) const
+QPoint BoardManager::cellCoordinatesFromIndex(size_t cellIndex) const
 {
-    if(areCellIndexValid(cellIndex))
-    {
-        return {static_cast<int>(cellIndex % getWidthBoard()),
-                    static_cast<int>(cellIndex / getWidthBoard())};
-    }
-    return QPoint(-1,-1);
+    return {static_cast<int>(cellIndex % getWidthBoard()),
+                static_cast<int>(cellIndex / getWidthBoard())};
 }
 
 size_t BoardManager::cellIndex(const QPoint &coordinates) const

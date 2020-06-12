@@ -36,7 +36,7 @@ public:
     bool areCellCoordinatesValid(const QPoint &coordinates) const;
 
     QVector<QPoint> cellsCoordinatesFromIndices(QVector<size_t> cellIndices) const;
-    QPoint cellCoordinatesFromIndex(const size_t cellIndex) const;
+    QPoint cellCoordinatesFromIndex(size_t cellIndex) const;
 
     size_t cellIndex(const QPoint &coordinates) const;
     size_t cellIndex(const QModelIndex &index) const;

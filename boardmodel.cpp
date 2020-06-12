@@ -27,10 +27,10 @@ QVariant BoardModel::data(const QModelIndex &index, int role) const
     switch (role)
     {
     case XCell:
-        return QVariant(cellInformation.x);
+        return QVariant(cellInformation.coordinates.x());
         break;
     case YCell:
-        return QVariant(cellInformation.y);
+        return QVariant(cellInformation.coordinates.y());
         break;
     case IndexCell:
         return QVariant(cellInformation.index);
