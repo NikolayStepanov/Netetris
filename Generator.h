@@ -4,8 +4,11 @@
 #include <QVector>
 #include <common.h>
 class Bootstrapper;
+class BoardManager;
+
 struct CellInformation;
 struct FigureBox;
+
 
 class Generator
 {
@@ -16,6 +19,9 @@ public:
     QString randomColor();
     FigureBox randomFigure();
     QVector<CellInformation> emptyBox4x4ForFigure();
+
+private:
+    BoardManager * boardManager;
 };
 
 #endif // Generator_H

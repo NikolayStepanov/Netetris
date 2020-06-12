@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <QString>
 #include <QColor>
+#include <QPoint>
 
 enum FigureType {
     EMPTY = -1,
@@ -88,8 +89,9 @@ struct CellInformation
     CellInformation( CellInformation&&) = default;
     CellInformation& operator= (const CellInformation &) = default;
 
-    size_t x = UINT64_MAX;
-    size_t y = UINT64_MAX;
+    QPoint coordinates = QPoint(-1,-1);
+    //size_t x = UINT64_MAX;
+    //size_t y = UINT64_MAX;
     size_t index = UINT64_MAX;
 
     QString color = "white";

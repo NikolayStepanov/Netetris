@@ -1,5 +1,5 @@
 #include "Generator.h"
-
+#include <bootstrapper.h>
 #include <QTime>
 #include <Figures.h>
 
@@ -43,13 +43,14 @@ QVector<CellInformation> Generator::emptyBox4x4ForFigure()
     }
 
     int index = 0;
-
-    for(size_t y=SIZE_MAX-3;y<=SIZE_MAX;y++)
+    size_t xStart= (boardManager->getWidthBoard()/2)-3;
+    for(size_t y=-4;y<0;y++)
     {
-        for(size_t x=SIZE_MAX-3;x<=SIZE_MAX;x++)
+        for(size_t x=xStart;x<=4;x++)
         {
-            boxFigure[index].x=x;
-            boxFigure[index].y=y;
+            boxFigure[index].coordinates.setX(x);
+            boxFigure[index].coordinates.setY(y);
+            index++;
         }
     }
 
@@ -64,5 +65,5 @@ Generator::Generator()
 
 void Generator::initialize(Bootstrapper *boostrap)
 {
-
+    boardManager = boostrap->getBoardManager();
 }
