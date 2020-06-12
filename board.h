@@ -13,11 +13,14 @@ public:
     ~Board();
 
     //get
-    size_t getWidth();
-    size_t getHeight();
+    size_t getWidth() const;
+    size_t getHeight() const;
+    size_t getNumderCells() const;
 
     //set
     bool setCellInformation(const CellInformation cellInformation);
+
+    void clearCell(const size_t index);
 
     //get CellInformation
     CellInformation getCellInformation(const size_t index) const;

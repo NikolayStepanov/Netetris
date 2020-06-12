@@ -1,25 +1,21 @@
-#ifndef GENERATOR_H
-#define GENERATOR_H
+#ifndef Generator_H
+#define Generator_H
 
 #include <QVector>
-
+#include <common.h>
+class Bootstrapper;
 struct CellInformation;
-struct Figure;
+struct FigureBox;
 
 class Generator
 {
 public:
-    static Generator *getInstance();
+    Generator();
+    void initialize(Bootstrapper* boostrap);
     ~Generator();
     QString randomColor();
-    Figure randomFigure();
+    FigureBox randomFigure();
     QVector<CellInformation> emptyBox4x4ForFigure();
-private:
-    Generator();
-    Generator( const Generator& );
-    Generator& operator=( Generator& );
-private:
-    static Generator * p_instance;
 };
 
-#endif // GENERATOR_H
+#endif // Generator_H

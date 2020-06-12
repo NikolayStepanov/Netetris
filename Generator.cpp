@@ -2,16 +2,6 @@
 
 #include <QTime>
 #include <Figures.h>
-#include "common.h"
-
-Generator * Generator::p_instance = nullptr;
-
-Generator *Generator::getInstance()
-{
-    if(!p_instance)
-        p_instance = new Generator();
-    return p_instance;
-}
 
 Generator::~Generator()
 {
@@ -24,11 +14,11 @@ QString Generator::randomColor()
     return strColor(color);
 }
 
-Figure Generator::randomFigure()
+FigureBox Generator::randomFigure()
 {
     QVector<CellInformation> figureCells = emptyBox4x4ForFigure();
     QString color = randomColor();
-    Figure figureRand;
+    FigureBox figureRandBox;
 
     FigureType typeFigure = static_cast<FigureType>(qrand()% number_figures);
 
@@ -37,19 +27,32 @@ Figure Generator::randomFigure()
         figureCells[index].type = typeFigure;
         figureCells[index].color = color;
     }
-    figureRand.cellsInformation = figureCells;
-    figureRand.color = QColor(color);
+    figureRandBox.cellsInformation = figureCells;
+    figureRandBox.color = QColor(color);
 
-    return figureRand;
+    return figureRandBox;
 }
 
 QVector<CellInformation> Generator::emptyBox4x4ForFigure()
 {
-    QVector<CellInformation> boxFigure;
+    QVector<CellInformation> boxFigure(number_cells_for_figure);
+
     for(int i = 0; i< number_cells_for_figure; i++)
     {
-        boxFigure.push_back(CellInformation(static_cast<size_t>(i)));
+        boxFigure.push_back(CellInformation());
     }
+
+    int index = 0;
+
+    for(size_t y=SIZE_MAX-3;y<=SIZE_MAX;y++)
+    {
+        for(size_t x=SIZE_MAX-3;x<=SIZE_MAX;x++)
+        {
+            boxFigure[index].x=x;
+            boxFigure[index].y=y;
+        }
+    }
+
     return boxFigure;
 }
 
@@ -57,4 +60,9 @@ Generator::Generator()
 {
     QTime midnight(0,0,0);
     qsrand(midnight.secsTo(QTime::currentTime()));
+}
+
+void Generator::initialize(Bootstrapper *boostrap)
+{
+
 }

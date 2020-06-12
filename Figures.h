@@ -7,6 +7,7 @@
 
 const int number_figures= 7;
 const int number_cells_for_figure = 16;
+const int number_non_empty_cell = 4;
 
 static QVector <QVector<size_t>> figures
 {
@@ -19,9 +20,20 @@ static QVector <QVector<size_t>> figures
     {5,6,7,10}  // T
 };
 
-
-struct Figure
+struct FigureBox
 {
+    FigureBox()
+    {
+        cellsInformation.reserve(number_cells_for_figure);
+        indicesNonEmptyCell.reserve(number_non_empty_cell);
+    }
+
+    CellInformation getCellInformation(size_t index) const
+    {
+        return cellsInformation.value(index);
+    }
+
+    QVector<size_t> indicesNonEmptyCell;
     QVector<CellInformation> cellsInformation;
     FigureType type = EMPTY;
     QColor color = Qt::white;

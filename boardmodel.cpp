@@ -1,5 +1,7 @@
 #include "boardmodel.h"
 #include "mediator.h"
+#include <QPoint>
+#include "common.h"
 
 int BoardModel::rowCount(const QModelIndex &parent) const
 {
@@ -43,6 +45,16 @@ QVariant BoardModel::data(const QModelIndex &index, int role) const
     }
 }
 
+bool BoardModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (data(index, role) == value)
+        return false;
+
+    emit dataChanged(index, index, {role});
+
+    return true;
+}
+
 Qt::ItemFlags BoardModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
@@ -61,8 +73,16 @@ int BoardModel::getColum() const
     return mediator->getColumnCountBoard();
 }
 
+void BoardModel::slotCellUpdate(size_t indexCell)
+{
+    QPoint pointUpdate = mediator->getPointForIndex(indexCell);
+    QModelIndex indexUpdate = index(pointUpdate.y(),pointUpdate.x());
+    emit dataChanged(indexUpdate,indexUpdate);
+}
+
 BoardModel::BoardModel(QObject *parent)
 {
     mediator = Mediator::getInstance();
     mediator->initialize();
+    connect(mediator,&Mediator::updateCell,this,&BoardModel::slotCellUpdate);
 }

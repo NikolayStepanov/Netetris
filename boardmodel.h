@@ -27,11 +27,11 @@ public:
     QHash<int, QByteArray> roleNames() const override
     {
         QHash<int, QByteArray> roles;
-        roles[XCell] = "x";
-        roles[YCell] = "y";
-        roles[IndexCell] = "index";
-        roles[TypeCell] = "type";
-        roles[ColorCell] = "color";
+        roles[XCell] = "xCell";
+        roles[YCell] = "yCell";
+        roles[IndexCell] = "indexCell";
+        roles[TypeCell] = "typeCell";
+        roles[ColorCell] = "colorCell";
         return roles;
     }
 
@@ -40,10 +40,15 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    bool setData(const QModelIndex &index, const QVariant &value,int role = Qt::EditRole) override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
 
     Q_INVOKABLE int getRow() const;
     Q_INVOKABLE int getColum() const;
+
+public slots:
+    void slotCellUpdate(size_t indexCell);
+
 private:
     Mediator * mediator;
 

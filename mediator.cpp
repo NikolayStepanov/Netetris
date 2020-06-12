@@ -1,6 +1,7 @@
 #include "mediator.h"
 
 #include <bootstrapper.h>
+#include <QPoint>
 
 Mediator * Mediator::p_instance = nullptr;
 
@@ -22,6 +23,7 @@ void Mediator::initialize()
 {
     bootstrapper->initialize();
     boardManager = bootstrapper->getBoardManager();
+    connect(boardManager,&BoardManager::updateCell,this,&Mediator::slotUpdateCell);
 }
 
 Mediator::~Mediator()
@@ -55,4 +57,14 @@ CellInformation Mediator::getCellInformation(const QModelIndex &index)
     size_t indexCell = boardManager->cellIndex(index);
 
     return boardManager->getCellInformation(indexCell);
+}
+
+QPoint Mediator::getPointForIndex(size_t index)
+{
+    return boardManager->cellCoordinatesFromIndex(index);
+}
+
+void Mediator::slotUpdateCell(size_t index)
+{
+    emit updateCell(index);
 }

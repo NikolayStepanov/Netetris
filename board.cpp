@@ -3,10 +3,13 @@
 Board::Board(size_t width, size_t height):
     m_width(width),m_height(height),m_numberCells(width*height)
 {
-    m_cells.reserve(sizeof(Cell)*m_numberCells);
-    for(int i=0;i<static_cast<int>(m_numberCells);i++)
+    m_cells.reserve(m_numberCells);
+    for(int index=0;index<static_cast<int>(m_numberCells);index++)
     {
-        m_cells.push_back(Cell());
+        size_t x = index % m_width;
+        size_t y = index / m_width;
+
+        m_cells.push_back(Cell(x,y,index));
     }
 }
 
@@ -15,14 +18,19 @@ Board::~Board()
     m_cells.clear();
 }
 
-size_t Board::getWidth()
+size_t Board::getWidth() const
 {
     return m_width;
 }
 
-size_t Board::getHeight()
+size_t Board::getHeight() const
 {
     return  m_height;
+}
+
+size_t Board::getNumderCells() const
+{
+    return m_numberCells;
 }
 
 bool Board::setCellInformation(const CellInformation cellInformation)
@@ -33,19 +41,22 @@ bool Board::setCellInformation(const CellInformation cellInformation)
     return true;
 }
 
+void Board::clearCell(const size_t index)
+{
+    m_cells.value(index).setType(EMPTY);
+    m_cells.value(index).setColor("white");
+}
+
 CellInformation Board::getCellInformation(const size_t index) const
 {
     Cell cell = m_cells.at(index);
     CellInformation cellInformation;
 
-    if(!cell.isEmpty())
-    {
-        cellInformation.x = cell.getX();
-        cellInformation.y = cell.getY();
-        cellInformation.index = cell.getIndex();
-        cellInformation.type = cell.getType();
-        cellInformation.color = cell.getColor();
-    }
+    cellInformation.x = cell.getX();
+    cellInformation.y = cell.getY();
+    cellInformation.index = cell.getIndex();
+    cellInformation.type = cell.getType();
+    cellInformation.color = cell.getColor();
 
     return cellInformation;
 }

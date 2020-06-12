@@ -39,7 +39,7 @@ set (SOURCES
     BoardManager.cpp
     NetetrisModel.cpp
     GameLogicManager.cpp
-    Generator.h
+    Generator.cpp
     )
 
 set (RESOURCES

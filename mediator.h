@@ -25,6 +25,13 @@ public:
     size_t getWidthBoard();
     size_t getHeightBoard();
     CellInformation getCellInformation(const QModelIndex &index);
+    QPoint getPointForIndex(size_t index);
+
+signals:
+    void updateCell(size_t index);
+
+public slots:
+    void slotUpdateCell(size_t index);
 
 private:
     Mediator(QObject *parent = nullptr);

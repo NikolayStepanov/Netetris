@@ -11,23 +11,21 @@ Item {
         id: tableView
         anchors.fill: parent
         anchors.centerIn: parent
-
-        rowSpacing: 1
-        columnSpacing: 1
-
         //model
         model: BoardModel {
             id: boardModel
         }
 
-        delegate: Rectangle {
+        delegate: Rectangle{
             id: cell
             implicitWidth: 50
             implicitHeight: 50
-
-            //color:"#ffffff"
-            border.width: 2
-            border.color: "#00111010"
+            border
+            {
+                width: 1
+                color: "black"
+            }
+            color: colorCell
             //Cell{}
         }
     }
