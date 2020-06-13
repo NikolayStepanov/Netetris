@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
+import com.NikolayStepanov.NetetrisModel 1.0
 
 Window {
     visible: true
@@ -27,5 +28,32 @@ Window {
                 height: parent.height
             }
         }
+        NetetrisModel
+        {
+            id: netetrisModel
+        }
+
+        Shortcut
+        {
+            sequence: "Up"
+            onActivated: netetrisModel.rotate();
+        }
+        Shortcut
+        {
+            sequence: "Down"
+            onActivated: netetrisModel.moveDown()
+        }
+        Shortcut
+        {
+            sequence: "Left"
+            onActivated: netetrisModel.moveLeft();
+        }
+        Shortcut
+        {
+            sequence: "Right"
+            onActivated: netetrisModel.moveRight();
+        }
     }
+
+
 }

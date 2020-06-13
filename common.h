@@ -7,6 +7,14 @@
 #include <QColor>
 #include <QPoint>
 
+enum FigureAction
+{
+    ROTATE,
+    MOVE_DOWN,
+    MOVE_RIGHT,
+    MOVE_LEFT
+};
+
 enum FigureType {
     EMPTY = -1,
     L_TETRAMINO,

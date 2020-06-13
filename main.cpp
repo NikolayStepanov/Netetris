@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 
 #include <boardmodel.h>
+#include <NetetrisModel.h>
 
 int main(int argc, char *argv[])
 {
@@ -12,6 +13,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     qmlRegisterType<BoardModel>("com.NikolayStepanov.BoardModel", 1, 0, "BoardModel");
+    qmlRegisterType<NetetrisModel>("com.NikolayStepanov.NetetrisModel", 1, 0, "NetetrisModel");
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

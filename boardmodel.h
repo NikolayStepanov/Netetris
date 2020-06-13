@@ -10,8 +10,8 @@ class BoardModel: public QAbstractTableModel
 {
     Q_OBJECT
     Q_ENUMS(CellRoles)
-    Q_PROPERTY(int getRow READ getRow)
-    Q_PROPERTY(int getColum READ getColum)
+    Q_PROPERTY(int row READ getRow)
+    Q_PROPERTY(int colum READ getColum)
 
 public:
     enum CellRoles

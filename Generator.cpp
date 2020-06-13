@@ -45,7 +45,7 @@ QVector<CellInformation> Generator::emptyBox4x4ForFigure()
     }
 
     int index = 0;
-    int xStart= (boardManager->getWidthBoard()/2)-4;
+    int xStart = (boardManager->getWidthBoard()/2)-2;
     for(int y=-4;y<0;y++)
     {
         for(int x=xStart;x<(xStart+4);x++)

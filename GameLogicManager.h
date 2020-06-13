@@ -20,10 +20,15 @@ public:
     bool canPutFigureInBox(FigureBox &figureBox, QVector<CellInformation> &cellInformationBox);
     void deleteFigureinInBoard(FigureBox &currentFigure);
     void putFigureInBoard(FigureBox &currentFigure, QVector<CellInformation> &cellInformationBox);
+    //void actionFigure(FigureAction actionFigure);
+    bool moveFigure(QPoint coordinateOffset);
 
 signals:
 public slots:
-    void downMoveFigure();
+    void actionFigure(FigureAction actionFigure = FigureAction::MOVE_DOWN);
+    /*void downMoveFigure();
+    void rightMoveFigure();
+    void leftMoveFigure();*/
 
 private:
     BoardManager * boardManager;
