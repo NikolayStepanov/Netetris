@@ -72,6 +72,37 @@ void GameLogicManager::putFigureInBoard(FigureBox &currentFigure, QVector<CellIn
     }
 }
 
+QVector<CellInformation> GameLogicManager::getCellsInformationBoxCurrentFigure(QPoint coordinateOffset)
+{
+    QVector<CellInformation> cellsInformationBox;
+    cellsInformationBox.reserve(number_cells_for_figure);
+
+    for(auto cellInfFigure: currentFigure.cellsInformation)
+    {
+        QPoint point(cellInfFigure.coordinates.x(),cellInfFigure.coordinates.y());
+
+        point.setX(point.x()+coordinateOffset.x());
+        point.setY(point.y()+coordinateOffset.y());
+
+
+        size_t indexBoard = boardManager->cellIndex(point);
+
+        if(indexBoard!=SIZE_MAX)
+        {
+            cellsInformationBox.push_back(boardAllInformationCurrent.value(indexBoard));
+        }
+        else
+        {
+            CellInformation cellInformation;
+            cellInformation.coordinates.setX(point.x());
+            cellInformation.coordinates.setY(point.y());
+            cellsInformationBox.push_back(cellInformation);
+        }
+    }
+
+    return cellsInformationBox;
+}
+
 void GameLogicManager::actionFigure(FigureAction actionFigure )
 {
     switch (actionFigure)
@@ -115,28 +146,7 @@ bool GameLogicManager::moveFigure(QPoint coordinateOffset)
     QVector<CellInformation> cellsInformationBox;
     cellsInformationBox.reserve(number_cells_for_figure);
 
-    for(auto cellInfFigure: currentFigure.cellsInformation)
-    {
-        QPoint point(cellInfFigure.coordinates.x(),cellInfFigure.coordinates.y());
-
-        point.setX(point.x()+coordinateOffset.x());
-        point.setY(point.y()+coordinateOffset.y());
-
-
-        size_t indexBoard = boardManager->cellIndex(point);
-
-        if(indexBoard!=SIZE_MAX)
-        {
-            cellsInformationBox.push_back(boardAllInformationCurrent.value(indexBoard));
-        }
-        else
-        {
-            CellInformation cellInformation;
-            cellInformation.coordinates.setX(point.x());
-            cellInformation.coordinates.setY(point.y());
-            cellsInformationBox.push_back(cellInformation);
-        }
-    }
+    cellsInformationBox=getCellsInformationBoxCurrentFigure(coordinateOffset);
 
     if(canPutFigureInBox(currentFigure,cellsInformationBox))
     {
@@ -151,37 +161,22 @@ bool GameLogicManager::rotationFigure()
 {
     bool isRotateFigure = false;
 
+    QVector<CellInformation> cellsInformationBox;
+    cellsInformationBox.reserve(number_cells_for_figure);
+
+    FigureBox rotationFigureBox;
+
     if(currentFigure.type==O_TETRAMINO)
     {
         return isRotateFigure;
     }
 
-    QVector<CellInformation> cellsInformationBox;
-    cellsInformationBox.reserve(number_cells_for_figure);
+    cellsInformationBox=getCellsInformationBoxCurrentFigure(QPoint(0,0));
 
-    for(auto cellInfFigure: currentFigure.cellsInformation)
-    {
-        QPoint point(cellInfFigure.coordinates.x(),cellInfFigure.coordinates.y());
-
-        size_t indexBoard = boardManager->cellIndex(point);
-
-        if(indexBoard!=SIZE_MAX)
-        {
-            cellsInformationBox.push_back(boardAllInformationCurrent.value(indexBoard));
-        }
-        else
-        {
-            CellInformation cellInformation;
-            cellInformation.coordinates.setX(point.x());
-            cellInformation.coordinates.setY(point.y());
-            cellsInformationBox.push_back(cellInformation);
-        }
-    }
-    FigureBox rotationFigureBox = rotationFigureInBox(currentFigure);
+    rotationFigureBox = rotationFigureInBox(currentFigure);
 
     if(canPutFigureInBox(rotationFigureBox,cellsInformationBox))
     {
-
         deleteFigureinInBoard(currentFigure);
         currentFigure = rotationFigureBox;
         putFigureInBoard(currentFigure,cellsInformationBox);
@@ -193,41 +188,43 @@ bool GameLogicManager::rotationFigure()
 FigureBox GameLogicManager::rotationFigureInBox(FigureBox figureBox)
 {
     FigureBox rotationFigureBox = figureBox;
+    QPoint centerRotation = figureBox.cellsInformation[index_center_of_rotation_figure].coordinates;
+
+    QVector<size_t> newIndcesNonEmptyCell;
+    newIndcesNonEmptyCell.reserve(number_non_empty_cell);
+
+    QVector<CellInformation> cellsInformationNonEmptyCell;
+    cellsInformationNonEmptyCell.reserve(number_non_empty_cell);
+
     for(auto indexCell:figureBox.indicesNonEmptyCell)
     {
         rotationFigureBox.cellsInformation[indexCell].type=EMPTY;
         rotationFigureBox.cellsInformation[indexCell].color="white";
     }
 
-    QPoint centerRotation = figureBox.cellsInformation[index_center_of_rotation_figure].coordinates;
-    QVector<size_t> newIndcesNonEmptyCell;
-    newIndcesNonEmptyCell.reserve(number_non_empty_cell);
-
     for(auto indexCell:figureBox.indicesNonEmptyCell)
     {
-        if(index_center_of_rotation_figure == indexCell)
+        cellsInformationNonEmptyCell.push_back(figureBox.cellsInformation[indexCell]);
+    }
+    do{
+        for(auto &cellInf:cellsInformationNonEmptyCell)
         {
-            newIndcesNonEmptyCell.push_back(indexCell);
-            rotationFigureBox.cellsInformation[indexCell] = figureBox.cellsInformation[indexCell];
-            continue;
+            int x = cellInf.coordinates.y()-centerRotation.y();
+            int y = cellInf.coordinates.x()-centerRotation.x();
+            cellInf.coordinates.setX(centerRotation.x()-x);
+            cellInf.coordinates.setY(centerRotation.y()+y);
         }
-        CellInformation cellInformation = figureBox.cellsInformation[indexCell];
-        QPoint newCoordinates;
+    }while (!cellsContainedInBox(cellsInformationNonEmptyCell,figureBox));
 
-        int x = cellInformation.coordinates.y()-centerRotation.y();
-        int y = cellInformation.coordinates.x()-centerRotation.x();
-        newCoordinates.setX(centerRotation.x()-x);
-        newCoordinates.setY(centerRotation.y()+y);
-
-        cellInformation.coordinates = newCoordinates;
-        cellInformation.index = boardManager->cellIndex(newCoordinates);
-
+    for(auto cellsInf:cellsInformationNonEmptyCell)
+    {
         size_t indexNonEmptyCell =0;
         for(auto &cellInformationBox:rotationFigureBox.cellsInformation)
         {
-            if(cellInformationBox.coordinates  == cellInformation.coordinates )
+            if(cellInformationBox.coordinates  == cellsInf.coordinates )
             {
-                cellInformationBox=cellInformation;
+                cellInformationBox.color = cellsInf.color;
+                cellInformationBox.type = cellsInf.type;
                 newIndcesNonEmptyCell.push_back(indexNonEmptyCell);
                 break;
             }
@@ -235,6 +232,25 @@ FigureBox GameLogicManager::rotationFigureInBox(FigureBox figureBox)
         }
     }
     rotationFigureBox.indicesNonEmptyCell = newIndcesNonEmptyCell;
-
     return rotationFigureBox;
+}
+
+bool GameLogicManager::cellsContainedInBox(QVector<CellInformation> cellsInformation, FigureBox figureBox) const
+{
+    int minX = figureBox.cellsInformation[0].coordinates.x();
+    int minY = figureBox.cellsInformation[0].coordinates.y();
+    int maxX = figureBox.cellsInformation[15].coordinates.x();
+    int maxY = figureBox.cellsInformation[15].coordinates.y();
+
+    for(auto cellInf:cellsInformation)
+    {
+        if(minX>cellInf.coordinates.x() ||
+                maxX<cellInf.coordinates.x() ||
+                minY>cellInf.coordinates.y() ||
+                maxY<cellInf.coordinates.y())
+        {
+            return false;
+        }
+    }
+    return true;
 }
