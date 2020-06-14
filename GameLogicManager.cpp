@@ -78,6 +78,7 @@ void GameLogicManager::actionFigure(FigureAction actionFigure )
     {
     case ROTATE:
     {
+        rotationFigure();
         break;
     }
     case MOVE_DOWN:
@@ -111,8 +112,8 @@ void GameLogicManager::actionFigure(FigureAction actionFigure )
 bool GameLogicManager::moveFigure(QPoint coordinateOffset)
 {
     bool isMovedFigure = false;
-    QVector<CellInformation> cellsInformationDownBox;
-    cellsInformationDownBox.reserve(number_cells_for_figure);
+    QVector<CellInformation> cellsInformationBox;
+    cellsInformationBox.reserve(number_cells_for_figure);
 
     for(auto cellInfFigure: currentFigure.cellsInformation)
     {
@@ -126,126 +127,114 @@ bool GameLogicManager::moveFigure(QPoint coordinateOffset)
 
         if(indexBoard!=SIZE_MAX)
         {
-            cellsInformationDownBox.push_back(boardAllInformationCurrent.value(indexBoard));
+            cellsInformationBox.push_back(boardAllInformationCurrent.value(indexBoard));
         }
         else
         {
             CellInformation cellInformation;
             cellInformation.coordinates.setX(point.x());
             cellInformation.coordinates.setY(point.y());
-            cellsInformationDownBox.push_back(cellInformation);
+            cellsInformationBox.push_back(cellInformation);
         }
     }
 
-    if(canPutFigureInBox(currentFigure,cellsInformationDownBox))
+    if(canPutFigureInBox(currentFigure,cellsInformationBox))
     {
         deleteFigureinInBoard(currentFigure);
-        putFigureInBoard(currentFigure,cellsInformationDownBox);
+        putFigureInBoard(currentFigure,cellsInformationBox);
         isMovedFigure = true;
     }
     return isMovedFigure;
 }
 
-/*void GameLogicManager::downMoveFigure()
+bool GameLogicManager::rotationFigure()
 {
-    QVector<CellInformation> cellsInformationDownBox;
-    cellsInformationDownBox.reserve(number_cells_for_figure);
+    bool isRotateFigure = false;
 
+    if(currentFigure.type==O_TETRAMINO)
+    {
+        return isRotateFigure;
+    }
+
+    QVector<CellInformation> cellsInformationBox;
+    cellsInformationBox.reserve(number_cells_for_figure);
 
     for(auto cellInfFigure: currentFigure.cellsInformation)
     {
         QPoint point(cellInfFigure.coordinates.x(),cellInfFigure.coordinates.y());
-        point.setY(point.y()+1);
 
         size_t indexBoard = boardManager->cellIndex(point);
 
         if(indexBoard!=SIZE_MAX)
         {
-            cellsInformationDownBox.push_back(boardAllInformationCurrent.value(indexBoard));
+            cellsInformationBox.push_back(boardAllInformationCurrent.value(indexBoard));
         }
         else
         {
             CellInformation cellInformation;
             cellInformation.coordinates.setX(point.x());
             cellInformation.coordinates.setY(point.y());
-            cellsInformationDownBox.push_back(cellInformation);
+            cellsInformationBox.push_back(cellInformation);
         }
     }
+    FigureBox rotationFigureBox = rotationFigureInBox(currentFigure);
 
-    if(canPutFigureInBox(currentFigure,cellsInformationDownBox))
+    if(canPutFigureInBox(rotationFigureBox,cellsInformationBox))
     {
+
         deleteFigureinInBoard(currentFigure);
-        putFigureInBoard(currentFigure,cellsInformationDownBox);
+        currentFigure = rotationFigureBox;
+        putFigureInBoard(currentFigure,cellsInformationBox);
+        isRotateFigure = true;
     }
-    else{
-        nextStep();
-    }
-    //leftMoveFigure();
-    //rightMoveFigure();
+    return isRotateFigure;
 }
 
-void GameLogicManager::rightMoveFigure()
+FigureBox GameLogicManager::rotationFigureInBox(FigureBox figureBox)
 {
-    QVector<CellInformation> cellsInformationDownBox;
-    cellsInformationDownBox.reserve(number_cells_for_figure);
-
-
-    for(auto cellInfFigure: currentFigure.cellsInformation)
+    FigureBox rotationFigureBox = figureBox;
+    for(auto indexCell:figureBox.indicesNonEmptyCell)
     {
-        QPoint point(cellInfFigure.coordinates.x(),cellInfFigure.coordinates.y());
-        point.setX(point.x()+1);
-
-        size_t indexBoard = boardManager->cellIndex(point);
-
-        if(indexBoard!=SIZE_MAX)
-        {
-            cellsInformationDownBox.push_back(boardAllInformationCurrent.value(indexBoard));
-        }
-        else
-        {
-            CellInformation cellInformation;
-            cellInformation.coordinates.setX(point.x());
-            cellInformation.coordinates.setY(point.y());
-            cellsInformationDownBox.push_back(cellInformation);
-        }
+        rotationFigureBox.cellsInformation[indexCell].type=EMPTY;
+        rotationFigureBox.cellsInformation[indexCell].color="white";
     }
 
-    if(canPutFigureInBox(currentFigure,cellsInformationDownBox))
+    QPoint centerRotation = figureBox.cellsInformation[index_center_of_rotation_figure].coordinates;
+    QVector<size_t> newIndcesNonEmptyCell;
+    newIndcesNonEmptyCell.reserve(number_non_empty_cell);
+
+    for(auto indexCell:figureBox.indicesNonEmptyCell)
     {
-        deleteFigureinInBoard(currentFigure);
-        putFigureInBoard(currentFigure,cellsInformationDownBox);
+        if(index_center_of_rotation_figure == indexCell)
+        {
+            newIndcesNonEmptyCell.push_back(indexCell);
+            rotationFigureBox.cellsInformation[indexCell] = figureBox.cellsInformation[indexCell];
+            continue;
+        }
+        CellInformation cellInformation = figureBox.cellsInformation[indexCell];
+        QPoint newCoordinates;
+
+        int x = cellInformation.coordinates.y()-centerRotation.y();
+        int y = cellInformation.coordinates.x()-centerRotation.x();
+        newCoordinates.setX(centerRotation.x()-x);
+        newCoordinates.setY(centerRotation.y()+y);
+
+        cellInformation.coordinates = newCoordinates;
+        cellInformation.index = boardManager->cellIndex(newCoordinates);
+
+        size_t indexNonEmptyCell =0;
+        for(auto &cellInformationBox:rotationFigureBox.cellsInformation)
+        {
+            if(cellInformationBox.coordinates  == cellInformation.coordinates )
+            {
+                cellInformationBox=cellInformation;
+                newIndcesNonEmptyCell.push_back(indexNonEmptyCell);
+                break;
+            }
+            indexNonEmptyCell++;
+        }
     }
+    rotationFigureBox.indicesNonEmptyCell = newIndcesNonEmptyCell;
+
+    return rotationFigureBox;
 }
-
-void GameLogicManager::leftMoveFigure()
-{
-    QVector<CellInformation> cellsInformationDownBox;
-    cellsInformationDownBox.reserve(number_cells_for_figure);
-
-
-    for(auto cellInfFigure: currentFigure.cellsInformation)
-    {
-        QPoint point(cellInfFigure.coordinates.x(),cellInfFigure.coordinates.y());
-        point.setX(point.x()-1);
-
-        size_t indexBoard = boardManager->cellIndex(point);
-
-        if(indexBoard!=SIZE_MAX)
-        {
-            cellsInformationDownBox.push_back(boardAllInformationCurrent.value(indexBoard));
-        }
-        else
-        {
-            CellInformation cellInformation;
-            cellInformation.coordinates.setX(point.x());
-            cellInformation.coordinates.setY(point.y());
-            cellsInformationDownBox.push_back(cellInformation);
-        }
-    }
-
-    if(canPutFigureInBox(currentFigure,cellsInformationDownBox))
-    {
-        deleteFigureinInBoard(currentFigure);
-        putFigureInBoard(currentFigure,cellsInformationDownBox);
-    }
-}*/

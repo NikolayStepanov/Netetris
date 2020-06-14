@@ -8,6 +8,7 @@
 const int number_figures= 7;
 const int number_cells_for_figure = 16;
 const int number_non_empty_cell = 4;
+const int index_center_of_rotation_figure = 6;
 
 static QVector <QVector<size_t>> figures
 {
