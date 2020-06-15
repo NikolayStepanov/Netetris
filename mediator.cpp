@@ -27,6 +27,7 @@ void Mediator::initialize()
 
     connect(boardManager,&BoardManager::updateCell,this,&Mediator::slotUpdateCell);
     connect(boardManager,&BoardManager::updateRow,this,&Mediator::slotUpdateRow);
+    connect(boardManager,&BoardManager::updateColumn,this,&Mediator::slotUpdateColumn);
 }
 
 Mediator::~Mediator()
@@ -67,20 +68,6 @@ QPoint Mediator::getPointForIndex(size_t index)
     return boardManager->cellCoordinatesFromIndex(index);
 }
 
-void Mediator::moveDown()
-{
-
-}
-
-void Mediator::moveLeft()
-{
-}
-
-void Mediator::moveRight()
-{
-
-}
-
 void Mediator::actionFigure(FigureAction actionFigure)
 {
     gameLogicManager->actionFigure(actionFigure);
@@ -94,4 +81,9 @@ void Mediator::slotUpdateCell(size_t index)
 void Mediator::slotUpdateRow(size_t row)
 {
     emit updateRow(row);
+}
+
+void Mediator::slotUpdateColumn(size_t column)
+{
+    emit updateColumn(column);
 }

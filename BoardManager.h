@@ -26,6 +26,7 @@ public:
 
     void setCellInformation(const CellInformation cellInformation);
     void clearRow(size_t row);
+    void clearColumn(size_t column);
     void clearCell(const size_t cellIndex);
 
     CellInformation getCellInformation(const size_t cellIndex) const;
@@ -45,6 +46,7 @@ public:
 signals:
     void updateCell(size_t index);
     void updateRow(size_t row);
+    void updateColumn(size_t column);
 
 private:
     Board * board;

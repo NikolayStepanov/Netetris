@@ -42,6 +42,42 @@ void GameLogicManager::nextStep()
 bool GameLogicManager::deleteWholeLines()
 {
     bool b_delete=false;
+    if(deleteColumns() || deleteRows())
+    {
+        b_delete = true;
+    }
+    return b_delete;
+}
+
+bool GameLogicManager::deleteColumns()
+{
+    bool b_delete=false;
+    int columns = boardManager->getWidthBoard();
+    int rows = boardManager->getHeightBoard();
+    for(int column=0; column<columns; column++)
+    {
+        bool deleteRow = true;
+        for(int row=horizontalLineMaxFigures; row<rows; row++)
+        {
+            if(boardAllInformationCurrent[columns*row+column].type==EMPTY)
+            {
+                deleteRow=false;
+                break;
+            }
+        }
+
+        if(deleteRow)
+        {
+            boardManager->clearColumn(column);
+            b_delete=true;
+        }
+    }
+    return b_delete;
+}
+
+bool GameLogicManager::deleteRows()
+{
+    bool b_delete=false;
     int columns = boardManager->getWidthBoard();
     int rows = boardManager->getHeightBoard();
     for(int row=horizontalLineMaxFigures; row<rows; row++)

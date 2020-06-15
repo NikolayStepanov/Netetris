@@ -29,18 +29,17 @@ public:
     QPoint getPointForIndex(size_t index);
 
     //GameLogic
-    void moveDown();
-    void moveLeft();
-    void moveRight();
     void actionFigure(FigureAction actionFigure);
 
 signals:
     void updateCell(size_t index);
     void updateRow(size_t row);
+    void updateColumn(size_t column);
 
 public slots:
     void slotUpdateCell(size_t index);
     void slotUpdateRow(size_t row);
+    void slotUpdateColumn(size_t column);
 
 private:
     Mediator(QObject *parent = nullptr);

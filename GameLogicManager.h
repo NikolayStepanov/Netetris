@@ -18,7 +18,10 @@ public:
     void initialize(Bootstrapper* boostrap);
 
     void nextStep();
+
     bool deleteWholeLines();
+    bool deleteColumns();
+    bool deleteRows();
 
     bool canPutFigureInBox(FigureBox &figureBox, QVector<CellInformation> &cellInformationBox);
     void deleteFigureinInBoard(FigureBox &currentFigure);
