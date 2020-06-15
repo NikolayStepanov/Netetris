@@ -48,6 +48,7 @@ public:
 
 public slots:
     void slotCellUpdate(size_t indexCell);
+    void slotRowUpdate(size_t row);
 
 private:
     Mediator * mediator;

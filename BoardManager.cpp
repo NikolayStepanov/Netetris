@@ -66,6 +66,21 @@ void BoardManager::setCellInformation(const CellInformation cellInformation)
     }
 }
 
+void BoardManager::clearRow(size_t row)
+{
+    QVector<size_t> cellIndices;
+    int columns = board->getWidth();
+    cellIndices.reserve(columns);
+
+    for(int column =0;column<columns;column++)
+    {
+        size_t indexCell = columns*row + column;
+        board->clearCell(indexCell);
+    }
+
+    emit updateRow(row);
+}
+
 void BoardManager::clearCell(const size_t cellIndex)
 {
     if(areCellIndexValid(cellIndex))

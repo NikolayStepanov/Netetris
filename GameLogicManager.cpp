@@ -14,7 +14,10 @@ void GameLogicManager::initialize(Bootstrapper *boostrap)
 {
     boardManager = boostrap->getBoardManager();
     m_generator = boostrap->getGenerator();
+
     indexHorizontalCenter = (boardManager->getWidthBoard()/2)-1;
+    horizontalLineMaxFigures =(boardManager->getHeightBoard()*0.2);
+
     boardAllInformationCurrent.reserve(boardManager->getNumderCells());
     nextFigure = m_generator->randomFigure();
     currentFigure = m_generator->randomFigure();
@@ -26,9 +29,40 @@ void GameLogicManager::nextStep()
     timerDownMove->stop();
 
     boardAllInformationCurrent = boardManager->getAllCellsInformation();
+    if(deleteWholeLines())
+    {
+        boardAllInformationCurrent = boardManager->getAllCellsInformation();
+    }
+
     currentFigure = nextFigure;
     nextFigure = m_generator->randomFigure();
     timerDownMove->start();
+}
+
+bool GameLogicManager::deleteWholeLines()
+{
+    bool b_delete=false;
+    int columns = boardManager->getWidthBoard();
+    int rows = boardManager->getHeightBoard();
+    for(int row=horizontalLineMaxFigures; row<rows; row++)
+    {
+        bool deleteRow = true;
+        for(int column=0; column<columns; column++)
+        {
+            if(boardAllInformationCurrent[columns*row+column].type==EMPTY)
+            {
+                deleteRow=false;
+                break;
+            }
+        }
+
+        if(deleteRow)
+        {
+            boardManager->clearRow(row);
+            b_delete=true;
+        }
+    }
+    return b_delete;
 }
 
 bool GameLogicManager::canPutFigureInBox(FigureBox &figureBox, QVector<CellInformation> &cellInformationBox)

@@ -25,6 +25,7 @@ public:
     QPair <size_t,size_t> getSizeBoard() const;
 
     void setCellInformation(const CellInformation cellInformation);
+    void clearRow(size_t row);
     void clearCell(const size_t cellIndex);
 
     CellInformation getCellInformation(const size_t cellIndex) const;
@@ -43,6 +44,7 @@ public:
 
 signals:
     void updateCell(size_t index);
+    void updateRow(size_t row);
 
 private:
     Board * board;

@@ -36,9 +36,11 @@ public:
 
 signals:
     void updateCell(size_t index);
+    void updateRow(size_t row);
 
 public slots:
     void slotUpdateCell(size_t index);
+    void slotUpdateRow(size_t row);
 
 private:
     Mediator(QObject *parent = nullptr);

@@ -26,6 +26,7 @@ void Mediator::initialize()
     gameLogicManager = bootstrapper->getLogicManager();
 
     connect(boardManager,&BoardManager::updateCell,this,&Mediator::slotUpdateCell);
+    connect(boardManager,&BoardManager::updateRow,this,&Mediator::slotUpdateRow);
 }
 
 Mediator::~Mediator()
@@ -88,4 +89,9 @@ void Mediator::actionFigure(FigureAction actionFigure)
 void Mediator::slotUpdateCell(size_t index)
 {
     emit updateCell(index);
+}
+
+void Mediator::slotUpdateRow(size_t row)
+{
+    emit updateRow(row);
 }

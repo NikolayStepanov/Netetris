@@ -18,6 +18,7 @@ public:
     void initialize(Bootstrapper* boostrap);
 
     void nextStep();
+    bool deleteWholeLines();
 
     bool canPutFigureInBox(FigureBox &figureBox, QVector<CellInformation> &cellInformationBox);
     void deleteFigureinInBoard(FigureBox &currentFigure);
@@ -45,6 +46,7 @@ private:
     FigureBox currentFigure;
 
     size_t indexHorizontalCenter;
+    int horizontalLineMaxFigures;
 };
 
 #endif // GAMELOGICMANAGER_H
