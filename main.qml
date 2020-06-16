@@ -11,7 +11,7 @@ Window {
     Item{
         id: main
         anchors.fill: parent
-        Column {
+        Row {
             spacing: 6
             anchors {
                 fill: parent
@@ -27,7 +27,15 @@ Window {
                 width: parent.width*0.70
                 height: parent.height
             }
+
+            NextFigure
+            {
+                id:nextFigure
+                width: parent.width
+                height: parent.height
+            }
         }
+
         NetetrisModel
         {
             id: netetrisModel

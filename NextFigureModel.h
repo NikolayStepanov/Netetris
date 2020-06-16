@@ -1,23 +1,18 @@
-#ifndef BOARDMODEL_H
-#define BOARDMODEL_H
+#ifndef NEXTFIGUREMODEL_H
+#define NEXTFIGUREMODEL_H
 
-#include <QAbstractTableModel>
 #include <QObject>
+#include <QAbstractTableModel>
 
 class Mediator;
 
-class BoardModel: public QAbstractTableModel
+class NextFigureModel:public QAbstractTableModel
 {
     Q_OBJECT
-    Q_ENUMS(CellRoles)
-    Q_PROPERTY(int row READ getRow)
-    Q_PROPERTY(int colum READ getColum)
-
+    Q_ENUMS(NextFigureRoles)
 public:
-    enum CellRoles
+    enum NextFigureRoles
     {
-        XCell,
-        YCell,
         IndexCell,
         TypeCell,
         ColorCell
@@ -26,15 +21,13 @@ public:
     QHash<int, QByteArray> roleNames() const override
     {
         QHash<int, QByteArray> roles;
-        roles[XCell] = "xCell";
-        roles[YCell] = "yCell";
         roles[IndexCell] = "indexCell";
         roles[TypeCell] = "typeCell";
         roles[ColorCell] = "colorCell";
         return roles;
     }
 
-    explicit BoardModel(QObject *parent = nullptr);
+    explicit NextFigureModel(QObject *parent = nullptr);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -42,17 +35,11 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value,int role = Qt::EditRole) override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
 
-    Q_INVOKABLE int getRow() const;
-    Q_INVOKABLE int getColum() const;
-
 public slots:
-    void slotCellUpdate(size_t indexCell);
-    void slotRowUpdate(size_t row);
-    void slotColumnUpdate(size_t colunm);
+    void slotUpdateNextFigure();
 
 private:
     Mediator * mediator;
-
 };
 
-#endif // BOARDMODEL_H
+#endif // NEXTFIGUREMODEL_H

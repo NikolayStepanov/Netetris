@@ -28,6 +28,9 @@ public:
     CellInformation getCellInformation(const QModelIndex &index);
     QPoint getPointForIndex(size_t index);
 
+    //GameLogicManager
+    CellInformation getCellInformationNextFigure(const QModelIndex &index);
+
     //GameLogic
     void actionFigure(FigureAction actionFigure);
 
@@ -35,11 +38,13 @@ signals:
     void updateCell(size_t index);
     void updateRow(size_t row);
     void updateColumn(size_t column);
+    void updateNextFigure();
 
 public slots:
     void slotUpdateCell(size_t index);
     void slotUpdateRow(size_t row);
     void slotUpdateColumn(size_t column);
+    void slotUbdateNextFigure();
 
 private:
     Mediator(QObject *parent = nullptr);

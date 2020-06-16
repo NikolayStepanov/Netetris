@@ -35,8 +35,19 @@ void GameLogicManager::nextStep()
     }
 
     currentFigure = nextFigure;
-    nextFigure = m_generator->randomFigure();
+    generateNextFigure();
     timerDownMove->start();
+}
+
+void GameLogicManager::generateNextFigure()
+{
+    nextFigure = m_generator->randomFigure();
+    emit updateNextFigure();
+}
+
+CellInformation GameLogicManager::getCellNextFigure(QPoint coordinat)
+{
+    return nextFigure.cellsInformation[coordinat.y()*4+coordinat.x()];
 }
 
 bool GameLogicManager::deleteWholeLines()

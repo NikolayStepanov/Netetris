@@ -26,6 +26,7 @@ set (HEADERS
     NetetrisModel.h
     GameLogicManager.h
     Generator.h
+    NextFigureModel.h
     )
 
 set (SOURCES
@@ -40,6 +41,7 @@ set (SOURCES
     NetetrisModel.cpp
     GameLogicManager.cpp
     Generator.cpp
+    NextFigureModel.cpp
     )
 
 set (RESOURCES

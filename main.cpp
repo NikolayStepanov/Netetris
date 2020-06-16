@@ -3,6 +3,7 @@
 
 #include <boardmodel.h>
 #include <NetetrisModel.h>
+#include <NextFigureModel.h>
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +15,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<BoardModel>("com.NikolayStepanov.BoardModel", 1, 0, "BoardModel");
     qmlRegisterType<NetetrisModel>("com.NikolayStepanov.NetetrisModel", 1, 0, "NetetrisModel");
+    qmlRegisterType<NextFigureModel>("com.NikolayStepanov.NextFigureModel", 1, 0, "NextFigureModel");
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

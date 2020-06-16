@@ -3,5 +3,8 @@
         <file>main.qml</file>
         <file>Cell.qml</file>
         <file>Board.qml</file>
+        <file>NextFigure.qml</file>
+        <file>items/Text.qml</file>
+        <file>items/Button.qml</file>
     </qresource>
 </RCC>

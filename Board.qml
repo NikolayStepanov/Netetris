@@ -18,8 +18,8 @@ Item {
 
         delegate: Rectangle{
             id: cell
-            implicitWidth: 50
-            implicitHeight: 50
+            implicitWidth: 40
+            implicitHeight: 40
             border
             {
                 width: 1

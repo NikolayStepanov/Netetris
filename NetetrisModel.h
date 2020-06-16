@@ -9,7 +9,7 @@ class NetetrisModel:public QObject
 {
     Q_OBJECT
 public:
-    NetetrisModel();
+    explicit NetetrisModel(QObject *parent = nullptr);
     Q_INVOKABLE void rotate();
     Q_INVOKABLE void moveDown();
     Q_INVOKABLE void moveLeft();

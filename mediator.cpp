@@ -2,6 +2,7 @@
 
 #include <bootstrapper.h>
 #include <QPoint>
+#include <QModelIndex>
 
 Mediator * Mediator::p_instance = nullptr;
 
@@ -25,9 +26,13 @@ void Mediator::initialize()
     boardManager = bootstrapper->getBoardManager();
     gameLogicManager = bootstrapper->getLogicManager();
 
+    //BoardManager
     connect(boardManager,&BoardManager::updateCell,this,&Mediator::slotUpdateCell);
     connect(boardManager,&BoardManager::updateRow,this,&Mediator::slotUpdateRow);
     connect(boardManager,&BoardManager::updateColumn,this,&Mediator::slotUpdateColumn);
+
+    //GameLogicManager
+    connect(gameLogicManager,&GameLogicManager::updateNextFigure,this,&Mediator::slotUbdateNextFigure);
 }
 
 Mediator::~Mediator()
@@ -68,6 +73,13 @@ QPoint Mediator::getPointForIndex(size_t index)
     return boardManager->cellCoordinatesFromIndex(index);
 }
 
+CellInformation Mediator::getCellInformationNextFigure(const QModelIndex &index)
+{
+    QPoint coordinat = QPoint(index.column(),index.row());
+    return gameLogicManager->getCellNextFigure(coordinat);
+
+}
+
 void Mediator::actionFigure(FigureAction actionFigure)
 {
     gameLogicManager->actionFigure(actionFigure);
@@ -86,4 +98,9 @@ void Mediator::slotUpdateRow(size_t row)
 void Mediator::slotUpdateColumn(size_t column)
 {
     emit updateColumn(column);
+}
+
+void Mediator::slotUbdateNextFigure()
+{
+    emit updateNextFigure();
 }

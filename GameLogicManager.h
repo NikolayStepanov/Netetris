@@ -18,6 +18,9 @@ public:
     void initialize(Bootstrapper* boostrap);
 
     void nextStep();
+    void generateNextFigure();
+
+    CellInformation getCellNextFigure(QPoint coordinat);
 
     bool deleteWholeLines();
     bool deleteColumns();
@@ -26,7 +29,9 @@ public:
     bool canPutFigureInBox(FigureBox &figureBox, QVector<CellInformation> &cellInformationBox);
     void deleteFigureinInBoard(FigureBox &currentFigure);
     void putFigureInBoard(FigureBox &currentFigure, QVector<CellInformation> &cellInformationBox);
+
     QVector<CellInformation> getCellsInformationBoxCurrentFigure(QPoint coordinateOffset);
+
     bool moveFigure(QPoint coordinateOffset);
     bool rotationFigure();
     FigureBox rotationFigureInBox(FigureBox figureBox);
@@ -34,6 +39,8 @@ public:
     bool cellsContainedInBox(QVector<CellInformation> cellsInformation, FigureBox figureBox) const;
 
 signals:
+    void updateNextFigure();
+
 public slots:
     void actionFigure(FigureAction actionFigure = FigureAction::MOVE_DOWN);
 
