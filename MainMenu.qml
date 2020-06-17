@@ -19,7 +19,7 @@ Item {
     Image {
         id: imageMenu
         anchors.fill: parent
-        source: "images/menuВackground.png"
+        source: "images/menuBackground.png"
     }
     Rectangle
     {
