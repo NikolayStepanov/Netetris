@@ -23,6 +23,8 @@ public:
     void startGame();
     void stopGame();
 
+    void addLinesPoints();
+
     void nextStep();
     void generateNextFigure();
 
@@ -43,26 +45,30 @@ public:
     FigureBox rotationFigureInBox(FigureBox figureBox);
 
     bool cellsContainedInBox(QVector<CellInformation> cellsInformation, FigureBox figureBox) const;
-
+    //get
+    bool getNumberLines() const;
 signals:
     void updateNextFigure();
+    void updateNumberLines(int lines);
 
 public slots:
     void actionFigure(FigureAction actionFigure = FigureAction::MOVE_DOWN);
 
 private:
-    BoardManager * boardManager;
-    Generator * m_generator;
+    BoardManager * m_pBoardManager;
+    Generator * m_pGenerator;
 
-    QTimer * timerDownMove;
+    QTimer * m_pTimerDownMove;
 
-    QVector<CellInformation> boardAllInformationCurrent;
+    QVector<CellInformation> m_boardAllInformationCurrent;
 
-    FigureBox nextFigure;
-    FigureBox currentFigure;
+    FigureBox m_nextFigure;
+    FigureBox m_currentFigure;
 
-    size_t indexHorizontalCenter;
-    int horizontalLineMaxFigures;
+    int m_numberLines;
+
+    size_t m_indexHorizontalCenter;
+    int m_horizontalLineMaxFigures;
 };
 
 #endif // GAMELOGICMANAGER_H

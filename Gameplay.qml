@@ -5,7 +5,8 @@ import QtQuick.Controls 2.12
 
 import com.NikolayStepanov.NetetrisModel 1.0
 
-import "./items" as SokobanItem
+import "./items" as NetetrrisItems
+
 Item {
     id: root
 
@@ -16,7 +17,7 @@ Item {
     onNewGame: netetrisModel.newGame();
     onExit: netetrisModel.quitGame();
 
-    Row {
+    RowLayout {
         spacing: 6
         anchors {
             fill: parent
@@ -29,16 +30,42 @@ Item {
         Board
         {
             id:areaBoard
-            width: parent.width*0.70
+            width: parent.width*0.7
             height: parent.height
         }
-
-        NextFigure
+        ColumnLayout
         {
-            id:nextFigure
+            //width: parent.width*0.3
+            //height: parent.height
+
+            NextFigure
+            {
+                id:nextFigure
+                width: 400
+                height: 400
+            }
+
+            /*InformationBlock
+        {
+            id:infoBlock
             width: parent.width
             height: parent.height
+            lines: netetrisModel.number_lines
+        }*/
+
+
+            NetetrrisItems.Text{
+                id: linesText
+                text: "Lines"
+                font.pointSize: 24
+            }
+            NetetrrisItems.Text{
+                id: numberLines
+                text: netetrisModel.number_lines.toString();
+                font.pointSize: 24
+            }
         }
+
     }
 
     NetetrisModel

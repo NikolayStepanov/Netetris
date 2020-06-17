@@ -10,6 +10,7 @@ class Bootstrapper
 public:
     Bootstrapper();
     void initialize();
+    ~Bootstrapper();
     //get
     BoardManager *getBoardManager();
     GameLogicManager *getLogicManager();

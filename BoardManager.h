@@ -5,7 +5,6 @@
 
 #include "common.h"
 
-
 class Bootstrapper;
 class Board;
 

@@ -33,15 +33,15 @@ void Mediator::initialize()
 
     //GameLogicManager
     connect(gameLogicManager,&GameLogicManager::updateNextFigure,this,&Mediator::slotUbdateNextFigure);
+    connect(gameLogicManager,&GameLogicManager::updateNumberLines,this,&Mediator::slotUpdateNumberLines);
 }
 
 Mediator::~Mediator()
 {
-    delete boardManager;
     delete bootstrapper;
 }
 
-int Mediator::getRowCountBoard()
+int Mediator::getRowCountBoard() const
 {
     return getHeightBoard();
 }
@@ -56,7 +56,7 @@ size_t Mediator::getWidthBoard()
     return boardManager->getWidthBoard();
 }
 
-size_t Mediator::getHeightBoard()
+size_t Mediator::getHeightBoard() const
 {
     return boardManager->getHeightBoard();
 }
@@ -92,6 +92,11 @@ void Mediator::newGame()
     gameLogicManager->startGame();
 }
 
+int Mediator::getNumberLines()
+{
+    return gameLogicManager->getNumberLines();
+}
+
 void Mediator::slotUpdateCell(size_t index)
 {
     emit updateCell(index);
@@ -110,4 +115,9 @@ void Mediator::slotUpdateColumn(size_t column)
 void Mediator::slotUbdateNextFigure()
 {
     emit updateNextFigure();
+}
+
+void Mediator::slotUpdateNumberLines(int lines)
+{
+    emit updateNumberLines(lines);
 }

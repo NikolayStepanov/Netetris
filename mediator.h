@@ -1,9 +1,9 @@
 #ifndef MEDIATOR_H
 #define MEDIATOR_H
 
-#include <QObject>
+#include "common.h"
 
-#include <common.h>
+#include <QObject>
 
 class BoardManager;
 class GameLogicManager;
@@ -19,12 +19,12 @@ public:
     ~Mediator();
 
     //BoardModel
-    int getRowCountBoard();
+    int getRowCountBoard() const;
     int getColumnCountBoard();
 
     //BoardManager
     size_t getWidthBoard();
-    size_t getHeightBoard();
+    size_t getHeightBoard() const;
     CellInformation getCellInformation(const QModelIndex &index);
     QPoint getPointForIndex(size_t index);
 
@@ -34,19 +34,21 @@ public:
     //GameLogic
     void actionFigure(FigureAction actionFigure);
     void newGame();
-
+    int getNumberLines();
 
 signals:
     void updateCell(size_t index);
     void updateRow(size_t row);
     void updateColumn(size_t column);
     void updateNextFigure();
+    void updateNumberLines(int lines);
 
 public slots:
     void slotUpdateCell(size_t index);
     void slotUpdateRow(size_t row);
     void slotUpdateColumn(size_t column);
     void slotUbdateNextFigure();
+    void slotUpdateNumberLines(int lines);
 
 private:
     Mediator(QObject *parent = nullptr);

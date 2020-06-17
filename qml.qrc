@@ -10,5 +10,6 @@
         <file>Gameplay.qml</file>
         <file>items/MenuButton.qml</file>
         <file>images/menuBackground.png</file>
+        <file>InformationBlock.qml</file>
     </qresource>
 </RCC>

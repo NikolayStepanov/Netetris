@@ -43,7 +43,7 @@ enum Color{
 
 const int number_color = 12;
 
-static QString strColor(Color color)
+inline QString strColor(Color color)
 {
     QString colorStr = "no";
     switch (color)

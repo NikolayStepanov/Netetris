@@ -14,6 +14,13 @@ void Bootstrapper::initialize()
     gameLogicManager->initialize(this);
 }
 
+Bootstrapper::~Bootstrapper()
+{
+    delete m_generator;
+    delete boardManager;
+    delete gameLogicManager;
+}
+
 BoardManager *Bootstrapper::getBoardManager()
 {
     return boardManager;
