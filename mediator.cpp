@@ -85,6 +85,13 @@ void Mediator::actionFigure(FigureAction actionFigure)
     gameLogicManager->actionFigure(actionFigure);
 }
 
+void Mediator::newGame()
+{
+    boardManager->createBoard(20,20);
+    gameLogicManager->newGame();
+    gameLogicManager->startGame();
+}
+
 void Mediator::slotUpdateCell(size_t index)
 {
     emit updateCell(index);

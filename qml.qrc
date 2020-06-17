@@ -6,5 +6,9 @@
         <file>NextFigure.qml</file>
         <file>items/Text.qml</file>
         <file>items/Button.qml</file>
+        <file>images/menuВackground.png</file>
+        <file>MainMenu.qml</file>
+        <file>Gameplay.qml</file>
+        <file>items/MenuButton.qml</file>
     </qresource>
 </RCC>

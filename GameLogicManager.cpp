@@ -14,14 +14,41 @@ void GameLogicManager::initialize(Bootstrapper *boostrap)
 {
     boardManager = boostrap->getBoardManager();
     m_generator = boostrap->getGenerator();
+    currentFigure = m_generator->randomFigure();
 
+    /*indexHorizontalCenter = (boardManager->getWidthBoard()/2)-1;
+    horizontalLineMaxFigures =(boardManager->getHeightBoard()*0.2);
+
+    boardAllInformationCurrent.reserve(boardManager->getNumderCells());
+    nextFigure = m_generator->randomFigure();
+    currentFigure = m_generator->randomFigure();
+    nextStep();*/
+}
+
+void GameLogicManager::newGame()
+{
     indexHorizontalCenter = (boardManager->getWidthBoard()/2)-1;
     horizontalLineMaxFigures =(boardManager->getHeightBoard()*0.2);
 
     boardAllInformationCurrent.reserve(boardManager->getNumderCells());
     nextFigure = m_generator->randomFigure();
     currentFigure = m_generator->randomFigure();
-    nextStep();
+    //nextStep();
+}
+
+void GameLogicManager::gameOver()
+{
+
+}
+
+void GameLogicManager::startGame()
+{
+    timerDownMove->start();
+}
+
+void GameLogicManager::stopGame()
+{
+    timerDownMove->stop();
 }
 
 void GameLogicManager::nextStep()
@@ -47,7 +74,14 @@ void GameLogicManager::generateNextFigure()
 
 CellInformation GameLogicManager::getCellNextFigure(QPoint coordinat)
 {
-    return nextFigure.cellsInformation[coordinat.y()*4+coordinat.x()];
+    if(!nextFigure.cellsInformation.isEmpty())
+    {
+        return nextFigure.cellsInformation[coordinat.y()*4+coordinat.x()];
+    }
+    else
+    {
+        return CellInformation();
+    };
 }
 
 bool GameLogicManager::deleteWholeLines()

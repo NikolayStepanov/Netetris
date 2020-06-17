@@ -33,6 +33,8 @@ public:
 
     //GameLogic
     void actionFigure(FigureAction actionFigure);
+    void newGame();
+
 
 signals:
     void updateCell(size_t index);

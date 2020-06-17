@@ -17,6 +17,12 @@ public:
     explicit GameLogicManager(QObject *parent = nullptr);
     void initialize(Bootstrapper* boostrap);
 
+    void newGame();
+    void gameOver();
+
+    void startGame();
+    void stopGame();
+
     void nextStep();
     void generateNextFigure();
 

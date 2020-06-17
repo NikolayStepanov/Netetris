@@ -1,8 +1,29 @@
 #include "NetetrisModel.h"
+#include "mediator.h"
 
 NetetrisModel::NetetrisModel(QObject *parent)
 {
-    mediator=Mediator::getInstance();
+    mediator = Mediator::getInstance();
+}
+
+void NetetrisModel::newGame()
+{
+    mediator->newGame();
+}
+
+void NetetrisModel::startGame()
+{
+
+}
+
+void NetetrisModel::stopGame()
+{
+
+}
+
+void NetetrisModel::quitGame()
+{
+
 }
 
 void NetetrisModel::rotate()
