@@ -21,6 +21,7 @@ public:
     Q_INVOKABLE void stopGame();
     Q_INVOKABLE void quitGame();
 
+    Q_INVOKABLE void fixFigure();
     Q_INVOKABLE void rotate();
     Q_INVOKABLE void moveTop();
     Q_INVOKABLE void moveDown();

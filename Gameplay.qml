@@ -74,6 +74,11 @@ Item {
     }
     Shortcut
     {
+        sequence: "Return";
+        onActivated: netetrisModel.fixFigure();
+    }
+    Shortcut
+    {
         sequence: "Space";
         onActivated: netetrisModel.rotate();
     }

@@ -41,6 +41,7 @@ public:
     QVector<CellInformation> getCellsInformationBoxCurrentFigure(QPoint coordinateOffset);
 
     bool moveFigure(QPoint coordinateOffset = QPoint(0,0));
+    bool fixCurrentFigure();
     bool rotationFigure();
     FigureBox rotationFigureInBox(FigureBox figureBox);
 

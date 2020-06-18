@@ -234,6 +234,11 @@ void GameLogicManager::actionFigure(FigureAction actionFigure )
 {
     switch (actionFigure)
     {
+    case FIX:
+    {
+        fixCurrentFigure();
+        break;
+    }
     case ROTATE:
     {
         rotationFigure();
@@ -281,6 +286,29 @@ bool GameLogicManager::moveFigure(QPoint coordinateOffset)
         isMovedFigure = true;
     }
     return isMovedFigure;
+}
+
+bool GameLogicManager::fixCurrentFigure()
+{
+    bool b_fixCurrent=true;
+
+    for(auto indexNonEmptyCell:m_currentFigure.indicesNonEmptyCell)
+    {
+        int coordinatX=m_currentFigure.cellsInformation[indexNonEmptyCell].coordinates.x();
+        int coordinatY=m_currentFigure.cellsInformation[indexNonEmptyCell].coordinates.y();
+
+        if(coordinatX<m_minXY.x()||coordinatX>m_maxXY.x()||coordinatY<m_minXY.y()||coordinatY>m_maxXY.y())
+        {
+            b_fixCurrent=false;
+            break;
+        }
+    }
+    if(b_fixCurrent)
+    {
+        nextStep();
+    }
+
+    return b_fixCurrent;
 }
 
 bool GameLogicManager::rotationFigure()

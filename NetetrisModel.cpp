@@ -38,6 +38,11 @@ void NetetrisModel::quitGame()
 
 }
 
+void NetetrisModel::fixFigure()
+{
+    mediator->actionFigure(FigureAction::FIX);
+}
+
 void NetetrisModel::rotate()
 {
     mediator->actionFigure(FigureAction::ROTATE);
