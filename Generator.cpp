@@ -45,10 +45,11 @@ QVector<CellInformation> Generator::emptyBox4x4ForFigure()
     }
 
     int index = 0;
-    int xStart = (boardManager->getWidthBoard()/2)-2;
-    for(int y=-4;y<0;y++)
+    int xStart = 0;
+
+    for(int y=0;y<size_boxing_border;y++)
     {
-        for(int x=xStart;x<(xStart+4);x++)
+        for(int x=xStart;x<(xStart+size_boxing_border);x++)
         {
             boxFigure[index].coordinates.setX(x);
             boxFigure[index].coordinates.setY(y);

@@ -72,11 +72,15 @@ Item {
     {
         id: netetrisModel
     }
-
+    Shortcut
+    {
+        sequence: "Space";
+        onActivated: netetrisModel.rotate();
+    }
     Shortcut
     {
         sequence: "Up"
-        onActivated: netetrisModel.rotate();
+        onActivated: netetrisModel.moveTop();
     }
     Shortcut
     {

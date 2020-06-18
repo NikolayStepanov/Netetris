@@ -2,12 +2,10 @@
 #include <bootstrapper.h>
 #include <QPoint>
 
-GameLogicManager::GameLogicManager(QObject *parent) : QObject(parent),m_pGenerator(nullptr)
+GameLogicManager::GameLogicManager(QObject *parent) : QObject(parent),
+    m_pGenerator(nullptr),m_pBoardManager(nullptr),m_minXY(0,0),m_maxXY(0,0)
 {
-    m_pTimerDownMove = new QTimer(this);
-    m_pTimerDownMove->setInterval(1000);
 
-    connect(m_pTimerDownMove,SIGNAL(timeout()),this,SLOT(actionFigure()));
 }
 
 void GameLogicManager::initialize(Bootstrapper *boostrap)
@@ -15,6 +13,13 @@ void GameLogicManager::initialize(Bootstrapper *boostrap)
     m_pBoardManager = boostrap->getBoardManager();
     m_pGenerator = boostrap->getGenerator();
     m_numberLines = 0;
+
+    m_minXY.setX(size_boxing_border);
+    m_minXY.setY(size_boxing_border);
+    m_maxXY.setX(m_pBoardManager->getWidthBoard()-size_boxing_border-1);
+    m_maxXY.setY(m_pBoardManager->getHeightBoard()-size_boxing_border-1);
+
+
     //m_currentFigure = m_pGenerator->randomFigure();
 
     /*indexHorizontalCenter = (boardManager->getWidthBoard()/2)-1;
@@ -28,13 +33,10 @@ void GameLogicManager::initialize(Bootstrapper *boostrap)
 
 void GameLogicManager::newGame()
 {
-    m_indexHorizontalCenter = (m_pBoardManager->getWidthBoard()/2)-1;
-    m_horizontalLineMaxFigures =(m_pBoardManager->getHeightBoard()*0.2);
-
     m_boardAllInformationCurrent.reserve(m_pBoardManager->getNumderCells());
     m_nextFigure = m_pGenerator->randomFigure();
-    m_currentFigure = m_pGenerator->randomFigure();
-    //nextStep();
+    //m_currentFigure = m_pGenerator->randomFigure();
+    nextStep();
 }
 
 void GameLogicManager::gameOver()
@@ -44,12 +46,12 @@ void GameLogicManager::gameOver()
 
 void GameLogicManager::startGame()
 {
-    m_pTimerDownMove->start();
+
 }
 
 void GameLogicManager::stopGame()
 {
-    m_pTimerDownMove->stop();
+
 }
 
 void GameLogicManager::addLinesPoints()
@@ -60,8 +62,6 @@ void GameLogicManager::addLinesPoints()
 
 void GameLogicManager::nextStep()
 {
-    m_pTimerDownMove->stop();
-
     m_boardAllInformationCurrent = m_pBoardManager->getAllCellsInformation();
     if(deleteWholeLines())
     {
@@ -69,8 +69,8 @@ void GameLogicManager::nextStep()
     }
 
     m_currentFigure = m_nextFigure;
+    moveFigure();
     generateNextFigure();
-    m_pTimerDownMove->start();
 }
 
 void GameLogicManager::generateNextFigure()
@@ -104,12 +104,13 @@ bool GameLogicManager::deleteWholeLines()
 bool GameLogicManager::deleteColumns()
 {
     bool b_delete=false;
+
     int columns = m_pBoardManager->getWidthBoard();
-    int rows = m_pBoardManager->getHeightBoard();
-    for(int column=0; column<columns; column++)
+
+    for(int column=m_minXY.x(); column<=m_maxXY.x(); column++)
     {
         bool deleteRow = true;
-        for(int row=m_horizontalLineMaxFigures; row<rows; row++)
+        for(int row=m_minXY.y(); row<=m_maxXY.y(); row++)
         {
             if(m_boardAllInformationCurrent[columns*row+column].type==EMPTY)
             {
@@ -131,12 +132,13 @@ bool GameLogicManager::deleteColumns()
 bool GameLogicManager::deleteRows()
 {
     bool b_delete=false;
+
     int columns = m_pBoardManager->getWidthBoard();
-    int rows = m_pBoardManager->getHeightBoard();
-    for(int row=m_horizontalLineMaxFigures; row<rows; row++)
+
+    for(int row=m_minXY.y(); row<=m_maxXY.y(); row++)
     {
         bool deleteRow = true;
-        for(int column=0; column<columns; column++)
+        for(int column=m_minXY.x(); column<=m_maxXY.x(); column++)
         {
             if(m_boardAllInformationCurrent[columns*row+column].type==EMPTY)
             {
@@ -163,7 +165,8 @@ bool GameLogicManager::canPutFigureInBox(FigureBox &figureBox, QVector<CellInfor
         if( cellInformation.type!=EMPTY ||
                 cellInformation.coordinates.x()<0 ||
                 cellInformation.coordinates.x()>=(static_cast<int>(m_pBoardManager->getWidthBoard())) ||
-                cellInformation.coordinates.y()>=(static_cast<int>(m_pBoardManager->getHeightBoard())))
+                cellInformation.coordinates.y()>=(static_cast<int>(m_pBoardManager->getHeightBoard())) ||
+                cellInformation.coordinates.y()<0)
         {
             return false;
         }
@@ -236,15 +239,14 @@ void GameLogicManager::actionFigure(FigureAction actionFigure )
         rotationFigure();
         break;
     }
+    case MOVE_TOP:
+    {
+        moveFigure(QPoint(0,-1));
+        break;
+    }
     case MOVE_DOWN:
     {
-        bool b_moveDown = false;
-
-        b_moveDown=moveFigure(QPoint(0,1));
-        if(!b_moveDown)
-        {
-            nextStep();
-        }
+        moveFigure(QPoint(0,1));
         break;
     }
     case MOVE_RIGHT:

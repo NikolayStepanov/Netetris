@@ -10,6 +10,7 @@
 enum FigureAction
 {
     ROTATE,
+    MOVE_TOP,
     MOVE_DOWN,
     MOVE_RIGHT,
     MOVE_LEFT

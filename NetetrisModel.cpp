@@ -43,6 +43,11 @@ void NetetrisModel::rotate()
     mediator->actionFigure(FigureAction::ROTATE);
 }
 
+void NetetrisModel::moveTop()
+{
+    mediator->actionFigure(FigureAction::MOVE_TOP);
+}
+
 void NetetrisModel::moveDown()
 {
     mediator->actionFigure(FigureAction::MOVE_DOWN);

@@ -40,7 +40,7 @@ public:
 
     QVector<CellInformation> getCellsInformationBoxCurrentFigure(QPoint coordinateOffset);
 
-    bool moveFigure(QPoint coordinateOffset);
+    bool moveFigure(QPoint coordinateOffset = QPoint(0,0));
     bool rotationFigure();
     FigureBox rotationFigureInBox(FigureBox figureBox);
 
@@ -58,8 +58,6 @@ private:
     BoardManager * m_pBoardManager;
     Generator * m_pGenerator;
 
-    QTimer * m_pTimerDownMove;
-
     QVector<CellInformation> m_boardAllInformationCurrent;
 
     FigureBox m_nextFigure;
@@ -67,8 +65,8 @@ private:
 
     int m_numberLines;
 
-    size_t m_indexHorizontalCenter;
-    int m_horizontalLineMaxFigures;
+    QPoint m_minXY;
+    QPoint m_maxXY;
 };
 
 #endif // GAMELOGICMANAGER_H

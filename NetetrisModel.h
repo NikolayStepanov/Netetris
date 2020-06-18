@@ -22,6 +22,7 @@ public:
     Q_INVOKABLE void quitGame();
 
     Q_INVOKABLE void rotate();
+    Q_INVOKABLE void moveTop();
     Q_INVOKABLE void moveDown();
     Q_INVOKABLE void moveLeft();
     Q_INVOKABLE void moveRight();

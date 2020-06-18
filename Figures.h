@@ -5,6 +5,7 @@
 #include <common.h>
 #include <QColor>
 
+const int size_boxing_border = 4;
 const int number_figures= 7;
 const int number_cells_for_figure = 16;
 const int number_non_empty_cell = 4;
