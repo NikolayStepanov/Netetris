@@ -13,7 +13,7 @@ void BoardManager::initialize(Bootstrapper *boostrap)
 
 BoardManager::BoardManager():board(nullptr)
 {
-    board = new Board(20,20);
+    board = new Board(24,24);
 }
 
 BoardManager::~BoardManager()

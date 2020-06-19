@@ -44,6 +44,7 @@ public:
 
     Q_INVOKABLE int getRow() const;
     Q_INVOKABLE int getColum() const;
+    Q_INVOKABLE bool isBorder(int x,int y) const;
 
 public slots:
     void slotCellUpdate(size_t indexCell);

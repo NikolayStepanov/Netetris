@@ -35,6 +35,9 @@ public:
     void actionFigure(FigureAction actionFigure);
     void newGame();
     int getNumberLines();
+    QPoint minCoordinateBorder() const;
+    QPoint maxCoordinateBorder() const;
+    bool isBorder(QPoint coordinate)const;
 
 signals:
     void updateCell(size_t index);

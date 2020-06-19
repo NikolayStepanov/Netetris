@@ -88,7 +88,7 @@ Item {
             }
             Shortcut
             {
-                sequence: "Enter"
+                sequence: "Return"
                 onActivated: view.currentItem.clicked()
             }
         }

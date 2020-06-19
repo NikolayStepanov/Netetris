@@ -100,8 +100,7 @@ struct CellInformation
     CellInformation& operator= (const CellInformation &) = default;
 
     QPoint coordinates = QPoint(-1,-1);
-    //size_t x = UINT64_MAX;
-    //size_t y = UINT64_MAX;
+
     size_t index = UINT64_MAX;
 
     QString color = "white";

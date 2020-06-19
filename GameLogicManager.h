@@ -46,8 +46,12 @@ public:
     FigureBox rotationFigureInBox(FigureBox figureBox);
 
     bool cellsContainedInBox(QVector<CellInformation> cellsInformation, FigureBox figureBox) const;
+
     //get
     bool getNumberLines() const;
+    QPoint getMinXY() const;
+    QPoint getMaxXY() const;
+    bool isCoordinateBorder(QPoint coordinate) const;
 signals:
     void updateNextFigure();
     void updateNumberLines(int lines);

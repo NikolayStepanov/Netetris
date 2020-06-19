@@ -20,6 +20,7 @@ Item {
             id: cell
             implicitWidth: 40
             implicitHeight: 40
+            opacity: boardModel.isBorder(xCell,yCell)?0.5:1
             border
             {
                 width: 1

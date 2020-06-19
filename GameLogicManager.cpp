@@ -413,3 +413,24 @@ bool GameLogicManager::getNumberLines() const
 {
     return m_numberLines;
 }
+
+QPoint GameLogicManager::getMinXY() const
+{
+    return m_minXY;
+}
+
+QPoint GameLogicManager::getMaxXY() const
+{
+    return m_maxXY;
+}
+
+bool GameLogicManager::isCoordinateBorder(QPoint coordinate) const
+{
+    bool b_isCoordinatesBorder = false;
+    if(coordinate.x()<m_minXY.x()||coordinate.x()>m_maxXY.x()||
+            coordinate.y()<m_minXY.y()||coordinate.y()>m_maxXY.y())
+    {
+        b_isCoordinatesBorder = true;
+    }
+    return b_isCoordinatesBorder;
+}

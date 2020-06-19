@@ -35,24 +35,12 @@ Item {
         }
         ColumnLayout
         {
-            //width: parent.width*0.3
-            //height: parent.height
-
             NextFigure
             {
                 id:nextFigure
                 width: 400
                 height: 400
             }
-
-            /*InformationBlock
-        {
-            id:infoBlock
-            width: parent.width
-            height: parent.height
-            lines: netetrisModel.number_lines
-        }*/
-
 
             NetetrrisItems.Text{
                 id: linesText

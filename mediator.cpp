@@ -87,7 +87,7 @@ void Mediator::actionFigure(FigureAction actionFigure)
 
 void Mediator::newGame()
 {
-    boardManager->createBoard(20,20);
+    boardManager->createBoard(24,24);
     gameLogicManager->newGame();
     gameLogicManager->startGame();
 }
@@ -95,6 +95,21 @@ void Mediator::newGame()
 int Mediator::getNumberLines()
 {
     return gameLogicManager->getNumberLines();
+}
+
+QPoint Mediator::minCoordinateBorder() const
+{
+    return gameLogicManager->getMinXY();
+}
+
+QPoint Mediator::maxCoordinateBorder() const
+{
+    return gameLogicManager->getMaxXY();
+}
+
+bool Mediator::isBorder(QPoint coordinate) const
+{
+    return gameLogicManager->isCoordinateBorder(coordinate);
 }
 
 void Mediator::slotUpdateCell(size_t index)

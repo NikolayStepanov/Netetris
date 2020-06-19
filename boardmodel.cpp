@@ -73,6 +73,11 @@ int BoardModel::getColum() const
     return mediator->getColumnCountBoard();
 }
 
+bool BoardModel::isBorder(int x, int y) const
+{
+    return mediator->isBorder(QPoint(x,y));
+}
+
 void BoardModel::slotCellUpdate(size_t indexCell)
 {
     QPoint pointUpdate = mediator->getPointForIndex(indexCell);
