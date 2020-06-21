@@ -1,29 +1,28 @@
 #include "Generator.h"
-#include <bootstrapper.h>
+
 #include <QTime>
-#include <Figures.h>
 
-Generator::~Generator()
-{
-
-}
+#include <bootstrapper.h>
+#include "Figures.h"
 
 QString Generator::randomColor()
 {
-    Color color = static_cast<Color>(qrand()%(number_color-2)+2);
+    Color color = static_cast<Color>(qrand() % (number_color - 2) + 2);
+
     return strColor(color);
 }
 
 FigureBox Generator::randomFigure()
 {
     QString color = randomColor();
-    FigureType typeFigure = static_cast<FigureType>(qrand()% number_figures);
+    FigureType typeFigure = static_cast<FigureType>(qrand() % NUMBER_FIGURES);
 
     FigureBox figureRandBox;
+
     figureRandBox.cellsInformation = emptyBox4x4ForFigure();
     figureRandBox.color = QColor(color);
     figureRandBox.type = typeFigure;
-    figureRandBox.indicesNonEmptyCell = figures[typeFigure];
+    figureRandBox.indicesNonEmptyCell = FIGURES[typeFigure];
 
     for(auto index:figureRandBox.indicesNonEmptyCell)
     {
@@ -37,9 +36,9 @@ FigureBox Generator::randomFigure()
 QVector<CellInformation> Generator::emptyBox4x4ForFigure()
 {
     QVector<CellInformation> boxFigure;
-    boxFigure.reserve(number_cells_for_figure);
+    boxFigure.reserve(NUMBER_CELLS_FOR_FIGURE);
 
-    for(int i = 0; i< number_cells_for_figure; i++)
+    for(int i = 0; i< NUMBER_CELLS_FOR_FIGURE; i++)
     {
         boxFigure.push_back(CellInformation());
     }
@@ -47,9 +46,9 @@ QVector<CellInformation> Generator::emptyBox4x4ForFigure()
     int index = 0;
     int xStart = 0;
 
-    for(int y=0;y<size_boxing_border;y++)
+    for(int y=0;y<SIZE_BOXING_BORDER;y++)
     {
-        for(int x=xStart;x<(xStart+size_boxing_border);x++)
+        for(int x=xStart;x<(xStart+SIZE_BOXING_BORDER);x++)
         {
             boxFigure[index].coordinates.setX(x);
             boxFigure[index].coordinates.setY(y);

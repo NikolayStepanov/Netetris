@@ -1,9 +1,9 @@
 #ifndef MEDIATOR_H
 #define MEDIATOR_H
 
-#include "common.h"
-
 #include <QObject>
+
+#include "common.h"
 
 class BoardManager;
 class GameLogicManager;
@@ -18,12 +18,11 @@ public:
     void initialize();
     ~Mediator();
 
-    //BoardModel
-    int getRowCountBoard() const;
-    int getColumnCountBoard();
-
     //BoardManager
-    size_t getWidthBoard();
+    int getRowCountBoard() const;
+    int getColumnCountBoard() const;
+
+    size_t getWidthBoard() const;
     size_t getHeightBoard() const;
     CellInformation getCellInformation(const QModelIndex &index);
     QPoint getPointForIndex(size_t index);
@@ -31,13 +30,14 @@ public:
     //GameLogicManager
     CellInformation getCellInformationNextFigure(const QModelIndex &index);
 
-    //GameLogic
     void actionFigure(FigureAction actionFigure);
     void newGame();
+
+    bool isBorder(QPoint coordinate)const;
     int getNumberLines();
+
     QPoint minCoordinateBorder() const;
     QPoint maxCoordinateBorder() const;
-    bool isBorder(QPoint coordinate)const;
 
 signals:
     void updateCell(size_t index);

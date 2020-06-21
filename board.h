@@ -4,7 +4,7 @@
 #include <QVector>
 #include <QMap>
 
-#include <cell.h>
+#include "cell.h"
 
 class Board
 {
@@ -19,7 +19,6 @@ public:
 
     //set
     bool setCellInformation(const CellInformation cellInformation);
-
     void clearCell(const size_t index);
 
     //get CellInformation

@@ -12,9 +12,10 @@ class BoardManager:public QObject
 {
     Q_OBJECT
 public:
-    void initialize(Bootstrapper* boostrap);
     BoardManager();
     ~BoardManager();
+
+    void initialize(Bootstrapper* boostrap);
 
     bool createBoard(size_t width,size_t height);
 
@@ -26,14 +27,14 @@ public:
     void setCellInformation(const CellInformation cellInformation);
     void clearRow(size_t row);
     void clearColumn(size_t column);
-    void clearCell(const size_t cellIndex);
+    void clearCell(size_t cellIndex);
 
-    CellInformation getCellInformation(const size_t cellIndex) const;
+    CellInformation getCellInformation(size_t cellIndex) const;
     QVector<CellInformation> getAllCellsInformation() const;
-    QList<CellInformation>getCellsInformation(const QList<size_t> cellIndices) const;
-    QList<CellInformation>getCellsInformation(const QList<QPoint> cellPoints) const;
+    QList<CellInformation>getCellsInformation(QList<size_t> cellIndices) const;
+    QList<CellInformation>getCellsInformation(QList<QPoint> cellPoints) const;
 
-    bool areCellIndexValid(const size_t cellIndex) const;
+    bool areCellIndexValid(size_t cellIndex) const;
     bool areCellCoordinatesValid(const QPoint &coordinates) const;
 
     QVector<QPoint> cellsCoordinatesFromIndices(QVector<size_t> cellIndices) const;

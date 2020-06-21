@@ -1,26 +1,31 @@
 #include "cell.h"
 
 Cell::Cell():
-    m_x(UINT64_MAX),m_y(UINT64_MAX),
-    m_index(UINT64_MAX),m_color("white"),m_type(EMPTY)
+    m_x(UINT64_MAX),
+    m_y(UINT64_MAX),
+    m_index(UINT64_MAX),
+    m_color("white"),
+    m_type(EMPTY)
 {
 
 }
 
 Cell::Cell(size_t index):
-    m_x(UINT64_MAX),m_y(UINT64_MAX),
-    m_index(index),m_color("white"),m_type(EMPTY)
+    m_x(UINT64_MAX),
+    m_y(UINT64_MAX),
+    m_index(index),
+    m_color("white"),
+    m_type(EMPTY)
 {
 
 }
 
-Cell::Cell(size_t x, size_t y, size_t index):m_x(x),m_y(y),
-    m_index(index),m_color("white"),m_type(EMPTY)
-{
-
-}
-
-Cell::~Cell()
+Cell::Cell(size_t x, size_t y, size_t index):
+    m_x(x),
+    m_y(y),
+    m_index(index),
+    m_color("white"),
+    m_type(EMPTY)
 {
 
 }

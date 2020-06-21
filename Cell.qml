@@ -6,5 +6,4 @@ Item {
     Rectangle {
         color:"#ffffff"
     }
-
 }

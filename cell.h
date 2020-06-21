@@ -1,10 +1,7 @@
 #ifndef CELL_H
 #define CELL_H
 
-#include <string.h>
-#include <QString>
 #include "common.h"
-
 
 class Cell
 {
@@ -12,10 +9,9 @@ public:
     Cell();
     Cell(size_t index);
     Cell(size_t x, size_t y,size_t index);
-    ~Cell();
-
 
     bool isEmpty();
+
     //set
     void setX(size_t x);
     void setY(size_t y);

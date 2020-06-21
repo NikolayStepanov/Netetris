@@ -1,16 +1,18 @@
 #ifndef BOOTSTRAPPER_H
 #define BOOTSTRAPPER_H
 
-#include <BoardManager.h>
-#include <GameLogicManager.h>
-#include <Generator.h>
+#include "BoardManager.h"
+#include "GameLogicManager.h"
+#include "Generator.h"
 
 class Bootstrapper
 {
 public:
     Bootstrapper();
-    void initialize();
     ~Bootstrapper();
+
+    void initialize();
+
     //get
     BoardManager *getBoardManager();
     GameLogicManager *getLogicManager();

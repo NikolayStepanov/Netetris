@@ -1,8 +1,9 @@
 #include "mediator.h"
 
-#include <bootstrapper.h>
 #include <QPoint>
 #include <QModelIndex>
+
+#include "bootstrapper.h"
 
 Mediator * Mediator::p_instance = nullptr;
 
@@ -23,6 +24,7 @@ Mediator *Mediator::getInstance()
 void Mediator::initialize()
 {
     bootstrapper->initialize();
+
     boardManager = bootstrapper->getBoardManager();
     gameLogicManager = bootstrapper->getLogicManager();
 
@@ -38,7 +40,11 @@ void Mediator::initialize()
 
 Mediator::~Mediator()
 {
-    delete bootstrapper;
+    if(bootstrapper!=nullptr)
+    {
+        delete bootstrapper;
+        bootstrapper = nullptr;
+    }
 }
 
 int Mediator::getRowCountBoard() const
@@ -46,12 +52,12 @@ int Mediator::getRowCountBoard() const
     return getHeightBoard();
 }
 
-int Mediator::getColumnCountBoard()
+int Mediator::getColumnCountBoard() const
 {
     return getWidthBoard();
 }
 
-size_t Mediator::getWidthBoard()
+size_t Mediator::getWidthBoard() const
 {
     return boardManager->getWidthBoard();
 }

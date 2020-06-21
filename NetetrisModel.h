@@ -2,6 +2,7 @@
 #define NETETRISMODEL_H
 
 #include <QObject>
+
 #include "common.h"
 
 class Mediator;

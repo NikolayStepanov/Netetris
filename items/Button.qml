@@ -5,5 +5,4 @@ Button {
     id: root
     implicitWidth: 40
     implicitHeight: 40
-
 }

@@ -2,16 +2,17 @@
 #define FIGURES_H
 
 #include <QVector>
-#include <common.h>
 #include <QColor>
 
-const int size_boxing_border = 4;
-const int number_figures= 7;
-const int number_cells_for_figure = 16;
-const int number_non_empty_cell = 4;
-const int index_center_of_rotation_figure = 6;
+#include "common.h"
 
-static QVector <QVector<size_t>> figures
+const int SIZE_BOXING_BORDER = 4;
+const int NUMBER_FIGURES = 7;
+const int NUMBER_CELLS_FOR_FIGURE = 16;
+const int NUMBER_NON_EMPTY_CELL = 4;
+const int INDEX_CENTER_OF_ROTATION_FIGURE = 6;
+
+static QVector <QVector<size_t>> FIGURES
 {
     {5,6,7,9},  // L
     {4,5,6,7},  // I
@@ -26,8 +27,8 @@ struct FigureBox
 {
     FigureBox()
     {
-        cellsInformation.reserve(number_cells_for_figure);
-        indicesNonEmptyCell.reserve(number_non_empty_cell);
+        cellsInformation.reserve(NUMBER_CELLS_FOR_FIGURE);
+        indicesNonEmptyCell.reserve(NUMBER_NON_EMPTY_CELL);
     }
 
     CellInformation getCellInformation(size_t index) const

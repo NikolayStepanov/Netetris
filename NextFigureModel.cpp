@@ -1,10 +1,13 @@
 #include "NextFigureModel.h"
 #include "mediator.h"
+#include <QObject>
 
-NextFigureModel::NextFigureModel(QObject *parent)
+NextFigureModel::NextFigureModel(QObject *parent):
+    QAbstractTableModel(parent)
 {
     mediator = Mediator::getInstance();
     mediator->initialize();
+
     connect(mediator,&Mediator::updateNextFigure,this,&NextFigureModel::slotUpdateNextFigure);
 }
 
@@ -44,25 +47,7 @@ QVariant NextFigureModel::data(const QModelIndex &index, int role) const
     }
 }
 
-bool NextFigureModel::setData(const QModelIndex &index, const QVariant &value, int role)
-{
-    if (data(index, role) == value)
-        return false;
-
-    emit dataChanged(index, index, {role});
-
-    return true;
-}
-
-Qt::ItemFlags NextFigureModel::flags(const QModelIndex &index) const
-{
-    if (!index.isValid())
-        return Qt::NoItemFlags;
-
-    return Qt::ItemIsEditable;
-}
-
 void NextFigureModel::slotUpdateNextFigure()
 {
-     emit dataChanged(index(0,0),index(3,3));
+    emit dataChanged(index(0,0),index(3,3));
 }
