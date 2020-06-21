@@ -94,7 +94,12 @@ CellInformation GameLogicManager::getCellNextFigure(QPoint coordinat)
 bool GameLogicManager::deleteWholeLines()
 {
     bool b_delete=false;
-    if(deleteColumns() || deleteRows())
+
+    if(deleteColumns())
+    {
+        b_delete = true;
+    }
+    if(deleteRows())
     {
         b_delete = true;
     }
