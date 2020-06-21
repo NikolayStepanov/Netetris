@@ -1,20 +1,22 @@
 #ifndef GAMELOGICMANAGER_H
 #define GAMELOGICMANAGER_H
 
-
-#include <cell.h>
-#include <Figures.h>
-#include <QObject>
-#include <BoardManager.h>
 #include <QTimer>
+#include <QObject>
+
+#include "cell.h"
+#include "Figures.h"
+
 class Bootstrapper;
 class Generator;
+class BoardManager;
 
 class GameLogicManager : public QObject
 {
     Q_OBJECT
 public:
     explicit GameLogicManager(QObject *parent = nullptr);
+
     void initialize(Bootstrapper* boostrap);
 
     void newGame();
@@ -49,9 +51,10 @@ public:
 
     //get
     bool getNumberLines() const;
+    bool isCoordinateBorder(QPoint coordinate) const;
     QPoint getMinXY() const;
     QPoint getMaxXY() const;
-    bool isCoordinateBorder(QPoint coordinate) const;
+
 signals:
     void updateNextFigure();
     void updateNumberLines(int lines);

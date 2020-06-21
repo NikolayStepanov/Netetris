@@ -1,9 +1,16 @@
 #include "GameLogicManager.h"
-#include <bootstrapper.h>
+
 #include <QPoint>
 
-GameLogicManager::GameLogicManager(QObject *parent) : QObject(parent),
-    m_pGenerator(nullptr),m_pBoardManager(nullptr),m_minXY(0,0),m_maxXY(0,0)
+#include <bootstrapper.h>
+
+
+GameLogicManager::GameLogicManager(QObject *parent) :
+    QObject(parent),
+    m_pBoardManager(nullptr),
+    m_pGenerator(nullptr),
+    m_minXY(0,0),
+    m_maxXY(0,0)
 {
 
 }
@@ -12,30 +19,19 @@ void GameLogicManager::initialize(Bootstrapper *boostrap)
 {
     m_pBoardManager = boostrap->getBoardManager();
     m_pGenerator = boostrap->getGenerator();
+
     m_numberLines = 0;
 
-    m_minXY.setX(size_boxing_border);
-    m_minXY.setY(size_boxing_border);
-    m_maxXY.setX(m_pBoardManager->getWidthBoard()-size_boxing_border-1);
-    m_maxXY.setY(m_pBoardManager->getHeightBoard()-size_boxing_border-1);
-
-
-    //m_currentFigure = m_pGenerator->randomFigure();
-
-    /*indexHorizontalCenter = (boardManager->getWidthBoard()/2)-1;
-    horizontalLineMaxFigures =(boardManager->getHeightBoard()*0.2);
-
-    boardAllInformationCurrent.reserve(boardManager->getNumderCells());
-    nextFigure = m_generator->randomFigure();
-    currentFigure = m_generator->randomFigure();
-    nextStep();*/
+    m_minXY.setX(SIZE_BOXING_BORDER);
+    m_minXY.setY(SIZE_BOXING_BORDER);
+    m_maxXY.setX(m_pBoardManager->getWidthBoard()-SIZE_BOXING_BORDER-1);
+    m_maxXY.setY(m_pBoardManager->getHeightBoard()-SIZE_BOXING_BORDER-1);
 }
 
 void GameLogicManager::newGame()
 {
     m_boardAllInformationCurrent.reserve(m_pBoardManager->getNumderCells());
     m_nextFigure = m_pGenerator->randomFigure();
-    //m_currentFigure = m_pGenerator->randomFigure();
     nextStep();
 }
 
@@ -56,7 +52,7 @@ void GameLogicManager::stopGame()
 
 void GameLogicManager::addLinesPoints()
 {
-    m_numberLines=m_numberLines+1;
+    m_numberLines++;
     emit updateNumberLines(m_numberLines);
 }
 
@@ -103,6 +99,7 @@ bool GameLogicManager::deleteWholeLines()
     {
         b_delete = true;
     }
+
     return b_delete;
 }
 
@@ -131,6 +128,7 @@ bool GameLogicManager::deleteColumns()
             b_delete=true;
         }
     }
+
     return b_delete;
 }
 
@@ -159,6 +157,7 @@ bool GameLogicManager::deleteRows()
             b_delete=true;
         }
     }
+
     return b_delete;
 }
 
@@ -176,6 +175,7 @@ bool GameLogicManager::canPutFigureInBox(FigureBox &figureBox, QVector<CellInfor
             return false;
         }
     }
+
     return true;
 }
 
@@ -207,7 +207,7 @@ void GameLogicManager::putFigureInBoard(FigureBox &currentFigure, QVector<CellIn
 QVector<CellInformation> GameLogicManager::getCellsInformationBoxCurrentFigure(QPoint coordinateOffset)
 {
     QVector<CellInformation> cellsInformationBox;
-    cellsInformationBox.reserve(number_cells_for_figure);
+    cellsInformationBox.reserve(NUMBER_CELLS_FOR_FIGURE);
 
     for(auto cellInfFigure: m_currentFigure.cellsInformation)
     {
@@ -279,8 +279,9 @@ void GameLogicManager::actionFigure(FigureAction actionFigure )
 bool GameLogicManager::moveFigure(QPoint coordinateOffset)
 {
     bool isMovedFigure = false;
+
     QVector<CellInformation> cellsInformationBox;
-    cellsInformationBox.reserve(number_cells_for_figure);
+    cellsInformationBox.reserve(NUMBER_CELLS_FOR_FIGURE);
 
     cellsInformationBox=getCellsInformationBoxCurrentFigure(coordinateOffset);
 
@@ -321,7 +322,7 @@ bool GameLogicManager::rotationFigure()
     bool isRotateFigure = false;
 
     QVector<CellInformation> cellsInformationBox;
-    cellsInformationBox.reserve(number_cells_for_figure);
+    cellsInformationBox.reserve(NUMBER_CELLS_FOR_FIGURE);
 
     FigureBox rotationFigureBox;
 
@@ -341,19 +342,20 @@ bool GameLogicManager::rotationFigure()
         putFigureInBoard(m_currentFigure,cellsInformationBox);
         isRotateFigure = true;
     }
+
     return isRotateFigure;
 }
 
 FigureBox GameLogicManager::rotationFigureInBox(FigureBox figureBox)
 {
     FigureBox rotationFigureBox = figureBox;
-    QPoint centerRotation = figureBox.cellsInformation[index_center_of_rotation_figure].coordinates;
+    QPoint centerRotation = figureBox.cellsInformation[INDEX_CENTER_OF_ROTATION_FIGURE].coordinates;
 
     QVector<size_t> newIndcesNonEmptyCell;
-    newIndcesNonEmptyCell.reserve(number_non_empty_cell);
+    newIndcesNonEmptyCell.reserve(NUMBER_NON_EMPTY_CELL);
 
     QVector<CellInformation> cellsInformationNonEmptyCell;
-    cellsInformationNonEmptyCell.reserve(number_non_empty_cell);
+    cellsInformationNonEmptyCell.reserve(NUMBER_NON_EMPTY_CELL);
 
     for(auto indexCell:figureBox.indicesNonEmptyCell)
     {
@@ -365,6 +367,7 @@ FigureBox GameLogicManager::rotationFigureInBox(FigureBox figureBox)
     {
         cellsInformationNonEmptyCell.push_back(figureBox.cellsInformation[indexCell]);
     }
+
     do{
         for(auto &cellInf:cellsInformationNonEmptyCell)
         {
@@ -378,6 +381,7 @@ FigureBox GameLogicManager::rotationFigureInBox(FigureBox figureBox)
     for(auto cellsInf:cellsInformationNonEmptyCell)
     {
         size_t indexNonEmptyCell =0;
+
         for(auto &cellInformationBox:rotationFigureBox.cellsInformation)
         {
             if(cellInformationBox.coordinates  == cellsInf.coordinates )
@@ -390,7 +394,9 @@ FigureBox GameLogicManager::rotationFigureInBox(FigureBox figureBox)
             indexNonEmptyCell++;
         }
     }
+
     rotationFigureBox.indicesNonEmptyCell = newIndcesNonEmptyCell;
+
     return rotationFigureBox;
 }
 
@@ -411,6 +417,7 @@ bool GameLogicManager::cellsContainedInBox(QVector<CellInformation> cellsInforma
             return false;
         }
     }
+
     return true;
 }
 
@@ -432,10 +439,12 @@ QPoint GameLogicManager::getMaxXY() const
 bool GameLogicManager::isCoordinateBorder(QPoint coordinate) const
 {
     bool b_isCoordinatesBorder = false;
+
     if(coordinate.x()<m_minXY.x()||coordinate.x()>m_maxXY.x()||
             coordinate.y()<m_minXY.y()||coordinate.y()>m_maxXY.y())
     {
         b_isCoordinatesBorder = true;
     }
+
     return b_isCoordinatesBorder;
 }

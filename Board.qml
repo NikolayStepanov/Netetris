@@ -11,6 +11,7 @@ Item {
         id: tableView
         anchors.fill: parent
         anchors.centerIn: parent
+
         //model
         model: BoardModel {
             id: boardModel
@@ -27,7 +28,6 @@ Item {
                 color: "#aaa6a6"
             }
             color: colorCell
-            //Cell{}
         }
     }
 

@@ -1,9 +1,9 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include <boardmodel.h>
-#include <NetetrisModel.h>
-#include <NextFigureModel.h>
+#include "boardmodel.h"
+#include "NetetrisModel.h"
+#include "NextFigureModel.h"
 
 int main(int argc, char *argv[])
 {

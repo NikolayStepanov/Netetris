@@ -1,9 +1,12 @@
 #include "board.h"
 
 Board::Board(size_t width, size_t height):
-    m_width(width),m_height(height),m_numberCells(width*height)
+    m_width(width),
+    m_height(height),
+    m_numberCells(width*height)
 {
     m_cells.reserve(m_numberCells);
+
     for(int index=0;index<static_cast<int>(m_numberCells);index++)
     {
         size_t x = index % m_width;

@@ -1,7 +1,8 @@
 #include "NetetrisModel.h"
 #include "mediator.h"
 
-NetetrisModel::NetetrisModel(QObject *parent)
+NetetrisModel::NetetrisModel(QObject *parent):
+    QObject(parent)
 {
     mediator = Mediator::getInstance();
     m_numberLines = 0;

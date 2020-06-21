@@ -1,10 +1,10 @@
 #include "BoardManager.h"
-#include <board.h>
 
 #include <QPoint>
 #include <QRect>
 #include <QModelIndex>
 
+#include "board.h"
 
 void BoardManager::initialize(Bootstrapper *boostrap)
 {
@@ -18,8 +18,11 @@ BoardManager::BoardManager():board(nullptr)
 
 BoardManager::~BoardManager()
 {
-    delete board;
-    board = nullptr;
+    if(board!=nullptr)
+    {
+        delete board;
+        board = nullptr;
+    }
 }
 
 bool BoardManager::createBoard(size_t width, size_t height)
@@ -98,7 +101,7 @@ void BoardManager::clearColumn(size_t column)
     emit updateColumn(column);
 }
 
-void BoardManager::clearCell(const size_t cellIndex)
+void BoardManager::clearCell(size_t cellIndex)
 {
     if(areCellIndexValid(cellIndex))
     {
@@ -107,7 +110,7 @@ void BoardManager::clearCell(const size_t cellIndex)
     }
 }
 
-CellInformation BoardManager::getCellInformation(const size_t cellIndex) const
+CellInformation BoardManager::getCellInformation(size_t cellIndex) const
 {
     CellInformation cellInformation;
     if(areCellIndexValid(cellIndex))
@@ -122,7 +125,7 @@ QVector<CellInformation> BoardManager::getAllCellsInformation() const
     return board->getAllCellInformation();
 }
 
-QList<CellInformation> BoardManager::getCellsInformation(const QList<size_t> cellIndices) const
+QList<CellInformation> BoardManager::getCellsInformation(QList<size_t> cellIndices) const
 {
     bool validIndices = true;
     for(auto index:cellIndices)
@@ -137,7 +140,7 @@ QList<CellInformation> BoardManager::getCellsInformation(const QList<size_t> cel
     return validIndices?board->getCellsInformation(cellIndices):QList<CellInformation>();
 }
 
-QList<CellInformation> BoardManager::getCellsInformation(const QList<QPoint> cellPoints) const
+QList<CellInformation> BoardManager::getCellsInformation(QList<QPoint> cellPoints) const
 {
     QList<size_t> cellIndices;
 
@@ -148,7 +151,7 @@ QList<CellInformation> BoardManager::getCellsInformation(const QList<QPoint> cel
     return getCellsInformation(cellIndices);
 }
 
-bool BoardManager::areCellIndexValid(const size_t cellIndex) const
+bool BoardManager::areCellIndexValid(size_t cellIndex) const
 {
     QPoint coordinates = cellCoordinatesFromIndex(cellIndex);
     return areCellCoordinatesValid(coordinates);

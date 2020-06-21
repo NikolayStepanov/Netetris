@@ -1,7 +1,20 @@
 #include "boardmodel.h"
-#include "mediator.h"
+
 #include <QPoint>
+
 #include "common.h"
+#include "mediator.h"
+
+BoardModel::BoardModel(QObject *parent):
+    QAbstractTableModel(parent)
+{
+    mediator = Mediator::getInstance();
+    mediator->initialize();
+
+    connect(mediator,&Mediator::updateCell,this,&BoardModel::slotCellUpdate);
+    connect(mediator,&Mediator::updateRow,this,&BoardModel::slotRowUpdate);
+    connect(mediator,&Mediator::updateColumn,this,&BoardModel::slotColumnUpdate);
+}
 
 int BoardModel::rowCount(const QModelIndex &parent) const
 {
@@ -45,24 +58,6 @@ QVariant BoardModel::data(const QModelIndex &index, int role) const
     }
 }
 
-bool BoardModel::setData(const QModelIndex &index, const QVariant &value, int role)
-{
-    if (data(index, role) == value)
-        return false;
-
-    emit dataChanged(index, index, {role});
-
-    return true;
-}
-
-Qt::ItemFlags BoardModel::flags(const QModelIndex &index) const
-{
-    if (!index.isValid())
-        return Qt::NoItemFlags;
-
-    return Qt::ItemIsEditable;
-}
-
 int BoardModel::getRow() const
 {
     return mediator->getRowCountBoard();
@@ -95,12 +90,3 @@ void BoardModel::slotColumnUpdate(size_t colunm)
     emit dataChanged(index(0,colunm),index(mediator->getHeightBoard()-1,colunm));
 }
 
-BoardModel::BoardModel(QObject *parent)
-{
-    mediator = Mediator::getInstance();
-    mediator->initialize();
-
-    connect(mediator,&Mediator::updateCell,this,&BoardModel::slotCellUpdate);
-    connect(mediator,&Mediator::updateRow,this,&BoardModel::slotRowUpdate);
-    connect(mediator,&Mediator::updateColumn,this,&BoardModel::slotColumnUpdate);
-}
