@@ -1,6 +1,6 @@
 #include "NextFigureModel.h"
+
 #include "mediator.h"
-#include <QObject>
 
 NextFigureModel::NextFigureModel(QObject *parent):
     QAbstractTableModel(parent)
@@ -10,6 +10,16 @@ NextFigureModel::NextFigureModel(QObject *parent):
 
     connect(mediator,&Mediator::updateNextFigure,this,&NextFigureModel::slotUpdateNextFigure);
 }
+
+QHash<int, QByteArray> NextFigureModel::roleNames() const
+{
+    QHash<int, QByteArray> roles;
+    roles[IndexCell] = "indexCell";
+    roles[TypeCell] = "typeCell";
+    roles[ColorCell] = "colorCell";
+    return roles;
+}
+
 
 int NextFigureModel::rowCount(const QModelIndex &parent) const
 {

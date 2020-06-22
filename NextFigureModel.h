@@ -17,18 +17,9 @@ public:
         TypeCell,
         ColorCell
     };
-
-    QHash<int, QByteArray> roleNames() const override
-    {
-        QHash<int, QByteArray> roles;
-        roles[IndexCell] = "indexCell";
-        roles[TypeCell] = "typeCell";
-        roles[ColorCell] = "colorCell";
-        return roles;
-    }
-
     explicit NextFigureModel(QObject *parent = nullptr);
 
+    QHash<int, QByteArray> roleNames() const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;

@@ -16,6 +16,17 @@ BoardModel::BoardModel(QObject *parent):
     connect(mediator,&Mediator::updateColumn,this,&BoardModel::slotColumnUpdate);
 }
 
+QHash<int, QByteArray> BoardModel::roleNames() const
+{
+    QHash<int, QByteArray> roles;
+    roles[XCell] = "xCell";
+    roles[YCell] = "yCell";
+    roles[IndexCell] = "indexCell";
+    roles[TypeCell] = "typeCell";
+    roles[ColorCell] = "colorCell";
+    return roles;
+}
+
 int BoardModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
