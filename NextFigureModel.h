@@ -1,7 +1,6 @@
 #ifndef NEXTFIGUREMODEL_H
 #define NEXTFIGUREMODEL_H
 
-#include <QObject>
 #include <QAbstractTableModel>
 
 class Mediator;
