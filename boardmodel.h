@@ -22,19 +22,9 @@ public:
         ColorCell
     };
 
-    QHash<int, QByteArray> roleNames() const override
-    {
-        QHash<int, QByteArray> roles;
-        roles[XCell] = "xCell";
-        roles[YCell] = "yCell";
-        roles[IndexCell] = "indexCell";
-        roles[TypeCell] = "typeCell";
-        roles[ColorCell] = "colorCell";
-        return roles;
-    }
-
     explicit BoardModel(QObject *parent = nullptr);
 
+    QHash<int, QByteArray> roleNames() const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
@@ -50,7 +40,6 @@ public slots:
 
 private:
     Mediator * mediator;
-
 };
 
 #endif // BOARDMODEL_H
