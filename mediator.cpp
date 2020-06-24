@@ -29,18 +29,18 @@ void Mediator::initialize()
     gameLogicManager = bootstrapper->getLogicManager();
 
     //BoardManager
-    connect(boardManager,&BoardManager::updateCell,this,&Mediator::slotUpdateCell);
-    connect(boardManager,&BoardManager::updateRow,this,&Mediator::slotUpdateRow);
-    connect(boardManager,&BoardManager::updateColumn,this,&Mediator::slotUpdateColumn);
+    connect(boardManager, &BoardManager::updateCell, this, &Mediator::slotUpdateCell);
+    connect(boardManager, &BoardManager::updateRow, this, &Mediator::slotUpdateRow);
+    connect(boardManager, &BoardManager::updateColumn, this, &Mediator::slotUpdateColumn);
 
     //GameLogicManager
-    connect(gameLogicManager,&GameLogicManager::updateNextFigure,this,&Mediator::slotUbdateNextFigure);
-    connect(gameLogicManager,&GameLogicManager::updateNumberLines,this,&Mediator::slotUpdateNumberLines);
+    connect(gameLogicManager, &GameLogicManager::updateNextFigure, this, &Mediator::slotUbdateNextFigure);
+    connect(gameLogicManager, &GameLogicManager::updateNumberLines, this, &Mediator::slotUpdateNumberLines);
 }
 
 Mediator::~Mediator()
 {
-    if(bootstrapper!=nullptr)
+    if(bootstrapper != nullptr)
     {
         delete bootstrapper;
         bootstrapper = nullptr;
@@ -81,7 +81,7 @@ QPoint Mediator::getPointForIndex(size_t index)
 
 CellInformation Mediator::getCellInformationNextFigure(const QModelIndex &index)
 {
-    QPoint coordinat = QPoint(index.column(),index.row());
+    QPoint coordinat = QPoint(index.column(), index.row());
     return gameLogicManager->getCellNextFigure(coordinat);
 
 }
@@ -93,7 +93,7 @@ void Mediator::actionFigure(FigureAction actionFigure)
 
 void Mediator::newGame()
 {
-    boardManager->createBoard(24,24);
+    boardManager->createBoard(24, 24);
     gameLogicManager->newGame();
     gameLogicManager->startGame();
 }

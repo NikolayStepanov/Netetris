@@ -38,7 +38,7 @@ QVector<CellInformation> Generator::emptyBox4x4ForFigure()
     QVector<CellInformation> boxFigure;
     boxFigure.reserve(NUMBER_CELLS_FOR_FIGURE);
 
-    for(int i = 0; i< NUMBER_CELLS_FOR_FIGURE; i++)
+    for(int i = 0; i < NUMBER_CELLS_FOR_FIGURE; i++)
     {
         boxFigure.push_back(CellInformation());
     }
@@ -46,9 +46,9 @@ QVector<CellInformation> Generator::emptyBox4x4ForFigure()
     int index = 0;
     int xStart = 0;
 
-    for(int y=0;y<SIZE_BOXING_BORDER;y++)
+    for(int y = 0; y < SIZE_BOXING_BORDER; y++)
     {
-        for(int x=xStart;x<(xStart+SIZE_BOXING_BORDER);x++)
+        for(int x = xStart; x < (xStart + SIZE_BOXING_BORDER); x++)
         {
             boxFigure[index].coordinates.setX(x);
             boxFigure[index].coordinates.setY(y);
@@ -61,7 +61,7 @@ QVector<CellInformation> Generator::emptyBox4x4ForFigure()
 
 Generator::Generator()
 {
-    QTime midnight(0,0,0);
+    QTime midnight(0, 0, 0);
     qsrand(midnight.secsTo(QTime::currentTime()));
 }
 

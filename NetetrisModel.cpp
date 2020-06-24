@@ -7,14 +7,14 @@ NetetrisModel::NetetrisModel(QObject *parent):
     mediator = Mediator::getInstance();
     m_numberLines = 0;
 
-    connect(mediator,&Mediator::updateNumberLines,this,&NetetrisModel::slotLinesChanged);
+    connect(mediator, &Mediator::updateNumberLines, this, &NetetrisModel::slotLinesChanged);
 }
 
 void NetetrisModel::setLines(int &lines)
 {
-    if(lines!=m_numberLines)
+    if(lines != m_numberLines)
     {
-        m_numberLines=lines;
+        m_numberLines = lines;
         emit linesChanged(m_numberLines);
     }
 }

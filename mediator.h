@@ -55,8 +55,8 @@ public slots:
 
 private:
     Mediator(QObject *parent = nullptr);
-    Mediator( const Mediator& );
-    Mediator& operator=( Mediator& );
+    Mediator(const Mediator&);
+    Mediator& operator= (Mediator&);
 
 private:
     static Mediator * p_instance;

@@ -3,16 +3,16 @@
 Board::Board(size_t width, size_t height):
     m_width(width),
     m_height(height),
-    m_numberCells(width*height)
+    m_numberCells(width * height)
 {
     m_cells.reserve(m_numberCells);
 
-    for(int index=0;index<static_cast<int>(m_numberCells);index++)
+    for(int index = 0; index < static_cast<int>(m_numberCells); index++)
     {
         size_t x = index % m_width;
         size_t y = index / m_width;
 
-        m_cells.push_back(Cell(x,y,index));
+        m_cells.push_back(Cell(x, y, index));
     }
 }
 
@@ -67,7 +67,7 @@ CellInformation Board::getCellInformation(const size_t index) const
 QVector<CellInformation> Board::getAllCellInformation() const
 {
     QVector<CellInformation> cellsInformation;
-    for(auto cell:m_cells)
+    for(auto cell : m_cells)
     {
         cellsInformation.push_back(getCellInformation(cell.getIndex()));
     }
@@ -77,7 +77,7 @@ QVector<CellInformation> Board::getAllCellInformation() const
 QList<CellInformation> Board::getCellsInformation(const QList<size_t> cellIndices) const
 {
     QList<CellInformation> cellsInformation;
-    for(auto cellIndex:cellIndices)
+    for(auto cellIndex : cellIndices)
     {
         cellsInformation.push_back(getCellInformation(cellIndex));
     }

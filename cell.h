@@ -8,7 +8,7 @@ class Cell
 public:
     Cell();
     Cell(size_t index);
-    Cell(size_t x, size_t y,size_t index);
+    Cell(size_t x, size_t y, size_t index);
 
     bool isEmpty();
 

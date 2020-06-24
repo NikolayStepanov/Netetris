@@ -56,7 +56,7 @@ size_t BoardManager::getNumderCells() const
 
 QPair<size_t, size_t> BoardManager::getSizeBoard() const
 {
-    QPair<size_t,size_t> sizeBoard(getWidthBoard(),getHeightBoard());
+    QPair<size_t,size_t> sizeBoard(getWidthBoard(), getHeightBoard());
     return  sizeBoard;
 }
 
@@ -75,9 +75,9 @@ void BoardManager::clearRow(size_t row)
     int columns = board->getWidth();
     cellIndices.reserve(columns);
 
-    for(int column =0;column<columns;column++)
+    for(int column = 0; column < columns; column++)
     {
-        size_t indexCell = columns*row + column;
+        size_t indexCell = columns *  row + column;
         board->clearCell(indexCell);
     }
 
@@ -92,9 +92,9 @@ void BoardManager::clearColumn(size_t column)
 
     cellIndices.reserve(rows);
 
-    for(int row =0;row<rows;row++)
+    for(int row = 0; row < rows; row++)
     {
-        size_t indexCell = columns*row + column;
+        size_t indexCell = columns * row + column;
         board->clearCell(indexCell);
     }
 
@@ -132,7 +132,7 @@ QList<CellInformation> BoardManager::getCellsInformation(QList<size_t> cellIndic
     {
         if(areCellIndexValid(index))
         {
-            validIndices=false;
+            validIndices = false;
             break;
         }
     }
@@ -144,7 +144,7 @@ QList<CellInformation> BoardManager::getCellsInformation(QList<QPoint> cellPoint
 {
     QList<size_t> cellIndices;
 
-    for(auto cellPoint:cellPoints)
+    for(auto cellPoint : cellPoints)
     {
         cellIndices.push_back(cellIndex(cellPoint));
     }
@@ -166,7 +166,7 @@ QVector<QPoint> BoardManager::cellsCoordinatesFromIndices(QVector<size_t> cellIn
 {
     QVector<QPoint> cellsCoordinates;
 
-    for(auto cellIndex: cellIndices)
+    for(auto cellIndex : cellIndices)
     {
         cellsCoordinates.push_back(cellCoordinatesFromIndex(cellIndex));
     }
@@ -190,5 +190,5 @@ size_t BoardManager::cellIndex(const QPoint &coordinates) const
 
 size_t BoardManager::cellIndex(const QModelIndex &index) const
 {
-    return cellIndex(QPoint(index.column(),index.row()));
+    return cellIndex(QPoint(index.column(), index.row()));
 }
