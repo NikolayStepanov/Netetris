@@ -18,7 +18,8 @@ enum FigureAction
 };
 
 enum FigureType {
-    EMPTY = -1,
+    EMPTY = -2,
+    OVERLAP,
     L_TETRAMINO,
     I_TETRAMINO,
     J_TETRAMINO,
@@ -99,7 +100,7 @@ struct CellInformation
     CellInformation( CellInformation&&) = default;
     CellInformation& operator= (const CellInformation &) = default;
 
-    QPoint coordinates = QPoint(-1,-1);
+    QPoint coordinate = QPoint(-1,-1);
 
     size_t index = UINT64_MAX;
 

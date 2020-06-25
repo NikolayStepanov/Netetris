@@ -37,7 +37,7 @@ public:
     bool deleteRows();
 
     bool canPutFigureInBox(FigureBox &figureBox, QVector<CellInformation> &cellInformationBox);
-    void deleteFigureinInBoard(FigureBox &currentFigure);
+    void deleteFigureInBoard(FigureBox &currentFigure);
     void putFigureInBoard(FigureBox &currentFigure, QVector<CellInformation> &cellInformationBox);
 
     QVector<CellInformation> getCellsInformationBoxCurrentFigure(QPoint coordinateOffset);

@@ -50,8 +50,8 @@ QVector<CellInformation> Generator::emptyBox4x4ForFigure()
     {
         for(int x = xStart; x < (xStart + SIZE_BOXING_BORDER); x++)
         {
-            boxFigure[index].coordinates.setX(x);
-            boxFigure[index].coordinates.setY(y);
+            boxFigure[index].coordinate.setX(x);
+            boxFigure[index].coordinate.setY(y);
             index++;
         }
     }

@@ -76,7 +76,7 @@ CellInformation Mediator::getCellInformation(const QModelIndex &index)
 
 QPoint Mediator::getPointForIndex(size_t index)
 {
-    return boardManager->cellCoordinatesFromIndex(index);
+    return boardManager->cellCoordinateFromIndex(index);
 }
 
 CellInformation Mediator::getCellInformationNextFigure(const QModelIndex &index)

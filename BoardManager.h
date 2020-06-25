@@ -35,12 +35,12 @@ public:
     QList<CellInformation>getCellsInformation(QList<QPoint> cellPoints) const;
 
     bool areCellIndexValid(size_t cellIndex) const;
-    bool areCellCoordinatesValid(const QPoint &coordinates) const;
+    bool areCellcoordinateValid(const QPoint &coordinate) const;
 
     QVector<QPoint> cellsCoordinatesFromIndices(QVector<size_t> cellIndices) const;
-    QPoint cellCoordinatesFromIndex(size_t cellIndex) const;
+    QPoint cellCoordinateFromIndex(size_t cellIndex) const;
 
-    size_t cellIndex(const QPoint &coordinates) const;
+    size_t cellIndex(const QPoint &coordinate) const;
     size_t cellIndex(const QModelIndex &index) const;
 
 signals:

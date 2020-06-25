@@ -153,13 +153,13 @@ QList<CellInformation> BoardManager::getCellsInformation(QList<QPoint> cellPoint
 
 bool BoardManager::areCellIndexValid(size_t cellIndex) const
 {
-    QPoint coordinates = cellCoordinatesFromIndex(cellIndex);
-    return areCellCoordinatesValid(coordinates);
+    QPoint coordinate = cellCoordinateFromIndex(cellIndex);
+    return areCellcoordinateValid(coordinate);
 }
 
-bool BoardManager::areCellCoordinatesValid(const QPoint &coordinates) const
+bool BoardManager::areCellcoordinateValid(const QPoint &coordinate) const
 {
-    return QRect(0, 0, getWidthBoard(), getHeightBoard()).contains(coordinates);
+    return QRect(0, 0, getWidthBoard(), getHeightBoard()).contains(coordinate);
 }
 
 QVector<QPoint> BoardManager::cellsCoordinatesFromIndices(QVector<size_t> cellIndices) const
@@ -168,22 +168,22 @@ QVector<QPoint> BoardManager::cellsCoordinatesFromIndices(QVector<size_t> cellIn
 
     for(auto cellIndex : cellIndices)
     {
-        cellsCoordinates.push_back(cellCoordinatesFromIndex(cellIndex));
+        cellsCoordinates.push_back(cellCoordinateFromIndex(cellIndex));
     }
     return cellsCoordinates;
 }
 
-QPoint BoardManager::cellCoordinatesFromIndex(size_t cellIndex) const
+QPoint BoardManager::cellCoordinateFromIndex(size_t cellIndex) const
 {
     return {static_cast<int>(cellIndex % getWidthBoard()),
                 static_cast<int>(cellIndex / getWidthBoard())};
 }
 
-size_t BoardManager::cellIndex(const QPoint &coordinates) const
+size_t BoardManager::cellIndex(const QPoint &coordinate) const
 {
-    if(areCellCoordinatesValid(coordinates))
+    if(areCellcoordinateValid(coordinate))
     {
-        return size_t(coordinates.y() * getWidthBoard() + coordinates.x());
+        return size_t(coordinate.y() * getWidthBoard() + coordinate.x());
     }
     return UINT64_MAX;
 }

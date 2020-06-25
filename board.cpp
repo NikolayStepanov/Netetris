@@ -55,8 +55,8 @@ CellInformation Board::getCellInformation(const size_t index) const
     Cell cell = m_cells.at(index);
     CellInformation cellInformation;
 
-    cellInformation.coordinates.setX(cell.getX());
-    cellInformation.coordinates.setY(cell.getY());
+    cellInformation.coordinate.setX(cell.getX());
+    cellInformation.coordinate.setY(cell.getY());
     cellInformation.index = cell.getIndex();
     cellInformation.type = cell.getType();
     cellInformation.color = cell.getColor();
