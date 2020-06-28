@@ -22,7 +22,9 @@ QHash<int, QByteArray> BoardModel::roleNames() const
     roles[XCell] = "xCell";
     roles[YCell] = "yCell";
     roles[IndexCell] = "indexCell";
-    roles[TypeCell] = "typeCell";
+    roles[StateCell] = "stateCell";
+    roles[ActionCell] = "actionCell";
+    roles[FigureType] = "typeFigure";
     roles[ColorCell] = "colorCell";
     return roles;
 }
@@ -56,8 +58,12 @@ QVariant BoardModel::data(const QModelIndex &index, int role) const
         return QVariant(cellInformation.coordinate.y());
     case IndexCell:
         return QVariant(cellInformation.index);
-    case TypeCell:
-        return QVariant(cellInformation.type);
+    case StateCell:
+        return QVariant(static_cast<int>(cellInformation.cellState));
+    case ActionCell:
+        return QVariant(static_cast<int>(cellInformation.cellAction));
+    case FigureType:
+        return QVariant(static_cast<int>(cellInformation.figureType));
     case ColorCell:
         return QVariant(cellInformation.color);
     default:

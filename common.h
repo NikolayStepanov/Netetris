@@ -7,6 +7,12 @@
 #include <QColor>
 #include <QPoint>
 
+#include "CellStateClass.h"
+#include "CellActionClass.h"
+
+typedef CellStateClass::Value CellState;
+typedef CellActionClass::Value CellAction;
+
 enum FigureAction
 {
     FIX,
@@ -17,9 +23,9 @@ enum FigureAction
     MOVE_LEFT
 };
 
-enum FigureType {
-    EMPTY = -2,
-    OVERLAP,
+enum class FigureType
+{
+    EMPTY = -1,
     L_TETRAMINO,
     I_TETRAMINO,
     J_TETRAMINO,
@@ -29,8 +35,9 @@ enum FigureType {
     T_TETRAMINO
 };
 
-enum Color{
-    COLOR_WHITE= 0,
+enum Color
+{
+    COLOR_WHITE = 0,
     COLOR_BLACK,
     COLOR_BLUE,
     COLOR_RED,
@@ -95,16 +102,26 @@ inline QString strColor(Color color)
 struct CellInformation
 {
     CellInformation() = default;
-    CellInformation(size_t indexCell):index(indexCell){}
-    CellInformation( CellInformation const&) = default;
-    CellInformation( CellInformation&&) = default;
+    CellInformation(CellInformation const &) = default;
+    CellInformation(CellInformation &&) = default;
     CellInformation& operator= (const CellInformation &) = default;
+
+    void becomeEmptyCell()
+    {
+        cellState = CellState::EMPTY;
+        cellAction = CellAction::EMPTY;
+        figureType = FigureType::EMPTY;
+        color = "white";
+    }
 
     QPoint coordinate = QPoint(-1,-1);
 
     size_t index = UINT64_MAX;
 
     QString color = "white";
-    FigureType type = EMPTY;
+
+    CellState cellState = CellState::EMPTY;
+    CellAction cellAction = CellAction::EMPTY;
+    FigureType figureType = FigureType::EMPTY;
 };
 #endif // COMMON_H

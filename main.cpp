@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include "common.h"
 #include "boardmodel.h"
 #include "NetetrisModel.h"
 #include "NextFigureModel.h"
@@ -12,6 +13,12 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+
+    qRegisterMetaType<CellState>("CellState");
+    qmlRegisterUncreatableType<CellStateClass>("com.NikolayStepanov.CellState", 1, 0, "CellState", "Not creatable as it is an enum type");
+
+    qRegisterMetaType<CellAction>("CellAction");
+    qmlRegisterUncreatableType<CellActionClass>("com.NikolayStepanov.CellAction", 1, 0, "CellAction", "Not creatable as it is an enum type");
 
     qmlRegisterType<BoardModel>("com.NikolayStepanov.BoardModel", 1, 0, "BoardModel");
     qmlRegisterType<NetetrisModel>("com.NikolayStepanov.NetetrisModel", 1, 0, "NetetrisModel");

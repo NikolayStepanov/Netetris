@@ -47,7 +47,7 @@ QVariant NextFigureModel::data(const QModelIndex &index, int role) const
     case IndexCell:
         return QVariant(cellInformation.index);
     case TypeCell:
-        return QVariant(cellInformation.type);
+        return QVariant(static_cast<int>(cellInformation.figureType));
     case ColorCell:
         return QVariant(cellInformation.color);
     default:

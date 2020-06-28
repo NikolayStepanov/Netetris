@@ -39,14 +39,20 @@ size_t Board::getNumderCells() const
 bool Board::setCellInformation(const CellInformation cellInformation)
 {
     size_t index = cellInformation.index;
-    m_cells[index].setType(cellInformation.type);
+
+    m_cells[index].setCellState(cellInformation.cellState);
+    m_cells[index].setCellAction(cellInformation.cellAction);
+    m_cells[index].setFigureType(cellInformation.figureType);
     m_cells[index].setColor(cellInformation.color);
+
     return true;
 }
 
 void Board::clearCell(const size_t index)
 {
-    m_cells[index].setType(EMPTY);
+    m_cells[index].setCellState(CellState::EMPTY);
+    m_cells[index].setCellAction(CellAction::EMPTY);
+    m_cells[index].setFigureType(FigureType::EMPTY);
     m_cells[index].setColor("white");
 }
 
@@ -58,7 +64,9 @@ CellInformation Board::getCellInformation(const size_t index) const
     cellInformation.coordinate.setX(cell.getX());
     cellInformation.coordinate.setY(cell.getY());
     cellInformation.index = cell.getIndex();
-    cellInformation.type = cell.getType();
+    cellInformation.cellState = cell.getCellState();
+    cellInformation.cellAction = cell.getCellAction();
+    cellInformation.figureType = cell.getFigureType();
     cellInformation.color = cell.getColor();
 
     return cellInformation;

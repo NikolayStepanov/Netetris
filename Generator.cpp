@@ -22,12 +22,13 @@ FigureBox Generator::randomFigure()
     figureRandBox.cellsInformation = emptyBox4x4ForFigure();
     figureRandBox.color = QColor(color);
     figureRandBox.type = typeFigure;
-    figureRandBox.indicesNonEmptyCell = FIGURES[typeFigure];
+    figureRandBox.indicesNonEmptyCell = FIGURES[static_cast<int>(typeFigure)];
 
     for(auto index:figureRandBox.indicesNonEmptyCell)
     {
-        figureRandBox.cellsInformation[index].type = typeFigure;
+        figureRandBox.cellsInformation[index].figureType = typeFigure;
         figureRandBox.cellsInformation[index].color = color;
+        figureRandBox.cellsInformation[index].cellState = CellState::NOT_FIXED;
     }
 
     return figureRandBox;

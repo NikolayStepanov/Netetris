@@ -114,7 +114,7 @@ bool GameLogicManager::deleteColumns()
         bool deleteRow = true;
         for(int row = m_minXY.y(); row <= m_maxXY.y(); row++)
         {
-            if(m_boardAllInformationCurrent[columns * row + column].type == EMPTY)
+            if(m_boardAllInformationCurrent[columns * row + column].cellState == CellState::EMPTY)
             {
                 deleteRow = false;
                 break;
@@ -143,7 +143,7 @@ bool GameLogicManager::deleteRows()
         bool deleteRow = true;
         for(int column = m_minXY.x(); column <= m_maxXY.x(); column++)
         {
-            if(m_boardAllInformationCurrent[columns * row + column].type == EMPTY)
+            if(m_boardAllInformationCurrent[columns * row + column].cellState == CellState::EMPTY)
             {
                 deleteRow = false;
                 break;
@@ -180,7 +180,7 @@ bool GameLogicManager::canPutFigureInBox(FigureBox &figureBox, QVector<CellInfor
 
 void GameLogicManager::deleteFigureInBoard(FigureBox &currentFigure)
 {
-    for(auto index:currentFigure.indicesNonEmptyCell)
+    for(auto index : currentFigure.indicesNonEmptyCell)
     {
         QPoint coordinateCell = currentFigure.cellsInformation[index].coordinate;
 
@@ -195,16 +195,27 @@ void GameLogicManager::putFigureInBoard(FigureBox &currentFigure, QVector<CellIn
 {
     size_t indexCell = 0;
 
-    for(auto & cellFigure:currentFigure.cellsInformation)
+    for(auto & cellFigure : currentFigure.cellsInformation)
     {
         cellFigure.coordinate = cellInformationBox[indexCell].coordinate;
         cellFigure.index = cellInformationBox[indexCell].index;
         indexCell++;
     }
 
-    for(auto indexCellFigure:currentFigure.indicesNonEmptyCell)
+    for(auto indexCellFigure : currentFigure.indicesNonEmptyCell)
     {
-        m_pBoardManager->setCellInformation(currentFigure.cellsInformation[indexCellFigure]);
+        if(cellInformationBox[indexCellFigure].cellState != CellState::EMPTY)
+        {
+            CellInformation cellInforamation = currentFigure.cellsInformation[indexCellFigure];
+
+            cellInforamation.cellAction = CellAction::OVERLAP;
+
+            m_pBoardManager->setCellInformation(cellInforamation);
+        }
+        else
+        {
+            m_pBoardManager->setCellInformation(currentFigure.cellsInformation[indexCellFigure]);
+        }
     }
 }
 
@@ -307,15 +318,22 @@ bool GameLogicManager::fixCurrentFigure()
         QPoint coordinateCell = m_currentFigure.cellsInformation[indexNonEmptyCell].coordinate;
         CellInformation cellInfBoard = m_boardAllInformationCurrent[m_pBoardManager->cellIndex(coordinateCell)];
 
-        if(cellInfBoard.type != EMPTY || coordinateCell.x() < m_minXY.x() || coordinateCell.x() > m_maxXY.x() ||
+        if(cellInfBoard.cellState != CellState::EMPTY || coordinateCell.x() < m_minXY.x() || coordinateCell.x() > m_maxXY.x() ||
                 coordinateCell.y() < m_minXY.y() || coordinateCell.y() > m_maxXY.y())
         {
             b_fixCurrent = false;
             break;
         }
     }
+
     if(b_fixCurrent)
     {
+        for(auto indexNonEmptyCell : m_currentFigure.indicesNonEmptyCell)
+        {
+            CellInformation cellInformation = m_currentFigure.cellsInformation[indexNonEmptyCell];
+            cellInformation.cellState = CellState::FIXED;
+            m_pBoardManager->setCellInformation(cellInformation);
+        }
         nextStep();
     }
 
@@ -331,7 +349,7 @@ bool GameLogicManager::rotationFigure()
 
     FigureBox rotationFigureBox;
 
-    if(m_currentFigure.type == O_TETRAMINO)
+    if(m_currentFigure.type == FigureType::O_TETRAMINO)
     {
         return isRotateFigure;
     }
@@ -364,8 +382,7 @@ FigureBox GameLogicManager::rotationFigureInBox(FigureBox figureBox)
 
     for(auto indexCell:figureBox.indicesNonEmptyCell)
     {
-        rotationFigureBox.cellsInformation[indexCell].type = EMPTY;
-        rotationFigureBox.cellsInformation[indexCell].color = "white";
+        rotationFigureBox.cellsInformation[indexCell].becomeEmptyCell();
     }
 
     for(auto indexCell:figureBox.indicesNonEmptyCell)
@@ -392,7 +409,10 @@ FigureBox GameLogicManager::rotationFigureInBox(FigureBox figureBox)
             if(cellInformationBox.coordinate == cellsInf.coordinate )
             {
                 cellInformationBox.color = cellsInf.color;
-                cellInformationBox.type = cellsInf.type;
+                cellInformationBox.cellState = cellsInf.cellState;
+                cellInformationBox.cellAction = cellsInf.cellAction;
+                cellInformationBox.figureType = cellsInf.figureType;
+
                 newIndcesNonEmptyCell.push_back(indexNonEmptyCell);
                 break;
             }

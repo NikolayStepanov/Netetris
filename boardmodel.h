@@ -3,6 +3,8 @@
 
 #include <QAbstractTableModel>
 
+#include "common.h"
+
 class Mediator;
 
 class BoardModel: public QAbstractTableModel
@@ -18,8 +20,10 @@ public:
         XCell,
         YCell,
         IndexCell,
-        TypeCell,
-        ColorCell
+        StateCell,
+        ActionCell,
+        FigureType,
+        ColorCell,
     };
 
     explicit BoardModel(QObject *parent = nullptr);

@@ -38,7 +38,7 @@ struct FigureBox
 
     QVector<size_t> indicesNonEmptyCell;
     QVector<CellInformation> cellsInformation;
-    FigureType type = EMPTY;
+    FigureType type = FigureType::EMPTY;
     QColor color = Qt::white;
 };
 
