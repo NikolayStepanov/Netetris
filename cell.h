@@ -8,7 +8,7 @@ class Cell
 public:
     Cell();
     Cell(size_t index);
-    Cell(size_t x, size_t y,size_t index);
+    Cell(size_t x, size_t y, size_t index);
 
     bool isEmpty();
 
@@ -17,14 +17,18 @@ public:
     void setY(size_t y);
     void setIndex(size_t index);
     void setColor(QString color);
-    void setType(FigureType type);
+    void setFigureType(FigureType figureType);
+    void setCellState(CellState cellState);
+    void setCellAction(CellAction cellAction);
 
     //get
     size_t getX();
     size_t getY();
     size_t getIndex();
     QString getColor();
-    FigureType getType();
+    FigureType getFigureType();
+    CellState getCellState();
+    CellAction getCellAction();
 
 private:
     size_t m_x;
@@ -32,7 +36,9 @@ private:
     size_t m_index;
 
     QString m_color;
-    FigureType m_type;
+    FigureType m_figureType;
+    CellState m_cellState;
+    CellAction m_cellAction;
 };
 
 #endif // CELL_H

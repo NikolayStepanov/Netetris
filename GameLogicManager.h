@@ -35,14 +35,15 @@ public:
     bool deleteWholeLines();
     bool deleteColumns();
     bool deleteRows();
+    //bool overlapsOtherFigures(FigureBox &figureBox);
 
     bool canPutFigureInBox(FigureBox &figureBox, QVector<CellInformation> &cellInformationBox);
-    void deleteFigureinInBoard(FigureBox &currentFigure);
+    void deleteFigureInBoard(FigureBox &currentFigure);
     void putFigureInBoard(FigureBox &currentFigure, QVector<CellInformation> &cellInformationBox);
 
     QVector<CellInformation> getCellsInformationBoxCurrentFigure(QPoint coordinateOffset);
 
-    bool moveFigure(QPoint coordinateOffset = QPoint(0,0));
+    bool moveFigure(QPoint coordinateOffset = QPoint(0, 0));
     bool fixCurrentFigure();
     bool rotationFigure();
     FigureBox rotationFigureInBox(FigureBox figureBox);

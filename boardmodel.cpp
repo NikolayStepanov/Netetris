@@ -11,9 +11,9 @@ BoardModel::BoardModel(QObject *parent):
     mediator = Mediator::getInstance();
     mediator->initialize();
 
-    connect(mediator,&Mediator::updateCell,this,&BoardModel::slotCellUpdate);
-    connect(mediator,&Mediator::updateRow,this,&BoardModel::slotRowUpdate);
-    connect(mediator,&Mediator::updateColumn,this,&BoardModel::slotColumnUpdate);
+    connect(mediator, &Mediator::updateCell, this, &BoardModel::slotCellUpdate);
+    connect(mediator, &Mediator::updateRow, this, &BoardModel::slotRowUpdate);
+    connect(mediator, &Mediator::updateColumn, this, &BoardModel::slotColumnUpdate);
 }
 
 QHash<int, QByteArray> BoardModel::roleNames() const
@@ -22,7 +22,9 @@ QHash<int, QByteArray> BoardModel::roleNames() const
     roles[XCell] = "xCell";
     roles[YCell] = "yCell";
     roles[IndexCell] = "indexCell";
-    roles[TypeCell] = "typeCell";
+    roles[StateCell] = "stateCell";
+    roles[ActionCell] = "actionCell";
+    roles[FigureType] = "typeFigure";
     roles[ColorCell] = "colorCell";
     return roles;
 }
@@ -51,17 +53,17 @@ QVariant BoardModel::data(const QModelIndex &index, int role) const
     switch (role)
     {
     case XCell:
-        return QVariant(cellInformation.coordinates.x());
-        break;
+        return QVariant(cellInformation.coordinate.x());
     case YCell:
-        return QVariant(cellInformation.coordinates.y());
-        break;
+        return QVariant(cellInformation.coordinate.y());
     case IndexCell:
         return QVariant(cellInformation.index);
-        break;
-    case TypeCell:
-        return QVariant(cellInformation.type);
-        break;
+    case StateCell:
+        return QVariant(static_cast<int>(cellInformation.cellState));
+    case ActionCell:
+        return QVariant(static_cast<int>(cellInformation.cellAction));
+    case FigureType:
+        return QVariant(static_cast<int>(cellInformation.figureType));
     case ColorCell:
         return QVariant(cellInformation.color);
     default:
@@ -81,23 +83,23 @@ int BoardModel::getColum() const
 
 bool BoardModel::isBorder(int x, int y) const
 {
-    return mediator->isBorder(QPoint(x,y));
+    return mediator->isBorder(QPoint(x, y));
 }
 
 void BoardModel::slotCellUpdate(size_t indexCell)
 {
     QPoint pointUpdate = mediator->getPointForIndex(indexCell);
-    QModelIndex indexUpdate = index(pointUpdate.y(),pointUpdate.x());
-    emit dataChanged(indexUpdate,indexUpdate);
+    QModelIndex indexUpdate = index(pointUpdate.y(), pointUpdate.x());
+    emit dataChanged(indexUpdate, indexUpdate);
 }
 
 void BoardModel::slotRowUpdate(size_t row)
 {
-    emit dataChanged(index(row,0),index(row,mediator->getWidthBoard()-1));
+    emit dataChanged(index(row, 0), index(row,mediator->getWidthBoard() - 1));
 }
 
 void BoardModel::slotColumnUpdate(size_t colunm)
 {
-    emit dataChanged(index(0,colunm),index(mediator->getHeightBoard()-1,colunm));
+    emit dataChanged(index(0, colunm), index(mediator->getHeightBoard() - 1, colunm));
 }
 

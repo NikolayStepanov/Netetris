@@ -8,7 +8,7 @@ NextFigureModel::NextFigureModel(QObject *parent):
     mediator = Mediator::getInstance();
     mediator->initialize();
 
-    connect(mediator,&Mediator::updateNextFigure,this,&NextFigureModel::slotUpdateNextFigure);
+    connect(mediator, &Mediator::updateNextFigure, this, &NextFigureModel::slotUpdateNextFigure);
 }
 
 QHash<int, QByteArray> NextFigureModel::roleNames() const
@@ -46,10 +46,8 @@ QVariant NextFigureModel::data(const QModelIndex &index, int role) const
     {
     case IndexCell:
         return QVariant(cellInformation.index);
-        break;
     case TypeCell:
-        return QVariant(cellInformation.type);
-        break;
+        return QVariant(static_cast<int>(cellInformation.figureType));
     case ColorCell:
         return QVariant(cellInformation.color);
     default:
@@ -59,5 +57,5 @@ QVariant NextFigureModel::data(const QModelIndex &index, int role) const
 
 void NextFigureModel::slotUpdateNextFigure()
 {
-    emit dataChanged(index(0,0),index(3,3));
+    emit dataChanged(index(0, 0), index(3, 3));
 }

@@ -27,6 +27,8 @@ set (HEADERS
     GameLogicManager.h
     Generator.h
     NextFigureModel.h
+    CellStateClass.h
+    CellActionClass.h
     )
 
 set (SOURCES
