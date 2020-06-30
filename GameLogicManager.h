@@ -21,6 +21,7 @@ public:
 
     void newGame();
     void gameOver();
+    bool endGame();
 
     void startGame();
     void stopGame();
@@ -42,9 +43,13 @@ public:
     void putFigureInBoard(FigureBox &currentFigure, QVector<CellInformation> &cellInformationBox);
 
     QVector<CellInformation> getCellsInformationBoxCurrentFigure(QPoint coordinateOffset);
+    QVector<CellInformation> getCellsInformationBoxFigure(FigureBox figureBox, QPoint coordinateOffset);
 
     bool moveFigure(QPoint coordinateOffset = QPoint(0, 0));
+
     bool fixCurrentFigure();
+    bool canFixFigureOnBoard(FigureBox &figure) const;
+
     bool rotationFigure();
     FigureBox rotationFigureInBox(FigureBox figureBox);
 

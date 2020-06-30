@@ -114,6 +114,12 @@ struct CellInformation
         color = "white";
     }
 
+    bool operator== (const CellInformation &cellInformation) const
+    {
+        return (this->color == cellInformation.color &&
+                this->figureType == cellInformation.figureType);
+    }
+
     QPoint coordinate = QPoint(-1,-1);
 
     size_t index = UINT64_MAX;
