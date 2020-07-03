@@ -35,9 +35,9 @@ void GameLogicManager::newGame()
     nextStep();
 }
 
-void GameLogicManager::gameOver()
+void GameLogicManager::finishGame()
 {
-
+    emit gameOver();
 }
 
 bool GameLogicManager::endGame()
@@ -117,8 +117,10 @@ void GameLogicManager::nextStep()
     moveFigure();
     generateNextFigure();
 
-    bool b_endGame = endGame();
-
+   if(endGame())
+   {
+       finishGame();
+   }
 }
 
 void GameLogicManager::generateNextFigure()

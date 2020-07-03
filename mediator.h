@@ -45,6 +45,7 @@ signals:
     void updateColumn(size_t column);
     void updateNextFigure();
     void updateNumberLines(int lines);
+    void gameOver();
 
 public slots:
     void slotUpdateCell(size_t index);
@@ -52,6 +53,7 @@ public slots:
     void slotUpdateColumn(size_t column);
     void slotUbdateNextFigure();
     void slotUpdateNumberLines(int lines);
+    void slotGameOver();
 
 private:
     Mediator(QObject *parent = nullptr);

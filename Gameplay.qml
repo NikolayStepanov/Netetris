@@ -9,57 +9,102 @@ import "./items" as NetetrrisItems
 
 Item {
     id: root
-
+    
     signal newGame
-    signal updateState
     signal exit
 
     onNewGame: netetrisModel.newGame();
     onExit: netetrisModel.quitGame();
+    
+    anchors.fill: parent
 
-    RowLayout {
-        spacing: 6
+    RowLayout
+    {
+        id:layout
+        spacing: 10
         anchors {
             fill: parent
-            topMargin: 20;
-            bottomMargin: 20;
-            leftMargin: 20;
-            rightMargin: 20
+            margins: 20
         }
 
         Board
         {
             id:areaBoard
-            width: parent.width*0.7
-            height: parent.height
+            Layout.minimumWidth: 200
+            Layout.maximumWidth: 1000
+            Layout.fillWidth: true
+            Layout.fillHeight: true
         }
-        ColumnLayout
+
+        Item
         {
-            NextFigure
-            {
-                id:nextFigure
-                width: 400
-                height: 400
-            }
+            Layout.minimumWidth: 100
+            Layout.maximumWidth: 450
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
-            NetetrrisItems.Text{
-                id: linesText
-                text: "Lines"
-                font.pointSize: 24
-            }
-            NetetrrisItems.Text{
-                id: numberLines
-                text: netetrisModel.number_lines.toString();
-                font.pointSize: 24
+            ColumnLayout
+            {
+                anchors.fill: parent
+                Item
+                {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    NextFigure
+                    {
+                        anchors.fill: parent
+                    }
+                }
+
+                Item
+                {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    InformationBlock
+                    {
+                        anchors.fill: parent
+                        lines: netetrisModel.number_lines
+                    }
+                }
             }
         }
-
     }
-
+    
     NetetrisModel
     {
         id: netetrisModel
     }
+
+    Connections
+    {
+        target: netetrisModel
+        onGameOver: dialogGameOver.active = true
+    }
+
+    Connections
+    {
+        target: dialogGameOver.item
+        onCloseDialogGameOver: dialogGameOver.active = false
+//        onClickedNewGame:
+//        onClickedMainMenu:
+    }
+
+    Loader
+    {
+        id: dialogGameOver
+
+        active: false
+
+        sourceComponent: DialogGameOver
+        {
+            modelNetetris: netetrisModel
+        }
+
+        anchors.fill: parent
+    }
+
     Shortcut
     {
         sequence: "Return";

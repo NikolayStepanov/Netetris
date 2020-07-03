@@ -76,11 +76,11 @@ Item {
         id: borderAnimationLoader
 
         sourceComponent: borderAnimation
-        active: cell.animationActive
+        active: animationActive
 
         onActiveChanged:
         {
-            rectangleSecond.border.width = widthBorder
+            rectangleSecond.border.width = 2
         }
     }
 }

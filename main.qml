@@ -4,7 +4,9 @@ import com.NikolayStepanov.NetetrisModel 1.0
 
 Window {
     id: window
+
     visible: true
+
     width: 1800
     height: 1000
     color: "dodgerblue"
@@ -13,6 +15,7 @@ Window {
     Item
     {
         id: gameStates
+
         states: [
             State { name: "play";
                 PropertyChanges { target: loaderPlay; active: true; }

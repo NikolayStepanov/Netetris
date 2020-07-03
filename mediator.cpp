@@ -36,6 +36,7 @@ void Mediator::initialize()
     //GameLogicManager
     connect(gameLogicManager, &GameLogicManager::updateNextFigure, this, &Mediator::slotUbdateNextFigure);
     connect(gameLogicManager, &GameLogicManager::updateNumberLines, this, &Mediator::slotUpdateNumberLines);
+    connect(gameLogicManager, &GameLogicManager::gameOver, this, &Mediator::slotGameOver);
 }
 
 Mediator::~Mediator()
@@ -141,4 +142,9 @@ void Mediator::slotUbdateNextFigure()
 void Mediator::slotUpdateNumberLines(int lines)
 {
     emit updateNumberLines(lines);
+}
+
+void Mediator::slotGameOver()
+{
+    emit gameOver();
 }

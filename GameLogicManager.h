@@ -20,7 +20,7 @@ public:
     void initialize(Bootstrapper* boostrap);
 
     void newGame();
-    void gameOver();
+    void finishGame();
     bool endGame();
 
     void startGame();
@@ -64,6 +64,7 @@ public:
 signals:
     void updateNextFigure();
     void updateNumberLines(int lines);
+    void gameOver();
 
 public slots:
     void actionFigure(FigureAction actionFigure = FigureAction::MOVE_DOWN);
