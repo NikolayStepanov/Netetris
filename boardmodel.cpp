@@ -11,6 +11,7 @@ BoardModel::BoardModel(QObject *parent):
     mediator = Mediator::getInstance();
     mediator->initialize();
 
+    connect(mediator, &Mediator::updateAllBoard, this, &BoardModel::slotAllUpdate);
     connect(mediator, &Mediator::updateCell, this, &BoardModel::slotCellUpdate);
     connect(mediator, &Mediator::updateRow, this, &BoardModel::slotRowUpdate);
     connect(mediator, &Mediator::updateColumn, this, &BoardModel::slotColumnUpdate);
@@ -101,5 +102,10 @@ void BoardModel::slotRowUpdate(size_t row)
 void BoardModel::slotColumnUpdate(size_t colunm)
 {
     emit dataChanged(index(0, colunm), index(mediator->getHeightBoard() - 1, colunm));
+}
+
+void BoardModel::slotAllUpdate()
+{
+    emit dataChanged(index(0, 0), index(mediator->getHeightBoard() - 1, mediator->getWidthBoard()-1));
 }
 

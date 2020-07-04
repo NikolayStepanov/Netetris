@@ -21,6 +21,17 @@ Board::~Board()
     m_cells.clear();
 }
 
+void Board::clear()
+{
+    for(auto &cell : m_cells)
+    {
+        cell.setCellState(CellState::EMPTY);
+        cell.setCellAction(CellAction::EMPTY);
+        cell.setFigureType(FigureType::EMPTY);
+        cell.setColor("white");
+    }
+}
+
 size_t Board::getWidth() const
 {
     return m_width;

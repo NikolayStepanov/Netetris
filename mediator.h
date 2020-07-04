@@ -45,9 +45,11 @@ signals:
     void updateColumn(size_t column);
     void updateNextFigure();
     void updateNumberLines(int lines);
+    void updateAllBoard();
     void gameOver();
 
 public slots:
+    void slotUpdateAllBoard();
     void slotUpdateCell(size_t index);
     void slotUpdateRow(size_t row);
     void slotUpdateColumn(size_t column);

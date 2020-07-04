@@ -87,8 +87,8 @@ Item {
     {
         target: dialogGameOver.item
         onCloseDialogGameOver: dialogGameOver.active = false
-//        onClickedNewGame:
-//        onClickedMainMenu:
+        onClickedNewGame: newGame()
+        onClickedMainMenu: exit();
     }
 
     Loader

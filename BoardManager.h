@@ -18,6 +18,7 @@ public:
     void initialize(Bootstrapper* boostrap);
 
     bool createBoard(size_t width,size_t height);
+    void clearAllBoard();
 
     size_t getWidthBoard() const;
     size_t getHeightBoard() const;
@@ -44,6 +45,7 @@ public:
     size_t cellIndex(const QModelIndex &index) const;
 
 signals:
+    void updateAllBoard();
     void updateCell(size_t index);
     void updateRow(size_t row);
     void updateColumn(size_t column);

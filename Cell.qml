@@ -19,7 +19,7 @@ Item {
         anchors.fill: parent
         color: "transparent"
 
-        border.width: state_cell == CellState.NOT_FIXED ? 2 : 0
+        border.width: state_cell == CellState.NOT_FIXED ? 3 : 0
 
         border.color: "#403d3d"
 
@@ -29,7 +29,7 @@ Item {
             anchors
             {
                 fill: parent
-                margins: state_cell == CellState.NOT_FIXED ? 2 : 0
+                margins: state_cell == CellState.NOT_FIXED ? 3 : 0
             }
             color: color_cell
             border.width: widthBorder

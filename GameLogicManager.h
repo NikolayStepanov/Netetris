@@ -58,8 +58,12 @@ public:
     //get
     bool getNumberLines() const;
     bool isCoordinateBorder(QPoint coordinate) const;
+
     QPoint getMinXY() const;
     QPoint getMaxXY() const;
+
+    //set
+    void setNumberLines(int numberLines);
 
 signals:
     void updateNextFigure();

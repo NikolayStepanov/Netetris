@@ -9,6 +9,7 @@ GameLogicManager::GameLogicManager(QObject *parent) :
     QObject(parent),
     m_pBoardManager(nullptr),
     m_pGenerator(nullptr),
+    m_numberLines(0),
     m_minXY(0,0),
     m_maxXY(0,0)
 {
@@ -30,6 +31,10 @@ void GameLogicManager::initialize(Bootstrapper *boostrap)
 
 void GameLogicManager::newGame()
 {
+    m_boardAllInformationCurrent.clear();
+    m_pBoardManager->clearAllBoard();
+    setNumberLines(0);
+
     m_boardAllInformationCurrent.reserve(m_pBoardManager->getNumderCells());
     m_nextFigure = m_pGenerator->randomFigure();
     nextStep();
@@ -553,6 +558,15 @@ QPoint GameLogicManager::getMinXY() const
 QPoint GameLogicManager::getMaxXY() const
 {
     return m_maxXY;
+}
+
+void GameLogicManager::setNumberLines(int numberLines)
+{
+    if(m_numberLines != numberLines)
+    {
+        m_numberLines = numberLines;
+        emit updateNumberLines(m_numberLines);
+    }
 }
 
 bool GameLogicManager::isCoordinateBorder(QPoint coordinate) const

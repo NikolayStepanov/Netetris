@@ -32,6 +32,7 @@ void Mediator::initialize()
     connect(boardManager, &BoardManager::updateCell, this, &Mediator::slotUpdateCell);
     connect(boardManager, &BoardManager::updateRow, this, &Mediator::slotUpdateRow);
     connect(boardManager, &BoardManager::updateColumn, this, &Mediator::slotUpdateColumn);
+    connect(boardManager, &BoardManager::updateAllBoard, this, &Mediator::slotUpdateAllBoard);
 
     //GameLogicManager
     connect(gameLogicManager, &GameLogicManager::updateNextFigure, this, &Mediator::slotUbdateNextFigure);
@@ -117,6 +118,11 @@ QPoint Mediator::maxCoordinateBorder() const
 bool Mediator::isBorder(QPoint coordinate) const
 {
     return gameLogicManager->isCoordinateBorder(coordinate);
+}
+
+void Mediator::slotUpdateAllBoard()
+{
+    emit updateAllBoard();
 }
 
 void Mediator::slotUpdateCell(size_t index)
