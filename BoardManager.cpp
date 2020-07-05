@@ -39,6 +39,13 @@ bool BoardManager::createBoard(size_t width, size_t height)
     return true;
 }
 
+void BoardManager::clearAllBoard()
+{
+    board->clear();
+
+    emit updateAllBoard();
+}
+
 size_t BoardManager::getWidthBoard() const
 {
     return board->getWidth();

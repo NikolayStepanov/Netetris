@@ -11,5 +11,6 @@
         <file>items/MenuButton.qml</file>
         <file>images/menuBackground.png</file>
         <file>InformationBlock.qml</file>
+        <file>DialogGameOver.qml</file>
     </qresource>
 </RCC>

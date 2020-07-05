@@ -12,6 +12,8 @@ public:
     Board(size_t width,size_t height);
     ~Board();
 
+    void clear();
+
     //get
     size_t getWidth() const;
     size_t getHeight() const;

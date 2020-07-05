@@ -1,7 +1,6 @@
 import QtQuick 2.12
 import QtQml.Models 2.12
 import QtQuick.Layouts 1.3
-import QtQuick.Window 2.12
 
 import com.NikolayStepanov.BoardModel 1.0
 import com.NikolayStepanov.CellAction 1.0
@@ -9,45 +8,60 @@ import com.NikolayStepanov.CellState 1.0
 
 
 Item {
-    id:board
-    TableView {
-        id: tableView
+
+    ColumnLayout
+    {
         anchors.fill: parent
-        anchors.centerIn: parent
 
-        //model
-        model: BoardModel {
-            id: boardModel
-        }
+        TableView
+        {
+            id: tableView
 
-        delegate: Rectangle{
-            id: cell
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
-            implicitWidth: 40
-            implicitHeight: 40
-
-            opacity: boardModel.isBorder(xCell, yCell) ? 0.5 : 1
-
-            border
-            {
-                width: 1
-                color: "#aaa6a6"
+            clip: true
+            //model
+            model: BoardModel {
+                id: boardModel
             }
 
-            Cell
+            delegate: Rectangle
             {
-                anchors
+                id: cell
+
+                property int sizeCell: Math.min(tableView.width / tableView.columns,
+                                                tableView.height / tableView.rows)
+                implicitWidth: sizeCell
+                implicitHeight: sizeCell
+
+                opacity: boardModel.isBorder(xCell, yCell) ? 0.5 : 1
+
+                border
                 {
-                    fill: parent
-                    margins: 1
+                    width: 1
+                    color: "#aaa6a6"
                 }
-                color_cell: colorCell
-                state_cell: stateCell
-                action_cell: actionCell
-                animationActive: actionCell != CellAction.EMPTY
+
+                Cell
+                {
+                    anchors
+                    {
+                        fill: parent
+                        margins: 1
+                    }
+                    widthBorder: 2
+                    color_cell: colorCell
+                    state_cell: stateCell
+                    action_cell: actionCell
+                    animationActive: actionCell != CellAction.EMPTY
+                }
             }
+
+            onWidthChanged: tableView.forceLayout();
+            onHeightChanged: tableView.forceLayout();
         }
+
     }
-
-
 }
+

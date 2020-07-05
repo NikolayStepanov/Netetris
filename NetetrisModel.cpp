@@ -8,6 +8,7 @@ NetetrisModel::NetetrisModel(QObject *parent):
     m_numberLines = 0;
 
     connect(mediator, &Mediator::updateNumberLines, this, &NetetrisModel::slotLinesChanged);
+    connect(mediator, &Mediator::gameOver, this, &NetetrisModel::gameOver);
 }
 
 void NetetrisModel::setLines(int &lines)

@@ -5,22 +5,33 @@ import QtQuick.Controls 2.12
 
 import "./items" as NetetrrisItems
 
-Item {
-    id: root
-
+Item
+{
     property int lines: 0
 
     ColumnLayout
     {
-        NetetrrisItems.Text{
-            id: linesText
-            text: "Lines"
-            font.pointSize: 24
+        anchors.fill: parent
+
+        Item
+        {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            NetetrrisItems.Text
+            {
+                text: "Lines:"
+            }
         }
-        NetetrrisItems.Text{
-            id: numberLines
-            text: lines
-            font.pointSize: 24
+
+        Item
+        {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            NetetrrisItems.Text
+            {
+                text: lines
+            }
         }
     }
 }

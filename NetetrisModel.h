@@ -33,6 +33,7 @@ public:
 
 signals:
     void linesChanged(int lines);
+    void gameOver();
 
 public slots:
     void slotLinesChanged(int lines);

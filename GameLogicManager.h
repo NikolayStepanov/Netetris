@@ -20,7 +20,8 @@ public:
     void initialize(Bootstrapper* boostrap);
 
     void newGame();
-    void gameOver();
+    void finishGame();
+    bool endGame();
 
     void startGame();
     void stopGame();
@@ -35,16 +36,19 @@ public:
     bool deleteWholeLines();
     bool deleteColumns();
     bool deleteRows();
-    //bool overlapsOtherFigures(FigureBox &figureBox);
 
     bool canPutFigureInBox(FigureBox &figureBox, QVector<CellInformation> &cellInformationBox);
     void deleteFigureInBoard(FigureBox &currentFigure);
     void putFigureInBoard(FigureBox &currentFigure, QVector<CellInformation> &cellInformationBox);
 
     QVector<CellInformation> getCellsInformationBoxCurrentFigure(QPoint coordinateOffset);
+    QVector<CellInformation> getCellsInformationBoxFigure(FigureBox figureBox, QPoint coordinateOffset);
 
     bool moveFigure(QPoint coordinateOffset = QPoint(0, 0));
+
     bool fixCurrentFigure();
+    bool canFixFigureOnBoard(FigureBox &figure) const;
+
     bool rotationFigure();
     FigureBox rotationFigureInBox(FigureBox figureBox);
 
@@ -53,12 +57,17 @@ public:
     //get
     bool getNumberLines() const;
     bool isCoordinateBorder(QPoint coordinate) const;
+
     QPoint getMinXY() const;
     QPoint getMaxXY() const;
+
+    //set
+    void setNumberLines(int numberLines);
 
 signals:
     void updateNextFigure();
     void updateNumberLines(int lines);
+    void gameOver();
 
 public slots:
     void actionFigure(FigureAction actionFigure = FigureAction::MOVE_DOWN);

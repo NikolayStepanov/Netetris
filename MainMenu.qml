@@ -11,16 +11,16 @@ Item {
     signal clickedNewGame
     signal clickedExit
 
-
     implicitWidth: 400
     implicitHeight: 400
 
-
-    Image {
+    Image 
+    {
         id: imageMenu
         anchors.fill: parent
         source: "images/menuBackground.png"
     }
+    
     Rectangle
     {
         id: menuRect
@@ -33,11 +33,11 @@ Item {
         anchors.margins: 50
 
         color: "transparent"
+
         ListView
         {
             id: view
             anchors.fill: parent
-
 
             spacing: 10
 
@@ -47,6 +47,7 @@ Item {
                 ListElement { text: "New game"; }
                 ListElement { text: "Exit"; }
             }
+            
             clip: true
 
             highlight: Rectangle { color: "blue" }

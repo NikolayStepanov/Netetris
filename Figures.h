@@ -36,6 +36,27 @@ struct FigureBox
         return cellsInformation.value(index);
     }
 
+    void shiftCoordinates(QPoint coordinateOffset)
+    {
+        for(auto cellInfFigure : cellsInformation)
+        {
+            QPoint point(cellInfFigure.coordinate.x(), cellInfFigure.coordinate.y());
+
+            point.setX(point.x() + coordinateOffset.x());
+            point.setY(point.y() + coordinateOffset.y());
+        }
+    }
+
+    bool operator== (const FigureBox &figureBox) const
+    {
+        return (this->cellsInformation == figureBox.cellsInformation);
+    }
+
+    bool operator!= (const FigureBox &figureBox) const
+    {
+        return !(*this == figureBox);
+    }
+
     QVector<size_t> indicesNonEmptyCell;
     QVector<CellInformation> cellsInformation;
     FigureType type = FigureType::EMPTY;

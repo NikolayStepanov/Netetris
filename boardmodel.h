@@ -38,6 +38,7 @@ public:
     Q_INVOKABLE bool isBorder(int x,int y) const;
 
 public slots:
+    void slotAllUpdate();
     void slotCellUpdate(size_t indexCell);
     void slotRowUpdate(size_t row);
     void slotColumnUpdate(size_t colunm);

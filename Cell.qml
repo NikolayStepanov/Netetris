@@ -19,7 +19,7 @@ Item {
         anchors.fill: parent
         color: "transparent"
 
-        border.width: state_cell == CellState.NOT_FIXED ? 2 : 0
+        border.width: state_cell == CellState.NOT_FIXED ? 3 : 0
 
         border.color: "#403d3d"
 
@@ -29,7 +29,7 @@ Item {
             anchors
             {
                 fill: parent
-                margins: state_cell == CellState.NOT_FIXED ? 2 : 0
+                margins: state_cell == CellState.NOT_FIXED ? 3 : 0
             }
             color: color_cell
             border.width: widthBorder
@@ -40,7 +40,7 @@ Item {
                 case CellAction.EMPTY:
                     return "transparent";
                 case CellAction.OVERLAP:
-                    return "#99092b";	//"#ec1c4c";
+                    return "#99092b";
                 case CellAction.PROMPT:
                     return "green"
                 }
@@ -52,6 +52,7 @@ Item {
             id: borderAnimation
             SequentialAnimation
             {
+                id: animation
                 running: true
                 loops: Animation.Infinite
                 PropertyAnimation
@@ -71,16 +72,17 @@ Item {
             }
         }
     }
+
     Loader
     {
         id: borderAnimationLoader
 
         sourceComponent: borderAnimation
-        active: cell.animationActive
+        active:  animationActive
 
         onActiveChanged:
         {
-            rectangleSecond.border.width = widthBorder
+            rectangleSecond.border.width = 2
         }
     }
 }
