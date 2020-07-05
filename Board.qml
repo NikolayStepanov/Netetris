@@ -1,7 +1,6 @@
 import QtQuick 2.12
 import QtQml.Models 2.12
 import QtQuick.Layouts 1.3
-import QtQuick.Window 2.12
 
 import com.NikolayStepanov.BoardModel 1.0
 import com.NikolayStepanov.CellAction 1.0

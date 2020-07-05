@@ -1,5 +1,5 @@
 #include "GameLogicManager.h"
-#include <QDebug>
+
 #include <QPoint>
 
 #include <bootstrapper.h>
@@ -86,10 +86,6 @@ bool GameLogicManager::endGame()
         figura = rotationFigureInBox(figura);
     } while(m_currentFigure != figura);
 
-    if(b_endGame)
-    {
-        qDebug()<<"game Over";
-    }
     return b_endGame;
 }
 

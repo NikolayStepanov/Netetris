@@ -40,7 +40,7 @@ Item {
                 case CellAction.EMPTY:
                     return "transparent";
                 case CellAction.OVERLAP:
-                    return "#99092b";	//"#ec1c4c";
+                    return "#99092b";
                 case CellAction.PROMPT:
                     return "green"
                 }
@@ -52,6 +52,7 @@ Item {
             id: borderAnimation
             SequentialAnimation
             {
+                id: animation
                 running: true
                 loops: Animation.Infinite
                 PropertyAnimation
@@ -71,12 +72,13 @@ Item {
             }
         }
     }
+
     Loader
     {
         id: borderAnimationLoader
 
         sourceComponent: borderAnimation
-        active: animationActive
+        active:  animationActive
 
         onActiveChanged:
         {

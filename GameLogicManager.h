@@ -36,7 +36,6 @@ public:
     bool deleteWholeLines();
     bool deleteColumns();
     bool deleteRows();
-    //bool overlapsOtherFigures(FigureBox &figureBox);
 
     bool canPutFigureInBox(FigureBox &figureBox, QVector<CellInformation> &cellInformationBox);
     void deleteFigureInBoard(FigureBox &currentFigure);

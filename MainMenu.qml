@@ -11,10 +11,8 @@ Item {
     signal clickedNewGame
     signal clickedExit
 
-
     implicitWidth: 400
     implicitHeight: 400
-
 
     Image 
     {

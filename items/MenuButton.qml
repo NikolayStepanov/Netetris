@@ -8,7 +8,4 @@ NetetrisItems.Button
 
     implicitWidth: 100
     implicitHeight: 30
-
-
-
 }
