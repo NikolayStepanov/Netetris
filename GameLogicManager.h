@@ -45,7 +45,6 @@ public:
     void deleteFigureInBoard(FigureBox &currentFigure);
     void putFigureInBoard(FigureBox &currentFigure, QVector<CellInformation> &cellInformationBox);
 
-    QVector<CellInformation> getCellsInformationBoxCurrentFigure(QPoint coordinateOffset);
     QVector<CellInformation> getCellsInformationBoxFigure(FigureBox figureBox, QPoint coordinateOffset);
 
     bool moveFigure(QPoint coordinateOffset = QPoint(0, 0));
@@ -93,7 +92,7 @@ private:
 
     QVector<CellInformation> m_boardAllInformationCurrent;
 
-    FigureBox m_bestPositionCellsInformation;
+    FigureBox m_bestPositionCurrentFigure;
 
     FigureBox m_nextFigure;
     FigureBox m_currentFigure;

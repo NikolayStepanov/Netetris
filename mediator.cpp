@@ -95,8 +95,8 @@ void Mediator::actionFigure(FigureAction actionFigure)
 
 void Mediator::newGame()
 {
-    //boardManager->createBoard(24, 24);
-    boardManager->createBoard(14, 14);
+    boardManager->createBoard(24, 24);
+    //boardManager->createBoard(14, 14);
     gameLogicManager->newGame();
     gameLogicManager->startGame();
 }

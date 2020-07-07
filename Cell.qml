@@ -42,7 +42,7 @@ Item {
                 case CellAction.OVERLAP:
                     return "#99092b";
                 case CellAction.PROMPT:
-                    return "green"
+                    return "#00e600"
                 }
             }
         }

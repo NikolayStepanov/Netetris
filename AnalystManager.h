@@ -18,8 +18,9 @@ public:
 
     void initialize(Bootstrapper* boostrap);
 
-    int howManyLinesDeletion(FigureBox figurePosition) const;
-
+    int howManyLinesCanDeleted(FigureBox figurePosition) const;
+    int countRowCanDeleted(FigureBox figurePosition) const;
+    int countColumnCanDeleted(FigureBox figurePosition) const;
     int howManyNeighborsFigure(FigureBox figurePosition) const;
 
     int weightPositionFigure(FigureBox figurePosition) const;

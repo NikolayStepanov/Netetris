@@ -19,25 +19,114 @@ void AnalystManager::initialize(Bootstrapper *boostrap)
     m_pGameLogicManager = boostrap->getLogicManager();
 }
 
-int AnalystManager::howManyLinesDeletion(FigureBox figurePosition) const
+int AnalystManager::howManyLinesCanDeleted(FigureBox figurePosition) const
 {
-    QList<int> rowNumbers;
-    QList<int> colNumbers;
-    QVector<QPoint> cellsNonEmptyFigure;
-    //cellsNonEmptyFigure.reserve(NUMBER_NON_EMPTY_CELL);
+//    QList<int> rowNumbers;
+//    QList<int> colNumbers;
+//    QVector<QPoint> cellsNonEmptyFigure;
+//    cellsNonEmptyFigure.reserve(NUMBER_NON_EMPTY_CELL);
 
-    int countLinesDeletion = 0;
+    int countLinesDeleted = 0;
+    int countRowDeleted = countRowCanDeleted(figurePosition);
+    int countColumnDeleted = countColumnCanDeleted(figurePosition);
+
+    countLinesDeleted = countRowDeleted + countColumnDeleted;
+
+//    for(auto indexCell : figurePosition.indicesNonEmptyCell)
+//    {
+//        QPoint cellCoordinate = figurePosition.cellsInformation[indexCell].coordinate;
+
+//        cellsNonEmptyFigure.push_back(cellCoordinate);
+
+//        if(!colNumbers.contains(cellCoordinate.x()))
+//        {
+//            colNumbers.push_back(cellCoordinate.x());
+//        }
+
+//        if(!rowNumbers.contains(cellCoordinate.y()))
+//        {
+//            rowNumbers.push_back(cellCoordinate.y());
+//        }
+//    }
+
+    //    for(auto row : rowNumbers)
+    //    {
+    //        bool b_rowDel = true;
+    //        QVector<CellInformation> cellInfRow;
+
+    //        int sizeRow = m_pGameLogicManager->getMaxXY().x() - m_pGameLogicManager->getMinXY().x() + 1;
+    //        cellInfRow.reserve(sizeRow);
+
+    //        cellInfRow =  m_pGameLogicManager->getRowBoardCurrentCellInformation(row);
+
+    //        for(auto cellInf : cellInfRow)
+    //        {
+    //            if(cellsNonEmptyFigure.contains(cellInf.coordinate))
+    //            {
+    //                continue;
+    //            }
+    //            else
+    //            {
+    //                if(cellInf.figureType == FigureType::EMPTY)
+    //                {
+    //                    b_rowDel = false;
+    //                    break;
+    //                }
+    //            }
+    //        }
+
+    //        if(b_rowDel)
+    //        {
+    //            countLinesDeletion++;
+    //        }
+    //    }
+
+
+    //    for(auto col : colNumbers)
+    //    {
+    //        bool b_colDel = true;
+    //        QVector<CellInformation> cellInfCol;
+    //        int sizeCol = m_pGameLogicManager->getMaxXY().y() - m_pGameLogicManager->getMinXY().y() + 1;
+    //        cellInfCol.reserve(sizeCol);
+
+    //        cellInfCol =  m_pGameLogicManager->getColumnBoardCurrentCellInformation(col);
+
+    //        for(auto cellInf : cellInfCol)
+    //        {
+    //            if(cellsNonEmptyFigure.contains(cellInf.coordinate))
+    //            {
+    //                continue;
+    //            }
+    //            else
+    //            {
+    //                if(cellInf.figureType == FigureType::EMPTY)
+    //                {
+    //                    b_colDel = false;
+    //                    break;
+    //                }
+    //            }
+    //        }
+    //        if(b_colDel)
+    //        {
+    //            countLinesDeletion++;
+    //        }
+    //    }
+
+    return countLinesDeleted;
+}
+
+int AnalystManager::countRowCanDeleted(FigureBox figurePosition) const
+{
+    int coutRowDeleted = 0;
+    QList<int> rowNumbers;
+    QVector<QPoint> coodinateNonEmptyCellFigure;
+    coodinateNonEmptyCellFigure.reserve(NUMBER_NON_EMPTY_CELL);
 
     for(auto indexCell : figurePosition.indicesNonEmptyCell)
     {
         QPoint cellCoordinate = figurePosition.cellsInformation[indexCell].coordinate;
 
-        cellsNonEmptyFigure.push_back(cellCoordinate);
-
-        if(!colNumbers.contains(cellCoordinate.x()))
-        {
-            colNumbers.push_back(cellCoordinate.x());
-        }
+        coodinateNonEmptyCellFigure.push_back(cellCoordinate);
 
         if(!rowNumbers.contains(cellCoordinate.y()))
         {
@@ -57,117 +146,141 @@ int AnalystManager::howManyLinesDeletion(FigureBox figurePosition) const
 
         for(auto cellInf : cellInfRow)
         {
-            if(cellsNonEmptyFigure.contains(cellInf.coordinate))
+            if(coodinateNonEmptyCellFigure.contains(cellInf.coordinate))
             {
                 continue;
             }
-            else
+
+            if(cellInf.figureType == FigureType::EMPTY)
             {
-                if(cellInf.figureType == FigureType::EMPTY)
-                {
-                    b_rowDel = false;
-                    break;
-                }
+                b_rowDel = false;
+                break;
             }
         }
 
         if(b_rowDel)
         {
-            countLinesDeletion++;
+            coutRowDeleted++;
         }
     }
 
+    return coutRowDeleted;
+}
 
-    for(auto col : colNumbers)
+int AnalystManager::countColumnCanDeleted(FigureBox figurePosition) const
+{
+    int coutColumnDeleted = 0;
+
+    QList<int> columnNumbers;
+    QVector<QPoint> coodinateNonEmptyCellFigure;
+    coodinateNonEmptyCellFigure.reserve(NUMBER_NON_EMPTY_CELL);
+
+    for(auto indexCell : figurePosition.indicesNonEmptyCell)
+    {
+        QPoint cellCoordinate = figurePosition.cellsInformation[indexCell].coordinate;
+
+        coodinateNonEmptyCellFigure.push_back(cellCoordinate);
+
+        if(!columnNumbers.contains(cellCoordinate.x()))
+        {
+            columnNumbers.push_back(cellCoordinate.x());
+        }
+    }
+
+    for(auto col : columnNumbers)
     {
         bool b_colDel = true;
-        QVector<CellInformation> cellInfCol;
+
+        QVector<CellInformation> cellInfColumn;
         int sizeCol = m_pGameLogicManager->getMaxXY().y() - m_pGameLogicManager->getMinXY().y() + 1;
-        cellInfCol.reserve(sizeCol);
+        cellInfColumn.reserve(sizeCol);
 
-        cellInfCol =  m_pGameLogicManager->getColumnBoardCurrentCellInformation(col);
+        cellInfColumn =  m_pGameLogicManager->getColumnBoardCurrentCellInformation(col);
 
-        for(auto cellInf : cellInfCol)
+        for(auto cellInf : cellInfColumn)
         {
-            if(cellsNonEmptyFigure.contains(cellInf.coordinate))
+            if(coodinateNonEmptyCellFigure.contains(cellInf.coordinate))
+            {
+                continue;
+            }
+
+            if(cellInf.figureType == FigureType::EMPTY)
+            {
+                b_colDel = false;
+                break;
+            }
+
+        }
+
+        if(b_colDel)
+        {
+            coutColumnDeleted++;
+        }
+    }
+
+    return coutColumnDeleted;
+}
+
+int AnalystManager::howManyNeighborsFigure(FigureBox figurePosition) const
+{
+    int countNeighbors = 0;
+
+    QList<QPoint> cellCheckNeighbors;
+    QList<QPoint> cellCoordinateNonEmptyCellFigure;
+
+    QVector<CellInformation> boardInformation =
+            m_pGameLogicManager->getBoardAllInformationCurrent();
+
+    for(auto indexCell : figurePosition.indicesNonEmptyCell)
+    {
+        QPoint cellCoordinate = figurePosition.cellsInformation[indexCell].coordinate;
+        cellCoordinateNonEmptyCellFigure.push_back(cellCoordinate);
+    }
+
+    for(auto cellCoordinate : cellCoordinateNonEmptyCellFigure)
+    {
+        QVector<QPoint> cellCoordinateNeighbors;
+        cellCoordinateNeighbors.reserve(NUMBER_NEIGHBORS_CELL);
+
+        cellCoordinateNeighbors.push_back(QPoint(cellCoordinate.x() - 1, cellCoordinate.y()));
+        cellCoordinateNeighbors.push_back(QPoint(cellCoordinate.x() + 1, cellCoordinate.y()));
+        cellCoordinateNeighbors.push_back(QPoint(cellCoordinate.x(), cellCoordinate.y() + 1));
+        cellCoordinateNeighbors.push_back(QPoint(cellCoordinate.x(), cellCoordinate.y() - 1));
+
+        for(auto cellCoordinate : cellCoordinateNeighbors)
+        {
+            if(cellCoordinateNonEmptyCellFigure.contains(cellCoordinate))
             {
                 continue;
             }
             else
             {
+                CellInformation cellInf = m_pGameLogicManager->getCellBoardCurrentCellInformation(cellCoordinate);
                 if(cellInf.figureType == FigureType::EMPTY)
                 {
-                    b_colDel = false;
-                    break;
+                    continue;
+                }
+                else if(!cellCheckNeighbors.contains(cellCoordinate))
+                {
+                    cellCheckNeighbors.push_back(cellCoordinate);
+                    countNeighbors++;
                 }
             }
-        }
-        if(b_colDel)
-        {
-            countLinesDeletion++;
         }
     }
 
-    return countLinesDeletion;
-}
-
-int AnalystManager::howManyNeighborsFigure(FigureBox figurePosition) const
-{
-            int countNeighbors = 0;
-
-            QList<QPoint> cellCheckNeighbors;
-            QList<QPoint> cellCoordinateNonEmptyCellFigure;
-
-            QVector<CellInformation> boardInformation =
-                    m_pGameLogicManager->getBoardAllInformationCurrent();
-
-            for(auto indexCell : figurePosition.indicesNonEmptyCell)
-            {
-                QPoint cellCoordinate = figurePosition.cellsInformation[indexCell].coordinate;
-                cellCoordinateNonEmptyCellFigure.push_back(cellCoordinate);
-            }
-
-            for(auto cellCoordinate : cellCoordinateNonEmptyCellFigure)
-            {
-                QVector<QPoint> cellCoordinateNeighbors;
-                cellCoordinateNeighbors.reserve(NUMBER_NEIGHBORS_CELL);
-
-                cellCoordinateNeighbors.push_back(QPoint(cellCoordinate.x() - 1, cellCoordinate.y()));
-                cellCoordinateNeighbors.push_back(QPoint(cellCoordinate.x() + 1, cellCoordinate.y()));
-                cellCoordinateNeighbors.push_back(QPoint(cellCoordinate.x(), cellCoordinate.y() + 1));
-                cellCoordinateNeighbors.push_back(QPoint(cellCoordinate.x(), cellCoordinate.y() - 1));
-
-                for(auto cellCoordinate : cellCoordinateNeighbors)
-                {
-                    if(cellCoordinateNonEmptyCellFigure.contains(cellCoordinate))
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        CellInformation cellInf = m_pGameLogicManager->getCellBoardCurrentCellInformation(cellCoordinate);
-                        if(cellInf.figureType == FigureType::EMPTY)
-                        {
-                            continue;
-                        }
-                        else if(!cellCheckNeighbors.contains(cellCoordinate))
-                        {
-                            cellCheckNeighbors.push_back(cellCoordinate);
-                            countNeighbors++;
-                        }
-                    }
-                }
-            }
-
-            return countNeighbors;
+    return countNeighbors;
 }
 
 int AnalystManager::weightPositionFigure(FigureBox figurePosition) const
 {
     int weightFinalPosition = 0;
 
-    weightFinalPosition = howManyLinesDeletion(figurePosition) * WEIGHT_LINE;
-    weightFinalPosition = weightFinalPosition +  howManyNeighborsFigure(figurePosition) * WEIGHT_NEIGHBOR;
+    int countLinesDeleted = howManyLinesCanDeleted(figurePosition) * WEIGHT_LINE;
+    int countNeighborsFigure = howManyNeighborsFigure(figurePosition) * WEIGHT_NEIGHBOR;
+
+    weightFinalPosition = countLinesDeleted * WEIGHT_LINE +
+            countNeighborsFigure * WEIGHT_NEIGHBOR;
 
     return weightFinalPosition;
 }
