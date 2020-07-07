@@ -86,9 +86,15 @@ CellInformation Board::getCellInformation(const size_t index) const
 QVector<CellInformation> Board::getAllCellInformation() const
 {
     QVector<CellInformation> cellsInformation;
-    for(auto cell : m_cells)
+
+//    for(auto cell : m_cells)
+//    {
+//        cellsInformation.push_back(getCellInformation(cell.getIndex()));
+//    }
+
+    for(int index = 0; index <  static_cast<int>(m_numberCells); index ++)
     {
-        cellsInformation.push_back(getCellInformation(cell.getIndex()));
+        cellsInformation.push_back(getCellInformation(index));
     }
     return cellsInformation;
 }

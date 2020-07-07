@@ -2,23 +2,26 @@
 
 Bootstrapper::Bootstrapper()
 {
-    m_generator = new Generator;
+    generator = new Generator;
     boardManager = new BoardManager;
     gameLogicManager = new GameLogicManager;
+    analystManager = new AnalystManager;
 }
 
 void Bootstrapper::initialize()
 {
-    m_generator->initialize(this);
+    generator->initialize(this);
     boardManager->initialize(this);
     gameLogicManager->initialize(this);
+    analystManager->initialize(this);
 }
 
 Bootstrapper::~Bootstrapper()
 {
-    delete m_generator;
+    delete generator;
     delete boardManager;
     delete gameLogicManager;
+    delete analystManager;
 }
 
 BoardManager *Bootstrapper::getBoardManager()
@@ -33,5 +36,10 @@ GameLogicManager *Bootstrapper::getLogicManager()
 
 Generator *Bootstrapper::getGenerator()
 {
-    return m_generator;
+    return generator;
+}
+
+AnalystManager *Bootstrapper::getAnalystManager()
+{
+    return analystManager;
 }
