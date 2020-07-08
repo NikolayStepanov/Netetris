@@ -21,96 +21,12 @@ void AnalystManager::initialize(Bootstrapper *boostrap)
 
 int AnalystManager::howManyLinesCanDeleted(FigureBox figurePosition) const
 {
-//    QList<int> rowNumbers;
-//    QList<int> colNumbers;
-//    QVector<QPoint> cellsNonEmptyFigure;
-//    cellsNonEmptyFigure.reserve(NUMBER_NON_EMPTY_CELL);
-
     int countLinesDeleted = 0;
+
     int countRowDeleted = countRowCanDeleted(figurePosition);
     int countColumnDeleted = countColumnCanDeleted(figurePosition);
 
     countLinesDeleted = countRowDeleted + countColumnDeleted;
-
-//    for(auto indexCell : figurePosition.indicesNonEmptyCell)
-//    {
-//        QPoint cellCoordinate = figurePosition.cellsInformation[indexCell].coordinate;
-
-//        cellsNonEmptyFigure.push_back(cellCoordinate);
-
-//        if(!colNumbers.contains(cellCoordinate.x()))
-//        {
-//            colNumbers.push_back(cellCoordinate.x());
-//        }
-
-//        if(!rowNumbers.contains(cellCoordinate.y()))
-//        {
-//            rowNumbers.push_back(cellCoordinate.y());
-//        }
-//    }
-
-    //    for(auto row : rowNumbers)
-    //    {
-    //        bool b_rowDel = true;
-    //        QVector<CellInformation> cellInfRow;
-
-    //        int sizeRow = m_pGameLogicManager->getMaxXY().x() - m_pGameLogicManager->getMinXY().x() + 1;
-    //        cellInfRow.reserve(sizeRow);
-
-    //        cellInfRow =  m_pGameLogicManager->getRowBoardCurrentCellInformation(row);
-
-    //        for(auto cellInf : cellInfRow)
-    //        {
-    //            if(cellsNonEmptyFigure.contains(cellInf.coordinate))
-    //            {
-    //                continue;
-    //            }
-    //            else
-    //            {
-    //                if(cellInf.figureType == FigureType::EMPTY)
-    //                {
-    //                    b_rowDel = false;
-    //                    break;
-    //                }
-    //            }
-    //        }
-
-    //        if(b_rowDel)
-    //        {
-    //            countLinesDeletion++;
-    //        }
-    //    }
-
-
-    //    for(auto col : colNumbers)
-    //    {
-    //        bool b_colDel = true;
-    //        QVector<CellInformation> cellInfCol;
-    //        int sizeCol = m_pGameLogicManager->getMaxXY().y() - m_pGameLogicManager->getMinXY().y() + 1;
-    //        cellInfCol.reserve(sizeCol);
-
-    //        cellInfCol =  m_pGameLogicManager->getColumnBoardCurrentCellInformation(col);
-
-    //        for(auto cellInf : cellInfCol)
-    //        {
-    //            if(cellsNonEmptyFigure.contains(cellInf.coordinate))
-    //            {
-    //                continue;
-    //            }
-    //            else
-    //            {
-    //                if(cellInf.figureType == FigureType::EMPTY)
-    //                {
-    //                    b_colDel = false;
-    //                    break;
-    //                }
-    //            }
-    //        }
-    //        if(b_colDel)
-    //        {
-    //            countLinesDeletion++;
-    //        }
-    //    }
 
     return countLinesDeleted;
 }
@@ -118,6 +34,7 @@ int AnalystManager::howManyLinesCanDeleted(FigureBox figurePosition) const
 int AnalystManager::countRowCanDeleted(FigureBox figurePosition) const
 {
     int coutRowDeleted = 0;
+
     QList<int> rowNumbers;
     QVector<QPoint> coodinateNonEmptyCellFigure;
     coodinateNonEmptyCellFigure.reserve(NUMBER_NON_EMPTY_CELL);

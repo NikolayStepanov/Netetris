@@ -22,6 +22,15 @@ GameLogicManager::GameLogicManager(QObject *parent) :
     connect(m_pHintDisplayTimer, &QTimer::timeout, this, &GameLogicManager::activateHint);
 }
 
+GameLogicManager::~GameLogicManager()
+{
+    if(m_pHintDisplayTimer !=nullptr)
+    {
+        delete m_pHintDisplayTimer;
+        m_pHintDisplayTimer = nullptr;
+    }
+}
+
 void GameLogicManager::initialize(Bootstrapper *boostrap)
 {
     m_pBoardManager = boostrap->getBoardManager();
@@ -42,9 +51,9 @@ void GameLogicManager::hintWherePlaceFigure(FigureBox figure)
     int numberOfVerticalOffsets = m_maxXY.y() - m_minXY.y() + SIZE_BOXING_BORDER;
     int numberOfHorizontalOffsets = m_maxXY.x() - m_minXY.x() + SIZE_BOXING_BORDER;
 
-    FigureBox copy_figura = figure;
+    FigureBox copyFigura = figure;
 
-    initialCoordinatesFigure(copy_figura);
+    initialCoordinatesFigure(copyFigura);
     QList<FigureBox> positionsFigure;
     QList<int> positionWeights;
 
@@ -56,11 +65,11 @@ void GameLogicManager::hintWherePlaceFigure(FigureBox figure)
                 QPoint coordinateOffset(xOffset, yOffset);
 
                 QVector<CellInformation> cellsInformationBox  =
-                        getCellsInformationBoxFigure(copy_figura, coordinateOffset);
+                        getCellsInformationBoxFigure(copyFigura, coordinateOffset);
 
                 bool b_canPutFigureInBox = true;
 
-                for(auto indexCell : copy_figura.indicesNonEmptyCell)
+                for(auto indexCell : copyFigura.indicesNonEmptyCell)
                 {
                     if(isCoordinateBorder(cellsInformationBox[indexCell].coordinate) ||
                             cellsInformationBox[indexCell].cellState != CellState::EMPTY)
@@ -72,7 +81,8 @@ void GameLogicManager::hintWherePlaceFigure(FigureBox figure)
 
                 if(b_canPutFigureInBox)
                 {
-                    FigureBox figurePosition = copy_figura;
+                    FigureBox figurePosition = copyFigura;
+
                     for(int indexCell = 0; indexCell < NUMBER_CELLS_FOR_FIGURE; indexCell++)
                     {
                         CellInformation cellFigurePosition = figurePosition.cellsInformation[indexCell];
@@ -92,19 +102,22 @@ void GameLogicManager::hintWherePlaceFigure(FigureBox figure)
                 }
             }
         }
-        copy_figura = rotationFigureInBox(copy_figura);
-    } while(figure != copy_figura);
+        copyFigura = rotationFigureInBox(copyFigura);
+    } while(figure != copyFigura);
 
-    int maxWeight = *std::max_element(positionWeights.begin(), positionWeights.end());
-
-    m_bestPositionCurrentFigure = positionsFigure[positionWeights.indexOf(maxWeight)];
-
-    for(auto indexCell : m_bestPositionCurrentFigure.indicesNonEmptyCell)
+    if(!positionWeights.isEmpty())
     {
-        CellInformation cellInformation = m_bestPositionCurrentFigure.cellsInformation[indexCell];
-        cellInformation = m_pBoardManager->getCellInformation(cellInformation.index);
-        cellInformation.cellAction = CellAction::PROMPT;
-        m_pBoardManager->setCellInformation(cellInformation);
+        int maxWeight = *std::max_element(positionWeights.begin(), positionWeights.end());
+
+        m_bestPositionCurrentFigure = positionsFigure[positionWeights.indexOf(maxWeight)];
+
+        for(auto indexCell : m_bestPositionCurrentFigure.indicesNonEmptyCell)
+        {
+            CellInformation cellInformation = m_bestPositionCurrentFigure.cellsInformation[indexCell];
+            cellInformation = m_pBoardManager->getCellInformation(cellInformation.index);
+            cellInformation.cellAction = CellAction::PROMPT;
+            m_pBoardManager->setCellInformation(cellInformation);
+        }
     }
 }
 
@@ -511,8 +524,8 @@ bool GameLogicManager::canFixFigureOnBoard(FigureBox &figure) const
 
         CellInformation cellInfBoard = m_boardAllInformationCurrent[m_pBoardManager->cellIndex(coordinateCell)];
 
-        if(cellInfBoard.cellState != CellState::EMPTY || coordinateCell.x() < m_minXY.x() || coordinateCell.x() > m_maxXY.x() ||
-                coordinateCell.y() < m_minXY.y() || coordinateCell.y() > m_maxXY.y())
+        if(cellInfBoard.cellState != CellState::EMPTY || coordinateCell.x() < m_minXY.x() ||
+                coordinateCell.x() > m_maxXY.x() || coordinateCell.y() < m_minXY.y() || coordinateCell.y() > m_maxXY.y())
         {
             b_canFix = false;
             break;

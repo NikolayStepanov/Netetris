@@ -17,7 +17,7 @@ class GameLogicManager : public QObject
     Q_OBJECT
 public:
     explicit GameLogicManager(QObject *parent = nullptr);
-
+    ~GameLogicManager();
     void initialize(Bootstrapper* boostrap);
 
     void hintWherePlaceFigure(FigureBox figure);
