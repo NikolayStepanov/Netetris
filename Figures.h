@@ -10,6 +10,7 @@ const int SIZE_BOXING_BORDER = 4;
 const int NUMBER_FIGURES = 7;
 const int NUMBER_CELLS_FOR_FIGURE = 16;
 const int NUMBER_NON_EMPTY_CELL = 4;
+const int NUMBER_NEIGHBORS_CELL = 4;
 const int INDEX_CENTER_OF_ROTATION_FIGURE = 6;
 
 static QVector <QVector<size_t>> FIGURES

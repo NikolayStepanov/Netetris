@@ -4,6 +4,7 @@
 #include "BoardManager.h"
 #include "GameLogicManager.h"
 #include "Generator.h"
+#include "AnalystManager.h"
 
 class Bootstrapper
 {
@@ -17,11 +18,13 @@ public:
     BoardManager *getBoardManager();
     GameLogicManager *getLogicManager();
     Generator *getGenerator();
+    AnalystManager *getAnalystManager();
 
 private:
     BoardManager * boardManager;
     GameLogicManager * gameLogicManager;
-    Generator * m_generator;
+    Generator * generator;
+    AnalystManager * analystManager;
 };
 
 #endif // BOOTSTRAPPER_H

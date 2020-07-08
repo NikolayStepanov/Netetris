@@ -10,14 +10,18 @@
 class Bootstrapper;
 class Generator;
 class BoardManager;
+class AnalystManager;
 
 class GameLogicManager : public QObject
 {
     Q_OBJECT
 public:
     explicit GameLogicManager(QObject *parent = nullptr);
-
+    ~GameLogicManager();
     void initialize(Bootstrapper* boostrap);
+
+    void hintWherePlaceFigure(FigureBox figure);
+    void removeHint();
 
     void newGame();
     void finishGame();
@@ -41,7 +45,6 @@ public:
     void deleteFigureInBoard(FigureBox &currentFigure);
     void putFigureInBoard(FigureBox &currentFigure, QVector<CellInformation> &cellInformationBox);
 
-    QVector<CellInformation> getCellsInformationBoxCurrentFigure(QPoint coordinateOffset);
     QVector<CellInformation> getCellsInformationBoxFigure(FigureBox figureBox, QPoint coordinateOffset);
 
     bool moveFigure(QPoint coordinateOffset = QPoint(0, 0));
@@ -61,8 +64,17 @@ public:
     QPoint getMinXY() const;
     QPoint getMaxXY() const;
 
+    QVector<CellInformation>getRowBoardCurrentCellInformation(int rowNumber);
+    QVector<CellInformation>getColumnBoardCurrentCellInformation(int columnNumber);
+
+    CellInformation getCellBoardCurrentCellInformation(QPoint coordinateCell);
+
+
+    QVector<CellInformation> getBoardAllInformationCurrent();
+
     //set
     void setNumberLines(int numberLines);
+    void initialCoordinatesFigure(FigureBox &figure);
 
 signals:
     void updateNextFigure();
@@ -71,12 +83,16 @@ signals:
 
 public slots:
     void actionFigure(FigureAction actionFigure = FigureAction::MOVE_DOWN);
+    void activateHint();
 
 private:
     BoardManager * m_pBoardManager;
     Generator * m_pGenerator;
+    AnalystManager * m_pAnalystManager;
 
     QVector<CellInformation> m_boardAllInformationCurrent;
+
+    FigureBox m_bestPositionCurrentFigure;
 
     FigureBox m_nextFigure;
     FigureBox m_currentFigure;
@@ -85,6 +101,8 @@ private:
 
     QPoint m_minXY;
     QPoint m_maxXY;
+
+    QTimer * m_pHintDisplayTimer;
 };
 
 #endif // GAMELOGICMANAGER_H

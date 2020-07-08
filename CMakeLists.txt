@@ -29,6 +29,7 @@ set (HEADERS
     NextFigureModel.h
     CellStateClass.h
     CellActionClass.h
+    AnalystManager.h
     )
 
 set (SOURCES
@@ -44,6 +45,7 @@ set (SOURCES
     GameLogicManager.cpp
     Generator.cpp
     NextFigureModel.cpp
+    AnalystManager.cpp
     )
 
 set (RESOURCES

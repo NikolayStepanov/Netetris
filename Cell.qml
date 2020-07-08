@@ -42,7 +42,7 @@ Item {
                 case CellAction.OVERLAP:
                     return "#99092b";
                 case CellAction.PROMPT:
-                    return "green"
+                    return "#00e600"
                 }
             }
         }
@@ -59,14 +59,14 @@ Item {
                 {
                     target: rectangleSecond;
                     properties: "border.width";
-                    to: rectangleSecond.border.width + 2;
+                    to: widthBorder + 2;
                     duration: 400
                 }
                 PropertyAnimation
                 {
                     target: rectangleSecond;
                     properties: "border.width";
-                    to: rectangleSecond.border.width;
+                    to: widthBorder;
                     duration: 400
                 }
             }
